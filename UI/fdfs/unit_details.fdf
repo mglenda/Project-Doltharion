@@ -1,0 +1,126 @@
+Frame "SIMPLEFRAME" "Details_Frame" {
+	Width 0.135,
+	Height 0.06,
+	Texture "Details_Texture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "Details_BarFrame" {
+	Width 0.135,
+	Height 0.024,
+	Texture "Details_BarTexture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "Details_Energy_BarFrame" {
+	Width 0.135,
+	Height 0.014,
+	Texture "Details_BarTexture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "Details_Energy_Bar" {
+	Width 0.132,
+	Height 0.01,
+	BarTexture "war3mapImported\DBM_BarFill_Gold.dds",
+}
+
+Frame "SIMPLEFRAME" "Details_Energy_Bar_Value" {
+	Width 0.132,
+	Height 0.01,
+	String "Details_Energy_Bar_Value_Text" {
+		Anchor CENTER, 0, -0.001,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "Details_UnitIcon" {
+	Width 0.024,
+	Height 0.024,
+	Texture "Details_UnitIconTexture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "Details_Bar" {
+	Width 0.111,
+	Height 0.0232,
+	BarTexture "war3mapImported\DBM_BarFill_DarkGreen.dds",
+}
+
+Frame "SIMPLEFRAME" "Details_Bar_Name" {
+	Width 0.111,
+	Height 0.024,
+	String "Details_Bar_Name_Text" {
+		Anchor LEFT, 0.0069, 0,
+		Font "Prototype.ttf", 0.00875,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "Details_Bar_HP" {
+	Width 0.111,
+	Height 0.012,
+	String "Details_Bar_HP_Text" {
+		Anchor RIGHT, -0.0069, 0,
+		Font "Prototype.ttf", 0.00875,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "Details_Bar_HPReg" {
+	Width 0.111,
+	Height 0.012,
+	String "Details_Bar_HPReg_Text" {
+		Anchor RIGHT, -0.0069, 0,
+		Font "Prototype.ttf", 0.00875,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "Stats_Frame" {
+	Width 0.06,
+	Height 0.06,
+	Texture "Stats_Texture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "Stats_StatFrame" {
+	Width 0.015,
+	Height 0.015,
+	Texture "Stats_StatTexture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+	String "Stats_StatText" { 
+		Anchor BOTTOM, 0, -0.009,
+		Font "Prototype.ttf", 0.01,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+	Frame "SIMPLEBUTTON" "Stats_FrameListener" {
+		Width 0.015,
+		Height 0.015,
+	}
+}
+
+Frame "SIMPLEFRAME" "Buff_Frame" {
+	Width 0.017,
+	Height 0.017,
+	Texture "Buff_Texture" {
+		File "war3mapImported\BTN_BloodlustBuff.dds",
+	}
+	String "Buff_Text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.0125,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "2",
+	}
+	Frame "SIMPLEBUTTON" "Buff_FrameListener" {
+		Width 0.017,
+		Height 0.017,
+	}
+}

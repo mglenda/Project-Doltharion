@@ -1,0 +1,51 @@
+Frame "SIMPLEFRAME" "AbilityContainer" {
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "FRAME" "AbilityListenerContainer"{
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "GLUEBUTTON" "AbilityButton_Listener" {
+	Width 0.025,
+	Height 0.025,
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_Border"{
+	Width 0.03,
+	Height 0.03,
+	Texture "AbilityButton_Border_Texture" {
+		File "war3mapImported\Ability_Button_BorderModern.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_Icon"{
+	Width 0.025,
+	Height 0.025,
+	Texture "AbilityButton_Icon_Texture" {
+		File "war3mapImported\BTNElementalMagnet.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_FocusLayer"{
+	Width 0.025,
+	Height 0.025,
+	Texture "AbilityButton_FocusLayer_Texture" {
+		File "war3mapImported\FocusLayer.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_Shortcut"{
+	Width 0.011,
+	Height 0.011,
+	String "AbilityButton_Shortcut_Text" {
+		Anchor CENTER, 0, -0.0003,
+		Font "Prototype.ttf", 0.018,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+	Texture "AbilityButton_Shortcut_Texture" {
+		File "war3mapImported\Ability_Button_Border.dds",
+	}
+}

@@ -1,0 +1,41 @@
+Frame "SIMPLEFRAME" "CastingBar_Texture_Frame" {
+	Width 0.175,
+	Height 0.025,
+	Texture "CastingBar_Texture_Texture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "CastingBar_AbilityIcon_Frame" {
+	Width 0.025,
+	Height 0.025,
+	Texture "CastingBar_AbilityIcon_Texture" {
+		File "war3mapImported\BTN_Bloodlust.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "CastingBar_Bar" {
+	Width 0.15,
+	Height 0.0241,
+	BarTexture "war3mapImported\DBM_BarFill_Brown.dds",
+}
+
+Frame "SIMPLEFRAME" "CastingBar_BarText_Frame" {
+	Width 0.15,
+	Height 0.025,
+	String "CastingBar_BarText_Text" {
+		Anchor LEFT, 0.0069, 0,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "CastingBar_Number_Frame" {
+	Width 0.15,
+	Height 0.025,
+	String "CastingBar_Number_Text" {
+		Anchor RIGHT, -0.0069, 0,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
