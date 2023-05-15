@@ -13,6 +13,10 @@ do
     end
 
     function u:type(v)
-        return string.sub(tostring(v), 1, (string.find(tostring(v),':') or string.len(tostring(v)) + 1)-1)
+        return type(v) == 'userdata' and string.sub(tostring(v), 1, (string.find(tostring(v),':') or string.len(tostring(v)) + 1)-1) or type(v)
+    end
+
+    function u:GetUnitXY(u)
+        return GetUnitX(u),GetUnitY(u)
     end
 end
