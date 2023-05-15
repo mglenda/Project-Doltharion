@@ -91,8 +91,8 @@ Frame "SIMPLEFRAME" "Stats_Frame" {
 }
 
 Frame "SIMPLEFRAME" "Stats_StatFrame" {
-	Width 0.015,
-	Height 0.015,
+	Width 0.018,
+	Height 0.018,
 	Texture "Stats_StatTexture" {
 		File "war3mapImported\Details_Background.dds",
 	}
@@ -102,8 +102,8 @@ Frame "SIMPLEFRAME" "Stats_StatFrame" {
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 	Frame "SIMPLEBUTTON" "Stats_FrameListener" {
-		Width 0.015,
-		Height 0.015,
+		Width 0.018,
+		Height 0.018,
 	}
 }
 

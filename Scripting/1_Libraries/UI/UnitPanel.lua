@@ -80,10 +80,10 @@ do
         BlzFrameSetPoint(barReg, FRAMEPOINT_TOPRIGHT, bar, FRAMEPOINT_TOPRIGHT, 0, 0)
         BlzFrameSetPoint(statsFrame, f_id == 0 and FRAMEPOINT_BOTTOMRIGHT or FRAMEPOINT_BOTTOMLEFT, this.main, f_id == 0 and FRAMEPOINT_BOTTOMRIGHT or FRAMEPOINT_BOTTOMLEFT, 0, 0)
 
-        BlzFrameSetPoint(stat_dmg, FRAMEPOINT_TOPLEFT, statsFrame, FRAMEPOINT_TOPLEFT, 0.01, -0.005)
-        BlzFrameSetPoint(stat_power, FRAMEPOINT_LEFT, stat_dmg, FRAMEPOINT_RIGHT, 0.01, 0)
-        BlzFrameSetPoint(stat_crit, FRAMEPOINT_BOTTOMLEFT, statsFrame, FRAMEPOINT_BOTTOMLEFT, 0.01, 0.013)
-        BlzFrameSetPoint(stat_resist, FRAMEPOINT_LEFT, stat_crit, FRAMEPOINT_RIGHT, 0.01, 0)
+        BlzFrameSetPoint(stat_dmg, FRAMEPOINT_TOPLEFT, statsFrame, FRAMEPOINT_TOPLEFT, 0.006, -0.002)
+        BlzFrameSetPoint(stat_power, FRAMEPOINT_TOPRIGHT, statsFrame, FRAMEPOINT_TOPRIGHT, -0.006, -0.002)
+        BlzFrameSetPoint(stat_crit, FRAMEPOINT_BOTTOMLEFT, statsFrame, FRAMEPOINT_BOTTOMLEFT, 0.006, 0.011)
+        BlzFrameSetPoint(stat_resist, FRAMEPOINT_BOTTOMRIGHT, statsFrame, FRAMEPOINT_BOTTOMRIGHT, -0.006, 0.011)
 
         BlzFrameSetTexture(BlzGetFrameByName('Stats_StatTexture', (f_id*10) + UI_STAT_DMG), 'war3mapImported\\STAT_AttackDmg.dds', 0, true)
         BlzFrameSetTexture(BlzGetFrameByName('Stats_StatTexture', (f_id*10) + UI_STAT_CRIT), 'war3mapImported\\STAT_CriticalChance.dds', 0, true)
