@@ -8,7 +8,7 @@ Frame "FRAME" "AbilityListenerContainer"{
 	Height 0.001,
 }
 
-Frame "GLUEBUTTON" "AbilityButton_Listener" {
+Frame "BUTTON" "AbilityButton_Listener" {
 	Width 0.025,
 	Height 0.025,
 }

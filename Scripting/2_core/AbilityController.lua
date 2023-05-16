@@ -16,6 +16,10 @@ do
                         ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
                         ,forcedKey = castForcedKey
                     }
+                    local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
+                    local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
+
+                    BlzTriggerRegisterFrameEvent(tbl.trg, BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y)), FRAMEEVENT_CONTROL_CLICK)
                     BlzTriggerRegisterPlayerKeyEvent(tbl.trg, Hero:getPlayer(), castOsKey, 0, true)
                     BlzTriggerRegisterPlayerKeyEvent(tbl.trg, Hero:getPlayer(), castOsKey, 1, true)
                     if castType == 'I' then
@@ -67,6 +71,10 @@ do
             CastingController:setOrder(order)
             IssueImmediateOrderById(Hero:get(),order)
         end
+        if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
+            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+        end
     end
 
     function ac:unitTarget()
@@ -75,6 +83,10 @@ do
             CastingController:setOrder(order)
             IssueTargetOrderById(Hero:get(), order, BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get())
         end
+        if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
+            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+        end
     end
 
     function ac:pointTarget()
@@ -82,6 +94,10 @@ do
         if not(Hero:isCasting()) or order ~= Hero:isCasting() then
             CastingController:setOrder(order)
             ForceUIKeyBJ(Hero:getPlayer(), AbilityController:getForcedKey(GetTriggeringTrigger()))
+        end
+        if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
+            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
         end
     end
 end

@@ -78,6 +78,7 @@ do
         local fontColor = font_colors[texture]
         BlzFrameSetTexture(self.icon,'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(a):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetTexture(self.bar, texture, 0, true)
+        BlzFrameSetValue(self.bar, 0)
         BlzFrameSetTextColor(self.text, fontColor)
         BlzFrameSetTextColor(self.number, fontColor)
         BlzFrameSetText(self.text, GetAbilityName(a))
