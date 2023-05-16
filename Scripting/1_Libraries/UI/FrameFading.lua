@@ -17,13 +17,17 @@ do
 
     function ff:progress()
         local frame = FrameFading:getFrameByTrigger(GetTriggeringTrigger())
-        if BlzFrameGetAlpha(frame) > 0 then
-            BlzFrameSetAlpha(frame, R2I(BlzFrameGetAlpha(frame) - list[frame].fade_rate))
-        else
-            BlzFrameSetVisible(frame, false)
-            if Utils:type(list[frame].func) == 'function' then
-                list[frame].func()
+        if BlzFrameIsVisible(frame) then 
+            if BlzFrameGetAlpha(frame) > 0 then
+                BlzFrameSetAlpha(frame, R2I(BlzFrameGetAlpha(frame) - list[frame].fade_rate))
+            else
+                BlzFrameSetVisible(frame, false)
+                if Utils:type(list[frame].func) == 'function' then
+                    list[frame].func()
+                end
+                FrameFading:stopfading(frame)
             end
+        else --If frame is not visible means it was hidden by other action and fading should be stopped without executing potential func()
             FrameFading:stopfading(frame)
         end
     end
