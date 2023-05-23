@@ -27,6 +27,7 @@ do
             if GetTriggerUnit() ~= Hero:get() then
                 Target:setTarget(GetTriggerUnit())
                 SelectUnitForPlayerSingle(Hero:get(), Hero:getPlayer())
+                Buffs:apply(Hero:get(),GetTriggerUnit(),'blasted')
             end
         end)
     end)
