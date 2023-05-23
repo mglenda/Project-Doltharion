@@ -10,6 +10,7 @@ do
     end
 
     function target:clearTarget()
+        Buffs:clear_debuff(Target.unit,'blasted')
         Target.unit = nil
         UI.t_panel:hide()
     end

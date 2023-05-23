@@ -5,8 +5,7 @@ do
 
     local buffs = {
         ['blasted'] = {
-            d = 5
-            ,e_m = 'Abilities\\Spells\\Undead\\Darksummoning\\DarkSummonTarget.mdl'
+            e_m = 'Abilities\\Spells\\Undead\\Darksummoning\\DarkSummonTarget.mdl'
             ,e_a = 'chest'
         }
     }
