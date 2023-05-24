@@ -21,18 +21,47 @@ do
         if not(IsTriggerEnabled(trg)) then EnableTrigger(trg) end
     end
 
-    function b:clear_debuff(u,bn)
+    function b:get_ui_tbl(u)
+        local t = {}
+        if Utils:type(buffs[u]) ~= 'table' then return t end
+        for i,d in ipairs(buffs[u]) do
+            local k = Utils:get_key_by_value(t,'bn',d.bn)
+            if not(k) then
+                table.insert(t,{
+                    prio = d.prio or 10
+                    ,sc = 1
+                    ,bn = d.bn
+                })
+            else
+                t[k].sc = (t[k].sc or 0) + 1
+            end
+        end
+
+        table.sort(t, function (k1, k2) return k1.prio < k2.prio end)
+        return t
+    end
+
+    function b:get_stack_count(u,bn)
+        local c = 0
+        if Utils:type(buffs[u]) ~= 'table' then return c end
+        for i,d in ipairs(buffs[u]) do
+            if d.bn == bn then c = c + 1 end
+        end
+        return c
+    end
+
+    function b:clear_buff(u,bn)
         if Utils:type(buffs[u]) ~= 'table' then return end
         local t = {}
         for i,d in ipairs(buffs[u]) do
             if d.bn == bn then 
                 table.insert(t,d)
-                t[#t].prio = (d.d or 0) - d.dur
+                t[#t].c_prio = (d.d or 0) - d.dur
                 t[#t].id = i
             end
         end
 
-        table.sort(t, function (k1, k2) return k1.prio > k2.prio end)
+        table.sort(t, function (k1, k2) return k1.c_prio > k2.c_prio end)
         table.remove(buffs[u], t[#t].id)
     end
 

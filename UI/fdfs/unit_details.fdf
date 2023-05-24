@@ -111,16 +111,12 @@ Frame "SIMPLEFRAME" "Buff_Frame" {
 	Width 0.017,
 	Height 0.017,
 	Texture "Buff_Texture" {
-		File "war3mapImported\BTN_BloodlustBuff.dds",
+		File "ReplaceableTextures\CommandButtons\buff_blasted.dds",
 	}
 	String "Buff_Text" {
 		Anchor CENTER, 0, 0,
 		Font "Prototype.ttf", 0.0125,
 		FontColor 1.0 1.0 1.0 1.0,
 		Text "2",
-	}
-	Frame "SIMPLEBUTTON" "Buff_FrameListener" {
-		Width 0.017,
-		Height 0.017,
 	}
 }

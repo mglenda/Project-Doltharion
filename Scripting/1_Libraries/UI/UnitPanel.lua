@@ -38,6 +38,16 @@ do
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),'58')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(BlzGetUnitArmor(self.unit))..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),BlzGetUnitWeaponIntegerField(self.unit, UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 0))
+            local bt = Buffs:get_ui_tbl(self.unit)
+            for i=1,9 do
+                if bt[i] then
+                    if not(BlzFrameIsVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i))) then BlzFrameSetVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i), true) end
+                    BlzFrameSetTexture(BlzGetFrameByName('Buff_Texture', (self.f_id*10) + i), 'ReplaceableTextures\\CommandButtons\\' .. (bt[i].is_d and 'debuff_' or 'buff_') .. bt[i].bn .. '.dds', 0, true)
+                    BlzFrameSetText(BlzGetFrameByName('Buff_Text', (self.f_id*10) + i),tostring(bt[i].sc))
+                else
+                    BlzFrameSetVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i), false)
+                end 
+            end
         end
         return nil
     end
@@ -91,6 +101,17 @@ do
         BlzFrameSetTexture(BlzGetFrameByName('Stats_StatTexture', (f_id*10) + UI_STAT_POWER), 'war3mapImported\\STAT_AttackPower.dds', 0, true)
 
         BlzFrameSetAbsPoint(this.main, f_id == 0 and FRAMEPOINT_BOTTOMRIGHT or FRAMEPOINT_BOTTOMLEFT, x, y)
+
+        for i=1,9 do
+            local f = BlzCreateSimpleFrame('Buff_Frame', this.main, (f_id*10) + i)
+            if i == 1 then
+                BlzFrameSetPoint(f, f_id == 1 and FRAMEPOINT_TOPRIGHT or FRAMEPOINT_TOPLEFT, this.main, f_id == 1 and FRAMEPOINT_TOPRIGHT or FRAMEPOINT_TOPLEFT, f_id == 1 and -0.006 or 0.006, -0.00225)
+            elseif (i-1) - math.floor((i-1)/3)*3 == 0 then
+                BlzFrameSetPoint(f, FRAMEPOINT_TOP, BlzGetFrameByName('Buff_Frame', (f_id*10) + (i-3)), FRAMEPOINT_BOTTOM, 0, -0.00225)
+            else
+                BlzFrameSetPoint(f, f_id == 1 and FRAMEPOINT_RIGHT or FRAMEPOINT_LEFT, BlzGetFrameByName('Buff_Frame', (f_id*10) + (i-1)), f_id == 1 and FRAMEPOINT_LEFT or FRAMEPOINT_RIGHT, f_id == 1 and -0.006 or 0.006, 0)
+            end
+        end
 
         TriggerAddCondition(refreshTrigger, Filter(function()
             this:refresh()

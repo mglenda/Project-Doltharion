@@ -10,7 +10,7 @@ do
     end
 
     function target:clearTarget()
-        Buffs:clear_debuff(Target.unit,'blasted')
+        Buffs:clear_buff(Target.unit,'blasted')
         Target.unit = nil
         UI.t_panel:hide()
     end
@@ -29,6 +29,7 @@ do
                 Target:setTarget(GetTriggerUnit())
                 SelectUnitForPlayerSingle(Hero:get(), Hero:getPlayer())
                 Buffs:apply(Hero:get(),GetTriggerUnit(),'blasted')
+                Buffs:get_ui_tbl(GetTriggerUnit())
             end
         end)
     end)

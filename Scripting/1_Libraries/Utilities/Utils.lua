@@ -12,6 +12,13 @@ do
         return false
     end
 
+    function u:get_key_by_value(t,mk,v)
+        for k,d in pairs(t) do
+            if d[mk] and d[mk] == v then return k end
+        end
+        return nil
+    end
+
     function u:table_merge(p,s)
         if self:type(p) ~= 'table' then p = {} end
         if self:type(s) ~= 'table' then s = {} end
