@@ -10,7 +10,7 @@ do
     end
 
     function target:clearTarget()
-        Buffs:clear_buff(Target.unit,'blasted')
+        Buffs:clear_buff(Hero:get(),'blasted',true)
         Target.unit = nil
         UI.t_panel:hide()
     end
@@ -26,10 +26,9 @@ do
         TriggerRegisterPlayerSelectionEventBJ(trg, Hero:getPlayer(), true)
         TriggerAddAction(trg, function()
             if GetTriggerUnit() ~= Hero:get() then
+                Buffs:apply(Hero:get(),Hero:get(),'blasted')
                 Target:setTarget(GetTriggerUnit())
                 SelectUnitForPlayerSingle(Hero:get(), Hero:getPlayer())
-                Buffs:apply(Hero:get(),GetTriggerUnit(),'blasted')
-                Buffs:get_ui_tbl(GetTriggerUnit())
             end
         end)
     end)

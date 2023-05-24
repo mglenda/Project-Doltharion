@@ -43,7 +43,7 @@ do
                 if bt[i] then
                     if not(BlzFrameIsVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i))) then BlzFrameSetVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i), true) end
                     BlzFrameSetTexture(BlzGetFrameByName('Buff_Texture', (self.f_id*10) + i), 'ReplaceableTextures\\CommandButtons\\' .. (bt[i].is_d and 'debuff_' or 'buff_') .. bt[i].bn .. '.dds', 0, true)
-                    BlzFrameSetText(BlzGetFrameByName('Buff_Text', (self.f_id*10) + i),tostring(bt[i].sc))
+                    BlzFrameSetText(BlzGetFrameByName('Buff_Text', (self.f_id*10) + i),tostring(bt[i].sc > 1 and bt[i].sc or ''))
                 else
                     BlzFrameSetVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i), false)
                 end 
