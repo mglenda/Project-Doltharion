@@ -7,7 +7,7 @@ do
         Target.unit = unit
         UI.t_panel:loadUnit(unit)
         UI.t_panel:show()
-        Resistance:set(unit,50)
+        Buffs:apply(Hero:get(),unit,'blasted')
     end
 
     function target:clearTarget()

@@ -6,6 +6,25 @@ do
     local buffs = {}
     local trg = CreateTrigger()
 
+    function b:get_all_modifiers(u,m)
+        local tbl = {}
+        if Utils:type(buffs[u] == 'table') then
+            for i,v in ipairs(buffs[u]) do
+                if Utils:type(v.st) == 'table' and v.st[m] then
+                    table.insert(tbl,{
+                                    v = v.st[m][1]
+                                    ,s = v.st[m][2]
+                                    ,p = v.prio or 10
+                                    ,n = v.bn
+                                })
+                end
+            end
+        end
+
+        table.sort(tbl, function (k1, k2) return k1.p < k2.p end)
+        return tbl
+    end
+
     function b:apply(s,t,bn,data)
         local this = {
             u = t
@@ -35,7 +54,16 @@ do
         if Utils:type(buffs[t]) ~= 'table' then buffs[t] = {} end
 
         table.insert(buffs[t],this)
+        self:modify_stats(this.st,this.u)
         if not(IsTriggerEnabled(trg)) then EnableTrigger(trg) end
+    end
+
+    function b:modify_stats(st,u)
+        if Utils:type(st) == 'table' then
+            for sn,_ in pairs(st) do
+                Data:get_stat_class(sn):recalculate(u)
+            end
+        end
     end
 
     function b:get_effects(u,bn)
@@ -109,8 +137,9 @@ do
 
         if dis and Utils:type(buffs[u][i].func_d) == 'function' then buffs[u][i].func_d(buffs[u][i]) end
         if Utils:type(buffs[u][i].func_e) == 'function' then buffs[u][i].func_e(buffs[u][i]) end
-
+        local st = buffs[u][i].st
         table.remove(buffs[u], i)
+        self:modify_stats(st,u)
     end
 
     function b:progress()

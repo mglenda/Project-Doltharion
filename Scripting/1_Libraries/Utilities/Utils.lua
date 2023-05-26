@@ -22,8 +22,22 @@ do
     function u:table_merge(p,s)
         if self:type(p) ~= 'table' then p = {} end
         if self:type(s) ~= 'table' then s = {} end
-        for k,v in pairs(s) do p[k] = v end
+        for k,v in pairs(s) do 
+            p[k] = self:type(v) == 'table' and self:copy_table(v) or v
+        end
         return p
+    end
+
+    function u:copy_table(t)
+        local result = {}
+        for k,v in pairs(t) do
+            if (self:type(v) == 'table') then
+                result[k] = self:copy_table(v)
+            else
+                result[k] = v
+            end
+        end
+        return result
     end
 
     function u:round(n, dp)
