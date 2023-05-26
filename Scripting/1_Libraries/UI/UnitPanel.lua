@@ -36,7 +36,7 @@ do
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%%'.. ' (' .. BlzGetUnitRealField(self.unit, UNIT_RF_HIT_POINTS_REGENERATION_RATE)..'/sec)')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),'15'..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),'58')
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(BlzGetUnitArmor(self.unit))..'%%')
+            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),BlzGetUnitWeaponIntegerField(self.unit, UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 0))
             local bt = Buffs:get_ui_tbl(self.unit)
             for i=1,9 do

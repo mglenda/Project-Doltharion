@@ -4,7 +4,7 @@ do
     d.__index = d
 
     --reserved u,s,bn,dur,per
-    --is_d = true :: if it is negative debuff, not set or false if it is buff positive buff
+    --is_d = isdebuff :: true if it is negative debuff, not set or false if it is positive buff
     --d = duration :: number bigger than 0 to set buff duration, not set = infinite duration
     --prio = priority :: define what is priority of the buff by which it will be sorted for various actions, lower number = higher priority
     --e = effects_data :: table of effects which should be applied, each effect should have its own table containing m = model string path, a = attachment point, s = scale (optional)
@@ -15,6 +15,7 @@ do
     --func_q = quit func :: function which if returns true buff will expire
     --func_e = end func :: function which will always execute when buff expires
     --func_d = dispell func :: function which will execute if buff was dispelled
+    
     local buffs = {
         ['blasted'] = {
             e = {
@@ -24,6 +25,9 @@ do
             }
             ,d = 10
             ,p = 1
+            ,st = {
+                ['resist'] = {5,false}
+            }
         }
     }
 
