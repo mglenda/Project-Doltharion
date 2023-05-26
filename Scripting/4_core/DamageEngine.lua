@@ -9,9 +9,10 @@ do
         local dmg = GetEventDamage() * GetRandomReal(0.99, 1.01)
         local s,t = GetEventDamageSource(),BlzGetEventDamageTarget()
         local id = DamageEngine:get_id(s)
-
-        dmg = dmg * (1.0 - Resistance:get(t) / 100.0)
         
+        dmg = dmg * (1.0 - Resistance:get(t) / 100.0)
+
+        dmg = dmg < 0 and 0 or dmg
         BlzSetEventDamage(dmg)
         TextTag:create({u=t,s=StringUtils:round(dmg,1)})
     end

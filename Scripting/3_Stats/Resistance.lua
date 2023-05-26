@@ -10,12 +10,12 @@ do
     end
 
     function r:recalculate(u)
-        local res,ns,m = self:get_default(u),{},self:get_modifiers(u)
+        local val,ns,m = self:get_default(u),{},self:get_modifiers(u)
         for i,v in ipairs(m) do
-            res = not(ns[v.n]) and res + v.v or res
+            val = not(ns[v.n]) and val + v.v or val
             ns[v.n] = not(v.s)
         end
-        self:set(u,res)
+        self:set(u,val)
     end
     
     function r:set(u,v)

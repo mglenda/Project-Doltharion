@@ -7,6 +7,12 @@ do
 
     OnInit.map(function()
         stats['resist'] = Resistance
+        stats['critchance'] = CriticalChance
+        stats['attpow_const'] = AttackPower
+        stats['attpow_factor'] = AttackPower
+        stats['spepow_const'] = SpellPower
+        stats['spepow_factor'] = SpellPower
+        stats['atkspeed'] = AttackSpeed
     end)
 
     function d:get_stat_class(sn)
@@ -20,6 +26,8 @@ do
     --es = effects_stack :: true each stack of buff applies effects, not set / false = effects will be applied only once per buff type, no matter how much stacks buff has
     --p = period :: defines period duration
     --h = hidden :: true buff won't be displayed on unit panel, not set / false it will be displayed on unit panel
+    --dp = death persistent :: true buff will not end on target death / false or not defined buff will end on target death
+    --func_a = apply func :: function which happens when buff is applied
     --func_p = period func :: function which happens on period end
     --func_q = quit func :: function which if returns true buff will expire
     --func_e = end func :: function which will always execute when buff expires
@@ -33,20 +41,26 @@ do
                   --Example: st = {['resist'] = {8,false}}  = means this buff incrase resistance of unit by 8, does not stack
         -- Stat_List ::
             -- 'resist' = Resistance
+            -- 'critchance' = Critical Chance
+            -- 'attpow_const' = Attack Power constant (+)
+            -- 'attpow_factor' = Attack Power factor (*)
+            -- 'spepow_const = Spell Power constant (+)
+            -- 'spepow_factor' = Spell Power factor (*)
+            -- 'atkspeed' = Attack Speed (0 - 4.0) where numbers bellow 1 are slow and above 1 are boost
 
     local buffs = {
         ['blasted'] = {
             e = {
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
-            ,d = 5
+            ,d = 10
             ,p = 0.5
-            ,func_p = function(bt) 
-                bt.st['resist'][1] = bt.st['resist'][1] + 5               
-                Resistance:recalculate(bt.u)
+            ,func_p = function(bt)
+                bt.st.atkspeed[1] = bt.st.atkspeed[1] + 0.2
+                stats['atkspeed']:recalculate(bt.u)
             end
             ,st = {
-                ['resist'] = {5,true}
+                ['atkspeed'] = {1.0,true}
             }
         }
     }

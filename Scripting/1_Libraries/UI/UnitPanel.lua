@@ -24,8 +24,10 @@ do
 
     function up:loadUnit(unit)
         self.unit = unit
+        self.patt = BlzGetUnitIntegerField(unit, UNIT_IF_PRIMARY_ATTRIBUTE)
         BlzFrameSetTexture(BlzGetFrameByName('Details_UnitIconTexture', self.f_id), 'ReplaceableTextures\\CommandButtons\\BTN' .. GetUnitName(self.unit):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetText(BlzGetFrameByName('Details_Bar_Name_Text', self.f_id), GetUnitName(self.unit))
+        BlzFrameSetTexture(BlzGetFrameByName('Stats_StatTexture', (self.f_id*10) + UI_STAT_POWER), self.patt == 2 and 'war3mapImported\\STAT_SpellPower.dds' or 'war3mapImported\\STAT_AttackPower.dds', 0, true)
         self:refresh()
     end
 
@@ -34,8 +36,8 @@ do
             BlzFrameSetValue(BlzGetFrameByName('Details_Bar', self.f_id), GetUnitLifePercent(self.unit))
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HP_Text', self.f_id), tostring(math.floor(GetUnitStateSwap(UNIT_STATE_LIFE, self.unit)))..'/'..tostring(math.floor(GetUnitStateSwap(UNIT_STATE_MAX_LIFE, self.unit))))
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%%'.. ' (' .. BlzGetUnitRealField(self.unit, UNIT_RF_HIT_POINTS_REGENERATION_RATE)..'/sec)')
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),'15'..'%%')
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),'58')
+            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),StringUtils:round(CriticalChance:get(self.unit),0)..'%%')
+            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),self.patt == 2 and StringUtils:round(SpellPower:get(self.unit),0) or StringUtils:round(AttackPower:get(self.unit),0))
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),BlzGetUnitWeaponIntegerField(self.unit, UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 0))
             local bt = Buffs:get_ui_tbl(self.unit)

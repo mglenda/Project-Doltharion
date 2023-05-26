@@ -52,6 +52,7 @@ do
         --Create Effects End
         
         if Utils:type(buffs[t]) ~= 'table' then buffs[t] = {} end
+        if Utils:type(this.func_a) == 'function' then this.func_a(this) end
 
         table.insert(buffs[t],this)
         self:modify_stats(this.st,this.u)
@@ -139,7 +140,7 @@ do
         if Utils:type(buffs[u][i].func_e) == 'function' then buffs[u][i].func_e(buffs[u][i]) end
         local st = buffs[u][i].st
         table.remove(buffs[u], i)
-        self:modify_stats(st,u)
+        if IsUnitAliveBJ(u) then self:modify_stats(st,u) end
     end
 
     function b:progress()
@@ -152,7 +153,7 @@ do
                     buffs[u][i].per = 0
                     if Utils:type(buffs[u][i].func_p) == 'function' then buffs[u][i].func_p(buffs[u][i]) end
                 end
-                if buffs[u][i].dur >= (buffs[u][i].d or buffs[u][i].dur + 1) or (Utils:type(buffs[u][i].func_q) == 'function' and buffs[u][i].func_q(buffs[u][i]))then
+                if buffs[u][i].dur >= (buffs[u][i].d or buffs[u][i].dur + 1) or (Utils:type(buffs[u][i].func_q) == 'function' and buffs[u][i].func_q(buffs[u][i])) or (IsUnitDeadBJ(u) and not(buffs[u][i].dp)) then
                     Buffs:clear(u,i)
                 end
             end
