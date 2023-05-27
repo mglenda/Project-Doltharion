@@ -27,6 +27,8 @@ do
     --p = period :: defines period duration
     --h = hidden :: true buff won't be displayed on unit panel, not set / false it will be displayed on unit panel
     --dp = death persistent :: true buff will not end on target death / false or not defined buff will end on target death
+    --ms = max stacks :: integer number if defined then buff will have maximum of ms stacks / not defined buff will create new stack on each apply
+    --nd = not dispellable :: true buff is not dispellable with dispells / not defined or false buff is dispellable with dispells
     --func_a = apply func :: function which happens when buff is applied
     --func_p = period func :: function which happens on period end
     --func_q = quit func :: function which if returns true buff will expire
@@ -53,8 +55,9 @@ do
             e = {
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
-            ,d = 10
-            ,p = 0.5
+            ,d = 5
+            ,p = 0.25
+            ,ms = 1
             ,func_p = function(bt)
                 bt.st.atkspeed[1] = bt.st.atkspeed[1] + 0.2
                 stats['atkspeed']:recalculate(bt.u)

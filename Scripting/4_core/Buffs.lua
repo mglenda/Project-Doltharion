@@ -54,6 +54,24 @@ do
         if Utils:type(buffs[t]) ~= 'table' then buffs[t] = {} end
         if Utils:type(this.func_a) == 'function' then this.func_a(this) end
 
+        if this.ms then 
+            local tbl = {}
+            for i,d in ipairs(buffs[t]) do
+                if d.bn == this.bn then 
+                    table.insert(tbl,d)
+                    tbl[#tbl].c_prio = (d.d or 0) - d.dur
+                    tbl[#tbl].id = i
+                end
+            end
+            table.sort(tbl, function (k1, k2) return k1.c_prio > k2.c_prio end)
+            for i=1,this.ms-1 do
+                table.remove(tbl, 1)
+            end
+            table.sort(tbl, function (k1, k2) return k1.id > k2.id end)
+            for i,d in ipairs(tbl) do
+                table.remove(buffs[t], d.id)
+            end
+        end
         table.insert(buffs[t],this)
         self:modify_stats(this.st,this.u)
         if not(IsTriggerEnabled(trg)) then EnableTrigger(trg) end
@@ -118,7 +136,7 @@ do
         if Utils:type(buffs[u]) ~= 'table' then return end
         local t = {}
         for i,d in ipairs(buffs[u]) do
-            if d.bn == bn then 
+            if d.bn == bn and (not(dis) or not(d.nd)) then 
                 table.insert(t,d)
                 t[#t].c_prio = (d.d or 0) - d.dur
                 t[#t].id = i

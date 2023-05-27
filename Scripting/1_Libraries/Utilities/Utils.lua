@@ -23,7 +23,7 @@ do
         if self:type(p) ~= 'table' then p = {} end
         if self:type(s) ~= 'table' then s = {} end
         for k,v in pairs(s) do 
-            p[k] = self:type(v) == 'table' and self:copy_table(v) or v
+            if not(p[k]) then p[k] = self:type(v) == 'table' and self:copy_table(v) or v end
         end
         return p
     end
