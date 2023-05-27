@@ -35,7 +35,7 @@ do
         if self.unit and BlzFrameIsVisible(self.main) then
             BlzFrameSetValue(BlzGetFrameByName('Details_Bar', self.f_id), GetUnitLifePercent(self.unit))
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HP_Text', self.f_id), tostring(math.floor(GetUnitStateSwap(UNIT_STATE_LIFE, self.unit)))..'/'..tostring(math.floor(GetUnitStateSwap(UNIT_STATE_MAX_LIFE, self.unit))))
-            BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%%'.. ' (' .. BlzGetUnitRealField(self.unit, UNIT_RF_HIT_POINTS_REGENERATION_RATE)..'/sec)')
+            BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%%'.. ' (' .. HitPointsReg:get(self.unit) ..'/sec)')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),StringUtils:round(CriticalChance:get(self.unit),0)..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),self.patt == 2 and StringUtils:round(SpellPower:get(self.unit),0) or StringUtils:round(AttackPower:get(self.unit),0))
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%%')

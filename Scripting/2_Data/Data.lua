@@ -15,6 +15,10 @@ do
         stats['atkspeed'] = AttackSpeed
         stats['attdmg_const'] = AttackDamage
         stats['attdmg_factor'] = AttackDamage
+        stats['hp_const'] = HitPoints
+        stats['hp_factor'] = HitPoints
+        stats['hpreg_const'] = HitPointsReg
+        stats['hpreg_factor'] = HitPointsReg
     end)
 
     function d:get_stat_class(sn)
@@ -53,6 +57,10 @@ do
             -- 'atkspeed' = Attack Speed (0 - 4.0) where numbers bellow 1 are slow and above 1 are boost
             -- 'attdmg_const' = Attack Damage constant (+)
             -- 'attdmg_factor' = Attack Damage factor (*)
+            -- 'hp_const' = Hit Points constant (+)
+            -- 'hp_factor' = Hit Points factor (*)
+            -- 'hpreg_const' = Hit Points Regeneration constant (+)
+            -- 'hpreg_factor' = Hit Points Regeneration factor (*)
 
     local buffs = {
         ['blasted'] = {
@@ -68,7 +76,7 @@ do
             end
             ,st = {
                 ['atkspeed'] = {1.0,true}
-                ,['attdmg_factor'] = {0.8,true}
+                ,['hpreg_factor'] = {5.5,true}
             }
         }
     }
