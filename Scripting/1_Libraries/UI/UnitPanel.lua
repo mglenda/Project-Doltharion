@@ -39,7 +39,7 @@ do
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),StringUtils:round(CriticalChance:get(self.unit),0)..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),self.patt == 2 and StringUtils:round(SpellPower:get(self.unit),0) or StringUtils:round(AttackPower:get(self.unit),0))
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%%')
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),BlzGetUnitWeaponIntegerField(self.unit, UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 0))
+            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),StringUtils:round(AttackDamage:get(self.unit),0))
             local bt = Buffs:get_ui_tbl(self.unit)
             for i=1,9 do
                 if bt[i] then

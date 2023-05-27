@@ -13,6 +13,8 @@ do
         stats['spepow_const'] = SpellPower
         stats['spepow_factor'] = SpellPower
         stats['atkspeed'] = AttackSpeed
+        stats['attdmg_const'] = AttackDamage
+        stats['attdmg_factor'] = AttackDamage
     end)
 
     function d:get_stat_class(sn)
@@ -49,6 +51,8 @@ do
             -- 'spepow_const = Spell Power constant (+)
             -- 'spepow_factor' = Spell Power factor (*)
             -- 'atkspeed' = Attack Speed (0 - 4.0) where numbers bellow 1 are slow and above 1 are boost
+            -- 'attdmg_const' = Attack Damage constant (+)
+            -- 'attdmg_factor' = Attack Damage factor (*)
 
     local buffs = {
         ['blasted'] = {
@@ -57,13 +61,14 @@ do
             }
             ,d = 5
             ,p = 0.25
-            ,ms = 1
+            ,ms = 2
             ,func_p = function(bt)
                 bt.st.atkspeed[1] = bt.st.atkspeed[1] + 0.2
                 stats['atkspeed']:recalculate(bt.u)
             end
             ,st = {
                 ['atkspeed'] = {1.0,true}
+                ,['attdmg_factor'] = {0.8,true}
             }
         }
     }
