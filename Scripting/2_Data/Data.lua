@@ -24,7 +24,7 @@ do
     function d:get_stat_class(sn)
         return stats[sn]
     end
-    --reserved u,s,bn,dur,per
+    --reserved u,s,bn,dur,per,a_id
     --is_d = isdebuff :: true if it is negative debuff, not set or false if it is positive buff
     --d = duration :: number bigger than 0 to set buff duration, not set = infinite duration
     --prio = priority :: define what is priority of the buff by which it will be sorted for various actions, lower number = higher priority
@@ -67,17 +67,20 @@ do
             e = {
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
-            ,d = 5
-            ,p = 0.25
-            ,ms = 2
+            ,d = 25
+            ,p = 1
             ,func_p = function(bt)
-                bt.st.atkspeed[1] = bt.st.atkspeed[1] + 0.2
-                stats['atkspeed']:recalculate(bt.u)
+                print(Absorbs:get_all(bt.u))
             end
-            ,st = {
-                ['atkspeed'] = {1.0,true}
-                ,['hpreg_factor'] = {5.5,true}
-            }
+            ,func_a = function(bt) 
+                bt.a_id = Absorbs:apply(bt.u,75.0,bt.prio)
+            end
+            ,func_q = function(bt)
+                return not(Absorbs:exists(bt.u,bt.a_id))
+            end
+            ,func_e = function(bt)
+                Absorbs:clear(bt.u,bt.a_id)
+            end
         }
     }
 

@@ -8,13 +8,16 @@ do
     function de:damage_event()
         local dmg = GetEventDamage() * GetRandomReal(0.99, 1.01)
         local s,t = GetEventDamageSource(),BlzGetEventDamageTarget()
-        local id = DamageEngine:get_id(s)
+        local id,ab = DamageEngine:get_id(s),false
         
         dmg = dmg * (1.0 - Resistance:get(t) / 100.0)
 
-        dmg = dmg < 0 and 0 or dmg
-        BlzSetEventDamage(dmg)
-        TextTag:create({u=t,s=StringUtils:round(dmg,1)})
+        dmg,ab = Absorbs:damage(t,dmg)
+
+        BlzSetEventDamage(dmg < 0 and 0 or dmg)
+
+        local msg = ab and 'Absorbed' or StringUtils:round(dmg,1)
+        TextTag:create({u=t,s=msg})
     end
 
     function de:set_id(u,id)

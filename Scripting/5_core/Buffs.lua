@@ -52,7 +52,6 @@ do
         --Create Effects End
         
         if Utils:type(buffs[t]) ~= 'table' then buffs[t] = {} end
-        if Utils:type(this.func_a) == 'function' then this.func_a(this) end
 
         if this.ms then 
             local tbl = {}
@@ -72,8 +71,11 @@ do
                 table.remove(buffs[t], d.id)
             end
         end
+
         table.insert(buffs[t],this)
         self:modify_stats(this.st,this.u)
+
+        if Utils:type(this.func_a) == 'function' then this.func_a(this) end
         if not(IsTriggerEnabled(trg)) then EnableTrigger(trg) end
     end
 
