@@ -11,8 +11,9 @@ do
     end
 
     function target:clearTarget()
-        Target.unit = nil
-        UI.t_panel:hide()
+        Absorbs:clear_all(Target.unit)
+        --Target.unit = nil
+        --UI.t_panel:hide()
     end
 
     function target:get()

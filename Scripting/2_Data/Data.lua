@@ -68,10 +68,6 @@ do
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
             ,d = 25
-            ,p = 1
-            ,func_p = function(bt)
-                print(Absorbs:get_all(bt.u))
-            end
             ,func_a = function(bt) 
                 bt.a_id = Absorbs:apply(bt.u,75.0,bt.prio)
             end
