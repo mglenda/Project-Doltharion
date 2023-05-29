@@ -4,20 +4,26 @@ do
     de.__index = de
 
     local records = {}
+    local dcm = 1.5 --default crit multiplier
 
     function de:damage_event()
         local dmg = GetEventDamage() * GetRandomReal(0.99, 1.01)
         local s,t = GetEventDamageSource(),BlzGetEventDamageTarget()
         local id,ab = DamageEngine:get_id(s),false
-        
+        --Critical Strike
+        local crit = CriticalChance:get(s) >= GetRandomInt(1, 100)
+        if crit then dmg = dmg * dcm end
+        --Resistance Apply
         dmg = dmg * (1.0 - Resistance:get(t) / 100.0)
-
+        --Absorbs Apply
         dmg,ab = Absorbs:damage(t,dmg)
 
         BlzSetEventDamage(dmg < 0 and 0 or dmg)
 
-        local msg = ab and 'Absorbed' or StringUtils:round(dmg,1)
-        TextTag:create({u=t,s=msg})
+        if GetOwningPlayer(s) == Hero:getPlayer() or crit then
+            local msg = ab and 'Absorbed' or (crit and StringUtils:round(dmg,1) .. '!' or StringUtils:round(dmg,1))
+            TextTag:create({u=t,s=msg,fs=crit and TextTag:defFontSize() * 1.2 or TextTag:defFontSize(),ls = crit and 2.5 or 1.0})
+        end
     end
 
     function de:set_id(u,id)

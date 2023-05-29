@@ -69,7 +69,7 @@ do
             }
             ,d = 25
             ,st = {
-                ['atkspeed'] = {4.0}
+                ['critchance'] = {50}
             }
             ,func_a = function(bt) 
                 bt.a_id = Absorbs:apply(bt.u,75.0,bt.prio)

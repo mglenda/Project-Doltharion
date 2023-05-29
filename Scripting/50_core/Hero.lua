@@ -10,6 +10,7 @@ do
         AbilityController:load()
         CastingController:load()
         SelectUnitForPlayerSingle(self.unit, self:getPlayer())
+        SetHeroLevel(self.unit, 30,false)
     end
 
     function hero:get()
