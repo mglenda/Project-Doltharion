@@ -68,11 +68,11 @@ do
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
             ,d = 25
+            ,st = {
+                ['atkspeed'] = {4.0}
+            }
             ,func_a = function(bt) 
                 bt.a_id = Absorbs:apply(bt.u,75.0,bt.prio)
-            end
-            ,func_q = function(bt)
-                return not(Absorbs:exists(bt.u,bt.a_id))
             end
             ,func_e = function(bt)
                 Absorbs:clear(bt.u,bt.a_id)
