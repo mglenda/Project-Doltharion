@@ -19,6 +19,8 @@ do
         stats['hp_factor'] = HitPoints
         stats['hpreg_const'] = HitPointsReg
         stats['hpreg_factor'] = HitPointsReg
+        stats['ctime_const'] = CastingTime
+        stats['ctime_factor'] = CastingTime
     end)
 
     function d:get_stat_class(sn)
@@ -30,7 +32,7 @@ do
     --prio = priority :: define what is priority of the buff by which it will be sorted for various actions, lower number = higher priority
     --e = effects_data :: table of effects which should be applied, each effect should have its own table containing m = model string path, a = attachment point, s = scale (optional)
     --es = effects_stack :: true each stack of buff applies effects, not set / false = effects will be applied only once per buff type, no matter how much stacks buff has
-    --p = period :: defines period duration
+    --p = period :: defines period duration, can by function() which returns number or number
     --h = hidden :: true buff won't be displayed on unit panel, not set / false it will be displayed on unit panel
     --dp = death persistent :: true buff will not end on target death / false or not defined buff will end on target death
     --ms = max stacks :: integer number if defined then buff will have maximum of ms stacks / not defined buff will create new stack on each apply
@@ -44,6 +46,7 @@ do
                   --element should be table containing: 
                   --value at 1st position 
                   --true/false at 2nd position to define wether effect stacks or no where true means it does stack and false/nil/undefined means it does not
+                  --ability list which are affected by effect at 3rd position, false/nil means all abilities are affected
                   --Example: st = {['resist'] = {10,true}} = means this buff incrase resistance of unit by 10 per stack
                   --Example: st = {['resist'] = {5}}  = means this buff incrase resistance of unit by 5, does not stack
                   --Example: st = {['resist'] = {8,false}}  = means this buff incrase resistance of unit by 8, does not stack
@@ -61,22 +64,35 @@ do
             -- 'hp_factor' = Hit Points factor (*)
             -- 'hpreg_const' = Hit Points Regeneration constant (+)
             -- 'hpreg_factor' = Hit Points Regeneration factor (*)
+            -- 'ctime_const' = Casting Time constant (+)
+            -- 'ctime_factor' = Casting Time factor (-)
 
     local buffs = {
         ['blasted'] = {
             e = {
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
-            ,d = 25
-            ,st = {
-                ['critchance'] = {50}
-            }
-            ,func_a = function(bt) 
-                bt.a_id = Absorbs:apply(bt.u,75.0,bt.prio)
+            ,d = 30
+            ,is_d = true
+            ,p = function(bt) return CastingTime:get(bt.s,'A002') end
+            ,func_p = function(bt)
+                UnitDamageTargetBJ(bt.s, bt.u, 5.0, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FIRE)
+            end
+            ,func_a = function(bt)
+                bt.a_id = Absorbs:apply(bt.u,5000.0)
             end
             ,func_e = function(bt)
                 Absorbs:clear(bt.u,bt.a_id)
             end
+        }
+        ,['bloodlust'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
+            }
+            ,d = 30
+            ,st = {
+                ['ctime_factor'] = {0.8,true}
+            }
         }
     }
 

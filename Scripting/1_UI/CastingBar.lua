@@ -73,37 +73,41 @@ do
 
     function cb:start(u,a)
         self.castTime = BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, a), ABILITY_RLF_FOLLOW_THROUGH_TIME, GetUnitAbilityLevel(u, a)-1)
-        self.curTime = self.castTime
-        local texture = BlzGetAbilityStringField(BlzGetUnitAbility(u, a), ABILITY_SF_ICON_ACTIVATED)
-        local fontColor = font_colors[texture]
-        BlzFrameSetTexture(self.icon,'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(a):gsub(" ","") .. '.dds', 0, true)
-        BlzFrameSetTexture(self.bar, texture, 0, true)
-        BlzFrameSetValue(self.bar, 0)
-        BlzFrameSetTextColor(self.text, fontColor)
-        BlzFrameSetTextColor(self.number, fontColor)
-        BlzFrameSetText(self.text, GetAbilityName(a))
-        BlzFrameSetVisible(self.main, true)
-        if not(IsTriggerEnabled(self.timer)) then
-            EnableTrigger(self.timer)
+        if self.castTime > 0 then 
+            self.curTime = self.castTime
+            local texture = BlzGetAbilityStringField(BlzGetUnitAbility(u, a), ABILITY_SF_ICON_ACTIVATED)
+            local fontColor = font_colors[texture]
+            BlzFrameSetTexture(self.icon,'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(a):gsub(" ","") .. '.dds', 0, true)
+            BlzFrameSetTexture(self.bar, texture, 0, true)
+            BlzFrameSetValue(self.bar, 0)
+            BlzFrameSetTextColor(self.text, fontColor)
+            BlzFrameSetTextColor(self.number, fontColor)
+            BlzFrameSetText(self.text, GetAbilityName(a))
+            BlzFrameSetVisible(self.main, true)
+            if not(IsTriggerEnabled(self.timer)) then
+                EnableTrigger(self.timer)
+            end
         end
     end
 
     function cb:stop()
-        if self:getCurTime() <= 0 then
-            BlzFrameSetTextColor(self:getText(), BlzConvertColor(255, 20, 255, 20))
-            BlzFrameSetTextColor(self:getNumber(), BlzConvertColor(255, 20, 255, 20))
-            BlzFrameSetValue(self:getBar(), 100)
-            BlzFrameSetText(self:getText(), 'Completed')
-            BlzFrameSetText(self:getNumber(), '0.0')
-        else 
-            BlzFrameSetTextColor(self:getText(), BlzConvertColor(255, 255, 20, 20))
-            BlzFrameSetTextColor(self:getNumber(), BlzConvertColor(255, 255, 20, 20))
-            BlzFrameSetText(self:getText(), 'Interrupted')
+        if BlzFrameIsVisible(self.main) then
+            if self:getCurTime() <= 0 then
+                BlzFrameSetTextColor(self:getText(), BlzConvertColor(255, 20, 255, 20))
+                BlzFrameSetTextColor(self:getNumber(), BlzConvertColor(255, 20, 255, 20))
+                BlzFrameSetValue(self:getBar(), 100)
+                BlzFrameSetText(self:getText(), 'Completed')
+                BlzFrameSetText(self:getNumber(), '0.0')
+            else 
+                BlzFrameSetTextColor(self:getText(), BlzConvertColor(255, 255, 20, 20))
+                BlzFrameSetTextColor(self:getNumber(), BlzConvertColor(255, 255, 20, 20))
+                BlzFrameSetText(self:getText(), 'Interrupted')
+            end
+            if IsTriggerEnabled(self.timer) then
+                DisableTrigger(self.timer)
+            end
+            FrameFading:fadeout(self.main,1.0)
         end
-        if IsTriggerEnabled(self.timer) then
-            DisableTrigger(self.timer)
-        end
-        FrameFading:fadeout(self.main,1.0)
     end
 
     function cb:progress()

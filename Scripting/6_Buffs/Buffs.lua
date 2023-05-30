@@ -14,6 +14,7 @@ do
                     table.insert(tbl,{
                                     v = v.st[m][1]
                                     ,s = v.st[m][2]
+                                    ,al = v.st[m][3]
                                     ,p = v.prio or 10
                                     ,n = v.bn
                                 })
@@ -81,8 +82,13 @@ do
 
     function b:modify_stats(st,u)
         if Utils:type(st) == 'table' then
+            local ns = {}
             for sn,_ in pairs(st) do
-                Data:get_stat_class(sn):recalculate(u)
+                local c = Data:get_stat_class(sn)
+                if not(ns[c]) then
+                    c:recalculate(u)
+                    ns[c] = true
+                end
             end
         end
     end
@@ -106,6 +112,7 @@ do
                         prio = d.prio or 10
                         ,sc = 1
                         ,bn = d.bn
+                        ,is_d = d.is_d
                     })
                 else
                     t[k].sc = (t[k].sc or 0) + 1
@@ -155,7 +162,6 @@ do
         sc = sc or self:get_stack_count(u,buffs[u][i].bn)
         if buffs[u][i].es or sc == 1 then self:erase_effects(buffs[u][i]) end
         --destroy effects end
-
         if dis and Utils:type(buffs[u][i].func_d) == 'function' then buffs[u][i].func_d(buffs[u][i]) end
         if Utils:type(buffs[u][i].func_e) == 'function' then buffs[u][i].func_e(buffs[u][i]) end
         local st = buffs[u][i].st
@@ -169,7 +175,7 @@ do
             for i = #buffs[u],1,-1 do
                 buffs[u][i].dur = Utils:round(buffs[u][i].dur + 0.01,2)
                 buffs[u][i].per = Utils:round(buffs[u][i].per + 0.01,2)
-                if buffs[u][i].per >= (buffs[u][i].p or buffs[u][i].per + 1) then
+                if buffs[u][i].per >= ((Utils:type(buffs[u][i].p) == 'function' and buffs[u][i].p(buffs[u][i]) or buffs[u][i].p) or buffs[u][i].per + 1) then
                     buffs[u][i].per = 0
                     if Utils:type(buffs[u][i].func_p) == 'function' then buffs[u][i].func_p(buffs[u][i]) end
                 end

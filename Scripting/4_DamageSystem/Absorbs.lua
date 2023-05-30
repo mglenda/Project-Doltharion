@@ -12,7 +12,9 @@ do
         local id = seed[u][1] 
         seed[u][1] = seed[u][1] >= 10000 and 1 or seed[u][1] + 1
         table.insert(data[u], {v = v,p = p or 10,id = id})
+        table.sort(data[u], function (k1, k2) return k1.v > k2.v end)
         table.sort(data[u], function (k1, k2) return k1.p < k2.p end)
+        TextTag:create({u=u,s=StringUtils:round(v,1) .. ' Absorbs',ls = 1.5,r = 75.0,g = 75.0,b = 255.0})
         return id
     end
 

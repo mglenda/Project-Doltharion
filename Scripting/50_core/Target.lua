@@ -11,7 +11,7 @@ do
     end
 
     function target:clearTarget()
-        Absorbs:clear_all(Target.unit)
+        Buffs:apply(Hero:get(),Hero:get(),'bloodlust')
         --Target.unit = nil
         --UI.t_panel:hide()
     end
