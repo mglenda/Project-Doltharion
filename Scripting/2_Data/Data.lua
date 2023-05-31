@@ -66,15 +66,20 @@ do
             -- 'hpreg_factor' = Hit Points Regeneration factor (*)
             -- 'ctime_const' = Casting Time constant (+)
             -- 'ctime_factor' = Casting Time factor (-)
+    local buffs = {}
 
-    local buffs = {
-        ['blasted'] = {
+    function d:get_buff(b)
+        return buffs[b]
+    end
+    
+    OnInit.map(function()
+        buffs['blasted'] = {
             e = {
                 {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
             }
             ,d = 30
             ,is_d = true
-            ,p = function(bt) return CastingTime:get(bt.s,'A002') end
+            ,p = function(bt) return CastingTime:get(bt.s,ElementalFury:get_a_code_dot()) end
             ,func_p = function(bt)
                 UnitDamageTargetBJ(bt.s, bt.u, 5.0, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FIRE)
             end
@@ -85,7 +90,7 @@ do
                 Absorbs:clear(bt.u,bt.a_id)
             end
         }
-        ,['bloodlust'] = {
+        buffs['bloodlust'] = {
             e = {
                 {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
             }
@@ -94,9 +99,5 @@ do
                 ['ctime_factor'] = {0.8,true}
             }
         }
-    }
-
-    function d:get_buff(b)
-        return buffs[b]
-    end
+    end)    
 end

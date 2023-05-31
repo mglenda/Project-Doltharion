@@ -62,4 +62,19 @@ do
     function u:GetUnitXY(u)
         return GetUnitX(u),GetUnitY(u)
     end
+
+    function u:get_distance(x1,y1,x2,y2)
+        return SquareRoot((x2 - x1)^2 + (y2 - y1)^2)
+    end
+
+    function u:get_unit_distance(x1,y1,u)
+        local x2,y2 = self:GetUnitXY(u)
+        return self:get_distance(x1,y1,x2,y2)
+    end
+
+    function u:get_units_distance(u1,u2)
+        local x1,y1 = self:GetUnitXY(u1)
+        local x2,y2 = self:GetUnitXY(u2)
+        return self:get_distance(x1,y1,x2,y2)
+    end
 end
