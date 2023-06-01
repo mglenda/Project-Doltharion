@@ -7,13 +7,11 @@ do
         Target.unit = unit
         UI.t_panel:loadUnit(unit)
         UI.t_panel:show()
-        Buffs:apply(Hero:get(),unit,'blasted')
     end
 
     function target:clearTarget()
-        Buffs:apply(Hero:get(),Hero:get(),'bloodlust')
-        --Target.unit = nil
-        --UI.t_panel:hide()
+        Target.unit = nil
+        UI.t_panel:hide()
     end
 
     function target:get()

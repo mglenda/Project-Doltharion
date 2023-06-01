@@ -49,7 +49,6 @@ do
 
         UI:create()
         UI:rescale(1.2)
-        Cheat('iseedeadpeople')
         --
     end)
 end

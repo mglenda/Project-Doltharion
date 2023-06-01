@@ -17,8 +17,8 @@ do
     function ef:on_cast()
         local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(GetTriggerUnit(), GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
         local x,y = AllUnits:get_cast_point_x(GetTriggerUnit()),AllUnits:get_cast_point_y(GetTriggerUnit())
-        for _,u in ipairs(AllUnits:get_area_alive(x,y,aoe)) do
-            Buffs:apply(GetTriggerUnit(),u,'blasted')
+        for _,u in ipairs(AllUnits:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
+            Buffs:apply(GetTriggerUnit(),u,'pwshield')
         end
     end
 

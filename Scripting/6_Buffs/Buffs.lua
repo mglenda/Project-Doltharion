@@ -162,11 +162,11 @@ do
         sc = sc or self:get_stack_count(u,buffs[u][i].bn)
         if buffs[u][i].es or sc == 1 then self:erase_effects(buffs[u][i]) end
         --destroy effects end
-        if dis and Utils:type(buffs[u][i].func_d) == 'function' then buffs[u][i].func_d(buffs[u][i]) end
-        if Utils:type(buffs[u][i].func_e) == 'function' then buffs[u][i].func_e(buffs[u][i]) end
-        local st = buffs[u][i].st
+        local bt = buffs[u][i]
         table.remove(buffs[u], i)
-        if IsUnitAliveBJ(u) then self:modify_stats(st,u) end
+        if dis and Utils:type(bt.func_d) == 'function' then bt.func_d(bt) end
+        if Utils:type(bt.func_e) == 'function' then bt.func_e(bt) end
+        if IsUnitAliveBJ(u) then self:modify_stats(bt.st,u) end
     end
 
     function b:progress()

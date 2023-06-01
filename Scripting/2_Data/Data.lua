@@ -73,22 +73,35 @@ do
     end
     
     OnInit.map(function()
-        buffs['blasted'] = {
+        buffs['pwshield'] = {
             e = {
-                {m = 'Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl',a = 'chest'}
+                {m = 'war3mapImported\\Sacred Guard Gold.mdx',a = 'chest'}
             }
             ,d = 30
-            ,is_d = true
-            ,p = function(bt) return CastingTime:get(bt.s,ElementalFury:get_a_code_dot()) end
-            ,func_p = function(bt)
-                UnitDamageTargetBJ(bt.s, bt.u, 5.0, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FIRE)
-            end
             ,func_a = function(bt)
-                bt.a_id = Absorbs:apply(bt.u,5000.0)
+                bt.a_id = Absorbs:apply(bt.u,SpellPower:get(bt.s) * 3.0)
+            end
+            ,func_q = function(bt)
+                return not(Absorbs:exists(bt.u,bt.a_id))
             end
             ,func_e = function(bt)
-                Absorbs:clear(bt.u,bt.a_id)
+                if Absorbs:exists(bt.u,bt.a_id) then
+                    Absorbs:clear(bt.u,bt.a_id)
+                else
+                    Buffs:apply(bt.s,bt.u,'innerfire')
+                end
             end
+        }
+        buffs['innerfire'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Human\\InnerFire\\InnerFireTarget.mdl',a = 'overhead'}
+            }
+            ,d = 8
+            ,st = {
+                ['atkspeed'] = {2.0}
+                ,['resist'] = {20}
+                ,['critchance'] = {25}
+            }
         }
         buffs['bloodlust'] = {
             e = {

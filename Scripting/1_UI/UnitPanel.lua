@@ -113,6 +113,7 @@ do
             else
                 BlzFrameSetPoint(f, f_id == 1 and FRAMEPOINT_RIGHT or FRAMEPOINT_LEFT, BlzGetFrameByName('Buff_Frame', (f_id*10) + (i-1)), f_id == 1 and FRAMEPOINT_LEFT or FRAMEPOINT_RIGHT, f_id == 1 and -0.006 or 0.006, 0)
             end
+            BlzFrameSetVisible(f, false)
         end
 
         TriggerAddCondition(refreshTrigger, Filter(function()

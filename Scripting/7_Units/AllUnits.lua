@@ -1,4 +1,4 @@
-do
+do  
     AllUnits = setmetatable({}, {})
     local au = getmetatable(AllUnits)
     au.__index = au
@@ -27,6 +27,15 @@ do
         self:refresh()
         return units
     end
+
+    function au:get_area_alive_ally(x,y,aoe,p)
+        self:refresh()
+        local tbl = {}
+        for u,_ in pairs(units) do
+            if IsUnitAliveBJ(u) and Utils:get_unit_distance(x,y,u) <= aoe and IsUnitAlly(u, p) then table.insert(tbl,u) end
+        end
+        return tbl
+    end
     
     function au:get_area_alive(x,y,aoe)
         self:refresh()
@@ -49,6 +58,12 @@ do
     function au:refresh()
         for u,_ in pairs(units) do
             if GetUnitName(u) == '' then units[u] = nil end
+        end
+    end
+
+    function au:remove()
+        for u,_ in pairs(units) do
+            if u ~= Hero:get() then RemoveUnit(u) end
         end
     end
 
