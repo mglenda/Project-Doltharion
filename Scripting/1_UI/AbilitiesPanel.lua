@@ -164,5 +164,6 @@ do
                 end 
             end
         end
+        self:show()
     end
 end

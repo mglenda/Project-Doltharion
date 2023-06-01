@@ -29,10 +29,11 @@ do
         BlzFrameSetText(BlzGetFrameByName('Details_Bar_Name_Text', self.f_id), GetUnitName(self.unit))
         BlzFrameSetTexture(BlzGetFrameByName('Stats_StatTexture', (self.f_id*10) + UI_STAT_POWER), self.patt == 2 and 'war3mapImported\\STAT_SpellPower.dds' or 'war3mapImported\\STAT_AttackPower.dds', 0, true)
         self:refresh()
+        self:show()
     end
 
     function up:refresh()
-        if self.unit and BlzFrameIsVisible(self.main) then
+        if self.unit then
             BlzFrameSetValue(BlzGetFrameByName('Details_Bar', self.f_id), GetUnitLifePercent(self.unit))
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HP_Text', self.f_id), tostring(math.floor(GetUnitStateSwap(UNIT_STATE_LIFE, self.unit)))..'/'..tostring(math.floor(GetUnitStateSwap(UNIT_STATE_MAX_LIFE, self.unit))))
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%%'.. ' (' .. HitPointsReg:get(self.unit) ..'/sec)')

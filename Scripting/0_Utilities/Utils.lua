@@ -77,4 +77,9 @@ do
         local x2,y2 = self:GetUnitXY(u2)
         return self:get_distance(x1,y1,x2,y2)
     end
+
+    function u:set_unit_xy(u,x,y)
+        SetUnitX(u, x)
+        SetUnitY(u, y)
+    end
 end

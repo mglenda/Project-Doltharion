@@ -22,13 +22,13 @@ do
                 if Utils:type(metaKeys) == 'table' then
                     for _,mk in ipairs(metaKeys) do
                         if Utils:table_contains(m_keys, mk) then
-                            BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Hero:getPlayer(), keys, mk, true)
+                            BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Players:get_player(), keys, mk, true)
                         else
                             print('Controller:registerKeyboardEvent @metaKeys required: values(0-7), passed:' .. Utils:type(mk))
                         end
                     end
                 else
-                    BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Hero:getPlayer(), keys, metaKeys, true)
+                    BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Players:get_player(), keys, metaKeys, true)
                 end
             elseif Utils:type(keys) == 'table' then
                 if Utils:type(metaKeys) == 'table' then
@@ -36,7 +36,7 @@ do
                         if Utils:type(k) == 'oskeytype' then
                             for _,mk in ipairs(metaKeys) do
                                 if Utils:table_contains(m_keys, mk) then
-                                    BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Hero:getPlayer(), k, mk, true)
+                                    BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Players:get_player(), k, mk, true)
                                 else
                                     print('Controller:registerKeyboardEvent @metaKeys required: values(0-7), passed:' .. Utils:type(mk))
                                 end
@@ -48,7 +48,7 @@ do
                 else
                     for _,k in ipairs(keys) do
                         if Utils:type(k) == 'oskeytype' then
-                            BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Hero:getPlayer(), k, metaKeys, true)
+                            BlzTriggerRegisterPlayerKeyEvent(tbl.trigger, Players:get_player(), k, metaKeys, true)
                         else
                             print('Controller:registerKeyboardEvent @keys required: oskeytype/table, passed:' .. Utils:type(k))
                         end

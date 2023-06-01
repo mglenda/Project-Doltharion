@@ -77,7 +77,7 @@ do
             e = {
                 {m = 'war3mapImported\\Sacred Guard Gold.mdx',a = 'chest'}
             }
-            ,d = 30
+            ,d = 5
             ,func_a = function(bt)
                 bt.a_id = Absorbs:apply(bt.u,SpellPower:get(bt.s) * 3.0)
             end

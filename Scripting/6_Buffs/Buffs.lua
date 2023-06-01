@@ -170,7 +170,7 @@ do
     end
 
     function b:progress()
-        if Utils:table_length(buffs) == 0 then DisableTrigger(trg) end
+        local c = 0
         for u,t in pairs(buffs) do
             for i = #buffs[u],1,-1 do
                 buffs[u][i].dur = Utils:round(buffs[u][i].dur + 0.01,2)
@@ -183,7 +183,9 @@ do
                     Buffs:clear(u,i)
                 end
             end
+            c = c + 1
         end
+        if c == 0 then DisableTrigger(trg) end
     end
 
     OnInit.final(function()

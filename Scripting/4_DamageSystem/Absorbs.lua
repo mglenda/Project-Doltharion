@@ -53,6 +53,7 @@ do
         if m <= 0 then
             ShowUnitHide(u)
             ShowUnitShow(u)
+            if u == Hero:get() then SelectUnitForPlayerSingle(u, Players:get_player()) end
         end
     end
 

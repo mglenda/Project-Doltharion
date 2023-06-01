@@ -1,20 +1,20 @@
 do
-    ElementalFury = setmetatable({}, {})
-    local ef = getmetatable(ElementalFury)
-    ef.__index = ef
+    PowerWordShield = setmetatable({}, {})
+    local pws = getmetatable(PowerWordShield)
+    pws.__index = pws
 
     local a_code = 'A000'
     local a_code_dot = 'A002'
 
-    function ef:get_a_code_dot()
+    function pws:get_a_code_dot()
         return a_code_dot
     end
 
-    function ef:get_a_code()
+    function pws:get_a_code()
         return a_code
     end
 
-    function ef:on_cast()
+    function pws:on_cast()
         local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(GetTriggerUnit(), GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
         local x,y = AllUnits:get_cast_point_x(GetTriggerUnit()),AllUnits:get_cast_point_y(GetTriggerUnit())
         for _,u in ipairs(AllUnits:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
@@ -22,14 +22,14 @@ do
         end
     end
 
-    function ef:is_casted()
-        return GetSpellAbilityId() == FourCC(ElementalFury:get_a_code())
+    function pws:is_casted()
+        return GetSpellAbilityId() == FourCC(PowerWordShield:get_a_code())
     end
 
     OnInit.final(function()
         local trg = CreateTrigger()
         TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_SPELL_FINISH)
-        TriggerAddCondition(trg, Condition(ElementalFury.is_casted))
-        TriggerAddAction(trg, ElementalFury.on_cast)
+        TriggerAddCondition(trg, Condition(PowerWordShield.is_casted))
+        TriggerAddAction(trg, PowerWordShield.on_cast)
     end)
 end

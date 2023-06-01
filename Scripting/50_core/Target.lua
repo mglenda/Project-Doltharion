@@ -22,11 +22,11 @@ do
         Controller:registerKeyboardEvent(OSKEY_ESCAPE,Target.clearTarget)
 
         local trg = CreateTrigger()
-        TriggerRegisterPlayerSelectionEventBJ(trg, Hero:getPlayer(), true)
+        TriggerRegisterPlayerSelectionEventBJ(trg, Players:get_player(), true)
         TriggerAddAction(trg, function()
             if GetTriggerUnit() ~= Hero:get() then
                 Target:setTarget(GetTriggerUnit())
-                SelectUnitForPlayerSingle(Hero:get(), Hero:getPlayer())
+                SelectUnitForPlayerSingle(Hero:get(), Players:get_player())
             end
         end)
     end)

@@ -26,8 +26,10 @@ do
         UI:loadTocFile()
         UI.h_panel = UnitPanel:create(0)
         UI.t_panel = UnitPanel:create(1)
-        UI.t_panel:hide()
         UI.a_panel = AbilitiesPanel:create()
+        UI.t_panel:hide()
+        UI.h_panel:hide()
+        UI.a_panel:hide()
         CastingBar:create()
         --this.t_panel:hide()
     end
