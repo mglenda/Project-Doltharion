@@ -15,6 +15,7 @@ do
                         trg = CreateTrigger()
                         ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
                         ,forcedKey = castForcedKey
+                        ,ac = FourCC(v)
                     }
                     local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
                     local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
@@ -42,22 +43,13 @@ do
         end
     end
 
-    function ac:getOrder(trg)
+    function ac:getData(trg)
         for _,v in ipairs(list) do
             if v.trg == trg then
-                return v.order
+                return v.order,v.forcedKey,v.ac
             end
         end
-        return nil
-    end
-
-    function ac:getForcedKey(trg)
-        for _,v in ipairs(list) do
-            if v.trg == trg then
-                return v.forcedKey
-            end
-        end
-        return nil
+        return nil,nil,nil
     end
 
     function ac:reset()
@@ -66,8 +58,8 @@ do
     end
 
     function ac:noTarget()
-        local order = AbilityController:getOrder(GetTriggeringTrigger())
-        if not(Hero:isCasting()) or order ~= Hero:isCasting() then
+        local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
+        if Abilities:is_ability_ready(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
             IssueImmediateOrderById(Hero:get(),order)
         end
@@ -78,8 +70,8 @@ do
     end
 
     function ac:unitTarget()
-        local order = AbilityController:getOrder(GetTriggeringTrigger())
-        if not(Hero:isCasting()) or order ~= Hero:isCasting() then
+        local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
+        if Abilities:is_ability_ready(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
             IssueTargetOrderById(Hero:get(), order, BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get())
         end
@@ -90,10 +82,10 @@ do
     end
 
     function ac:pointTarget()
-        local order = AbilityController:getOrder(GetTriggeringTrigger())
-        if not(Hero:isCasting()) or order ~= Hero:isCasting() then
+        local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
+        if Abilities:is_ability_ready(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
-            ForceUIKeyBJ(Players:get_player(), AbilityController:getForcedKey(GetTriggeringTrigger()))
+            ForceUIKeyBJ(Players:get_player(), fKey)
         end
         if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
             BlzFrameSetEnable(BlzGetTriggerFrame(), false)

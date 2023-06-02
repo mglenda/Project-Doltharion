@@ -113,6 +113,7 @@ do
                         ,sc = 1
                         ,bn = d.bn
                         ,is_d = d.is_d
+                        ,tc = d.tc
                     })
                 else
                     t[k].sc = (t[k].sc or 0) + 1

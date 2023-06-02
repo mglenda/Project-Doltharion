@@ -77,7 +77,7 @@ do
             self.curTime = self.castTime
             local texture = BlzGetAbilityStringField(BlzGetUnitAbility(u, a), ABILITY_SF_ICON_ACTIVATED)
             local fontColor = font_colors[texture]
-            BlzFrameSetTexture(self.icon,'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(a):gsub(" ","") .. '.dds', 0, true)
+            BlzFrameSetTexture(self.icon,'war3mapImported\\BTN' .. GetAbilityName(a):gsub(" ","") .. '.dds', 0, true)
             BlzFrameSetTexture(self.bar, texture, 0, true)
             BlzFrameSetValue(self.bar, 0)
             BlzFrameSetTextColor(self.text, fontColor)

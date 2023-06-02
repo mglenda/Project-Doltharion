@@ -63,6 +63,10 @@ do
         return GetUnitX(u),GetUnitY(u)
     end
 
+    function u:GetUnitXYZ(u)
+        return GetUnitX(u),GetUnitY(u),self:get_unit_z(u)
+    end
+
     function u:get_distance(x1,y1,x2,y2)
         return SquareRoot((x2 - x1)^2 + (y2 - y1)^2)
     end
@@ -81,5 +85,51 @@ do
     function u:set_unit_xy(u,x,y)
         SetUnitX(u, x)
         SetUnitY(u, y)
+    end
+
+    local loc = Location(0, 0)
+
+    function u:get_unit_z(u) 
+        MoveLocation(loc,GetUnitX(u),GetUnitY(u))
+        return GetLocationZ(loc) + GetUnitFlyHeight(u)
+    end
+
+    function u:get_point_z(x,y)
+        MoveLocation(loc,x,y)
+        return GetLocationZ(loc)
+    end
+
+    function u:get_rect_min_max(r)
+        return GetRectMinX(r),GetRectMinY(r),GetRectMaxX(r),GetRectMaxY(r)
+    end
+
+    function u:is_unit_in_rect(u,r)
+        local ux,uy = self:GetUnitXY(u)
+        local rx1,ry1,rx2,ry2 = self:get_rect_min_max(r)
+        return not(ux <= rx1 or uy <= ry1 or ux >= rx2 or uy >= ry2)
+    end
+
+    function u:get_rad_between_points(x1,y1,x2,y2)
+        return Atan2(y2 - y1, x2 - x1)
+    end
+
+    function u:get_angle_between_points(x1,y1,x2,y2)
+        return self:get_rad_between_points(x1,y1,x2,y2) * bj_RADTODEG
+    end
+
+    function u:move_x(x,d,r)
+        return x + d * Cos(r)
+    end
+
+    function u:move_y(y,d,r)
+        return y + d * Sin(r)
+    end
+
+    function u:move_xy(x,y,d,r)
+        return self:move_x(x,d,r),self:move_y(y,d,r)
+    end
+
+    function u:mod(a,b)
+        return a - math.floor(a/b)*b
     end
 end

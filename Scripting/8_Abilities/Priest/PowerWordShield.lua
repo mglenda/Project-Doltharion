@@ -4,32 +4,31 @@ do
     pws.__index = pws
 
     local a_code = 'A000'
-    local a_code_dot = 'A002'
-
-    function pws:get_a_code_dot()
-        return a_code_dot
-    end
 
     function pws:get_a_code()
-        return a_code
+        return FourCC(a_code)
+    end
+
+    function pws:get_s_color()
+        return BlzConvertColor(255, 0, 0, 0)
+    end
+
+    function pws:get_c_color()
+        return BlzConvertColor(255, 255, 255, 255)
     end
 
     function pws:on_cast()
         local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(GetTriggerUnit(), GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
         local x,y = AllUnits:get_cast_point_x(GetTriggerUnit()),AllUnits:get_cast_point_y(GetTriggerUnit())
+        local eff = AddSpecialEffect('war3mapImported\\Empyrean Nova.mdx', x, y)
+        BlzSetSpecialEffectScale(eff, Utils:round(aoe / 350.0,2))
+        DestroyEffect(eff)
         for _,u in ipairs(AllUnits:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
             Buffs:apply(GetTriggerUnit(),u,'pwshield')
         end
     end
 
-    function pws:is_casted()
-        return GetSpellAbilityId() == FourCC(PowerWordShield:get_a_code())
-    end
-
-    OnInit.final(function()
-        local trg = CreateTrigger()
-        TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_SPELL_FINISH)
-        TriggerAddCondition(trg, Condition(PowerWordShield.is_casted))
-        TriggerAddAction(trg, PowerWordShield.on_cast)
+    OnInit.map(function()
+        Data:register_ability_class(PowerWordShield:get_a_code(),PowerWordShield)
     end)
 end

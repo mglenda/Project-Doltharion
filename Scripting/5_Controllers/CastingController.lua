@@ -7,6 +7,7 @@ do
         self.trigger = CreateTrigger()
         TriggerRegisterAnyUnitEventBJ(self.trigger, EVENT_PLAYER_UNIT_SPELL_EFFECT)
         TriggerRegisterAnyUnitEventBJ(self.trigger, EVENT_PLAYER_UNIT_SPELL_ENDCAST)
+        TriggerRegisterAnyUnitEventBJ(self.trigger, EVENT_PLAYER_UNIT_SPELL_FINISH)
         TriggerAddAction(self.trigger, self.onCast)
     end
 
@@ -16,15 +17,18 @@ do
             if GetTriggerUnit() == Hero:get() then
                 Hero:setCasting(CastingController:getOrder())
                 CastingBar:start(Hero:get(),GetSpellAbilityId())
-                UI.a_panel:setPushed(UI.a_panel:getFrameByAbility(GetSpellAbilityId()))
+                UI.a_panel:setPushed(GetSpellAbilityId())
             end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_ENDCAST then
             AllUnits:clear_cast_point(GetTriggerUnit())
             if GetTriggerUnit() == Hero:get() then
                 Hero:clearCasting()
                 CastingBar:stop()
-                UI.a_panel:setNormal(UI.a_panel:getFrameByAbility(GetSpellAbilityId()))
+                UI.a_panel:setNormal(GetSpellAbilityId())
             end
+        elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_FINISH then
+            Abilities:start_ability_cooldown(GetTriggerUnit(),GetSpellAbilityId())
+            if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_cast) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_cast() end
         end
     end
     

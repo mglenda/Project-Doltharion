@@ -27,13 +27,10 @@ Frame "SIMPLEFRAME" "AbilityButton_Icon"{
 	Texture "AbilityButton_Icon_Texture" {
 		File "war3mapImported\BTNElementalMagnet.dds",
 	}
-}
-
-Frame "SIMPLEFRAME" "AbilityButton_FocusLayer"{
-	Width 0.025,
-	Height 0.025,
-	Texture "AbilityButton_FocusLayer_Texture" {
-		File "war3mapImported\FocusLayer.dds",
+	String "AbilityButton_Icon_Text" {
+		Anchor TOP, 0, -0.003,
+		Font "Prototype.ttf", 0.015,
+		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
 

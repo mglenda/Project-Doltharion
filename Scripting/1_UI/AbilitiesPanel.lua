@@ -4,6 +4,7 @@ do
     ap.__index = ap
 
     function ap:hide()
+        DisableTrigger(self.trg)
         if BlzFrameIsVisible(self.listenerCont) then BlzFrameSetVisible(self.listenerCont, false) end
         if BlzFrameIsVisible(self.main) then BlzFrameSetVisible(self.main, false) end
     end
@@ -11,6 +12,7 @@ do
     function ap:show()
         if not(BlzFrameIsVisible(self.listenerCont)) then BlzFrameSetVisible(self.listenerCont, true) end
         if not(BlzFrameIsVisible(self.main)) then BlzFrameSetVisible(self.main, true) end
+        EnableTrigger(self.trg)
     end
 
     function ap:rescale()
@@ -38,6 +40,12 @@ do
         }
         this.list = {}
         this.listeners = {}
+        this.trg = CreateTrigger()
+        TriggerRegisterTimerEventPeriodic(this.trg, 0.1)
+        DisableTrigger(this.trg)
+        TriggerAddAction(this.trg, function()
+            if UI.a_panel then UI.a_panel:refresh_ability_status() end
+        end)
         
         local x,y = 0.4 - (2 * UI:getConst('ab_border_def_width')),0.0
 
@@ -51,14 +59,11 @@ do
             for j,f_id in ipairs(tbl) do
                 cur = BlzCreateSimpleFrame('AbilityButton_Border', this.main, tonumber(f_id))
                 local icon = BlzCreateSimpleFrame('AbilityButton_Icon', cur, tonumber(f_id))
-                local focus = BlzCreateSimpleFrame('AbilityButton_FocusLayer', cur, tonumber(f_id))
                 local shortcut = BlzCreateSimpleFrame('AbilityButton_Shortcut', icon, tonumber(f_id))
                 local listener = BlzCreateFrame('AbilityButton_Listener', this.listenerCont, 0, tonumber(f_id))
                 BlzFrameSetPoint(icon, FRAMEPOINT_CENTER, cur, FRAMEPOINT_CENTER, 0, 0)
                 BlzFrameSetPoint(shortcut, FRAMEPOINT_BOTTOMRIGHT, icon, FRAMEPOINT_BOTTOMRIGHT, 0, 0)
                 BlzFrameSetPoint(listener, FRAMEPOINT_CENTER, cur, FRAMEPOINT_CENTER, 0, 0)
-                BlzFrameSetPoint(focus, FRAMEPOINT_CENTER, cur, FRAMEPOINT_CENTER, 0, 0)
-                BlzFrameSetVisible(focus, false)
                 if i == 1 and j == 1 then
                     BlzFrameSetAbsPoint(cur, FRAMEPOINT_BOTTOMLEFT, x, y)
                 else
@@ -111,32 +116,42 @@ do
     end
 
     function ap:reset()
-        self:hideIcons()
-        Controller:destroy('ui_abilities')
         self.list = {}
+        self:hideIcons()
     end
 
-    function ap:setNormal(frame)
-        BlzFrameSetTexture(frame, 'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(self:getAbilityByFrame(frame)):gsub(" ","") .. '.dds', 0, true)
+    function ap:setNormal(ac)
+        if Utils:type(self.list[ac]) == 'table' then 
+            self.list[ac][2] = false
+            self.list[ac][3] = false
+            BlzFrameSetTexture(self.list[ac][1], 'war3mapImported\\BTN' .. GetAbilityName(ac):gsub(" ","") .. '.dds', 0, true)
+            BlzFrameSetTextColor(self.list[ac][4], Data:get_ability_class(ac):get_s_color())
+        end
     end
 
-    function ap:setPushed(frame)
-        BlzFrameSetTexture(frame, 'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(self:getAbilityByFrame(frame)):gsub(" ","") .. 'Pushed.dds', 0, true)
+    function ap:setPushed(ac)
+        if Utils:type(self.list[ac]) == 'table' then 
+            self.list[ac][3] = false
+            if not(self.list[ac][2]) then
+                BlzFrameSetTexture(self.list[ac][1], 'war3mapImported\\BTN' .. GetAbilityName(ac):gsub(" ","") .. 'Pushed.dds', 0, true)
+            end
+            self.list[ac][2] = true
+        end
     end
 
-    function ap:getAbilityByFrame(frame)
-        return self.list[frame]
+    function ap:setDisabled(ac)
+        if Utils:type(self.list[ac]) == 'table' then 
+            self.list[ac][2] = false
+            if not(self.list[ac][3]) then 
+                BlzFrameSetTexture(self.list[ac][1], 'war3mapImported\\BTN' .. GetAbilityName(ac):gsub(" ","") .. 'Disabled.dds', 0, true) 
+                BlzFrameSetTextColor(self.list[ac][4], Data:get_ability_class(ac):get_c_color())
+            end
+            self.list[ac][3] = true
+        end
     end
 
     function ap:getAbilityByListener(frame)
         return self.listeners[frame]
-    end
-
-    function ap:getFrameByAbility(abCode)
-        for frame,v in pairs(self.list) do
-            if v == abCode then return frame end
-        end
-        return nil
     end
 
     function ap:getListenerByAbility(abCode)
@@ -144,6 +159,23 @@ do
             if v == abCode then return frame end
         end
         return nil
+    end
+
+    function ap:refresh_ability_status()
+        if self.list then 
+            for ac,v in pairs(self.list) do
+                local s,st,c = Abilities:get_ability_status(Hero:get(),ac)
+                if not(self.list[ac][2]) then
+                    if s == 'rdy' then 
+                        self:setNormal(ac)
+                        BlzFrameSetText(self.list[ac][4], st > 1 and StringUtils:round(st,0) or '')
+                    elseif s == 'cd' then 
+                        self:setDisabled(ac) 
+                        BlzFrameSetText(self.list[ac][4], StringUtils:round(c,1))
+                    end
+                end
+            end
+        end
     end
     
     function ap:loadUnit(u)
@@ -158,8 +190,9 @@ do
                     local sc = BlzGetAbilityActivatedTooltip(FourCC(v), GetUnitAbilityLevel(u,FourCC(v)))
                     BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_Shortcut', tonumber(x .. y)), not(sc == 'Tool tip missing!'))
                     BlzFrameSetText(BlzGetFrameByName('AbilityButton_Shortcut_Text', tonumber(x .. y)), sc == 'Tool tip missing!' and '' or sc:sub(1, 1))
-                    BlzFrameSetTexture(BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)), 'ReplaceableTextures\\CommandButtons\\BTN' .. GetAbilityName(FourCC(v)):gsub(" ","") .. '.dds', 0, true)
-                    self.list[BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y))] = FourCC(v)
+                    BlzFrameSetText(BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y)),'')
+                    BlzFrameSetTexture(BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)), 'war3mapImported\\BTN' .. GetAbilityName(FourCC(v)):gsub(" ","") .. '.dds', 0, true)
+                    self.list[FourCC(v)] = {BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)),false,false,BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y))}
                     self.listeners[BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y))] = FourCC(v)
                 end 
             end

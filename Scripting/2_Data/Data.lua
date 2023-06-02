@@ -26,7 +26,19 @@ do
     function d:get_stat_class(sn)
         return stats[sn]
     end
+
+    local abilities = {}
+
+    function d:register_ability_class(ac,class)
+        abilities[ac] = class
+    end
+
+    function d:get_ability_class(ac)
+        return abilities[ac]
+    end
+
     --reserved u,s,bn,dur,per,a_id
+    --tc = text color :: defines color of stack text viac func BlzConvertColor(a, r, g, b), if not defined default value is used = BlzConvertColor(255, 255, 255, 255)
     --is_d = isdebuff :: true if it is negative debuff, not set or false if it is positive buff
     --d = duration :: number bigger than 0 to set buff duration, not set = infinite duration
     --prio = priority :: define what is priority of the buff by which it will be sorted for various actions, lower number = higher priority
@@ -79,7 +91,7 @@ do
             }
             ,d = 5
             ,func_a = function(bt)
-                bt.a_id = Absorbs:apply(bt.u,SpellPower:get(bt.s) * 3.0)
+                bt.a_id = Absorbs:apply(bt.s,bt.u,SpellPower:get(bt.s) * 3.0)
             end
             ,func_q = function(bt)
                 return not(Absorbs:exists(bt.u,bt.a_id))
@@ -91,6 +103,7 @@ do
                     Buffs:apply(bt.s,bt.u,'innerfire')
                 end
             end
+            ,tc = BlzConvertColor(255, 0, 0, 0)
         }
         buffs['innerfire'] = {
             e = {

@@ -5,16 +5,21 @@ do
 
     local data = {}
     local seed = {}
+    local dcm = 1.5
 
-    function a:apply(u,v,p)
+    function a:apply(s,u,v,p)
         if Utils:type(data[u]) ~= 'table' then data[u] = {} end
         seed[u] = seed[u] or 1
         local id = seed[u]
         seed[u] = seed[u] >= 10000 and 1 or seed[u] + 1
+        v = v * GetRandomReal(0.99, 1.01)
+        local crit = CriticalChance:get(s) >= GetRandomInt(1, 100)
+        if crit then v = v * dcm end
+        v = Utils:round(v,0)
         table.insert(data[u], {v = v,p = p or 10,id = id,m = v})
         table.sort(data[u], function (k1, k2) return k1.v > k2.v end)
         table.sort(data[u], function (k1, k2) return k1.p < k2.p end)
-        TextTag:create({u=u,s=StringUtils:round(v,1) .. ' Absorbs',ls = 1.5,r = 145.0,g = 145.0,b = 255.0})
+        TextTag:create({u=u,fs=crit and TextTag:defFontSize() * 1.2 or TextTag:defFontSize(),s=(v >= 0 and '+' or '-') .. StringUtils:round(v,0) .. ' Absorbs',ls = crit and 2.5 or 1.5,r = 145.0,g = 145.0,b = 255.0})
         self:set_mana(u)
         return id
     end

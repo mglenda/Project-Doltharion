@@ -40,13 +40,18 @@ do
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),StringUtils:round(CriticalChance:get(self.unit),0)..'%%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),self.patt == 2 and StringUtils:round(SpellPower:get(self.unit),0) or StringUtils:round(AttackPower:get(self.unit),0))
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%%')
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),StringUtils:round(AttackDamage:get(self.unit),0))
+            if BlzGetUnitWeaponBooleanField(self.unit, UNIT_WEAPON_BF_ATTACKS_ENABLED, 0) then
+                BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),StringUtils:round(AttackDamage:get(self.unit),0) .. ' (' .. StringUtils:round(AttackSpeed:get(self.unit),2) .. ')')
+            else
+                BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),'None')
+            end
             local bt = Buffs:get_ui_tbl(self.unit)
             for i=1,9 do
                 if bt[i] then
                     if not(BlzFrameIsVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i))) then BlzFrameSetVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i), true) end
-                    BlzFrameSetTexture(BlzGetFrameByName('Buff_Texture', (self.f_id*10) + i), 'ReplaceableTextures\\CommandButtons\\' .. (bt[i].is_d and 'debuff_' or 'buff_') .. bt[i].bn .. '.dds', 0, true)
+                    BlzFrameSetTexture(BlzGetFrameByName('Buff_Texture', (self.f_id*10) + i), 'war3mapImported\\' .. (bt[i].is_d and 'debuff_' or 'buff_') .. bt[i].bn .. '.dds', 0, true)
                     BlzFrameSetText(BlzGetFrameByName('Buff_Text', (self.f_id*10) + i),tostring(bt[i].sc > 1 and bt[i].sc or ''))
+                    BlzFrameSetTextColor(BlzGetFrameByName('Buff_Text', (self.f_id*10) + i), bt[i].tc or BlzConvertColor(255, 255, 255, 255))
                 else
                     BlzFrameSetVisible(BlzGetFrameByName('Buff_Frame', (self.f_id*10) + i), false)
                 end 
