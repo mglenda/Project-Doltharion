@@ -18,7 +18,11 @@ do
     end
 
     function b:on_cast()
-        Buffs:apply(GetTriggerUnit(),GetTriggerUnit(),'bloodlust')
+        local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(GetTriggerUnit(), GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
+        local x,y = Utils:GetUnitXY(GetTriggerUnit())
+        for _,u in ipairs(Units:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
+            Buffs:apply(GetTriggerUnit(),u,'bloodlust')
+        end
     end
 
     OnInit.map(function()

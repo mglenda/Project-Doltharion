@@ -19,11 +19,11 @@ do
 
     function pws:on_cast()
         local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(GetTriggerUnit(), GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
-        local x,y = AllUnits:get_cast_point_x(GetTriggerUnit()),AllUnits:get_cast_point_y(GetTriggerUnit())
+        local x,y = Units:get_cast_point_x(GetTriggerUnit()),Units:get_cast_point_y(GetTriggerUnit())
         local eff = AddSpecialEffect('war3mapImported\\Empyrean Nova.mdx', x, y)
         BlzSetSpecialEffectScale(eff, Utils:round(aoe / 350.0,2))
         DestroyEffect(eff)
-        for _,u in ipairs(AllUnits:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
+        for _,u in ipairs(Units:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
             Buffs:apply(GetTriggerUnit(),u,'pwshield')
         end
     end

@@ -37,6 +37,35 @@ do
         return abilities[ac]
     end
 
+    local units = {}
+
+    OnInit.map(function()
+        units[FourCC('h004')] = {
+            l = 2
+            ,cl = PLAYER_COLOR_VIOLET
+        }
+        units[FourCC('h002')] = {
+            l = 2
+            ,cl = PLAYER_COLOR_LIGHT_BLUE
+        }
+        units[FourCC('h003')] = {
+            l = 3
+            ,cl = PLAYER_COLOR_WHEAT
+        }
+        units[FourCC('h001')] = {
+            l = 1
+            ,cl = PLAYER_COLOR_LIGHT_BLUE
+        }
+        units[FourCC('H000')] = {
+            l = 1
+            ,cl = PLAYER_COLOR_AQUA
+        }
+    end)
+
+    function d:get_unit_data(u)
+        return units[u] or {}
+    end
+
     --reserved u,s,bn,dur,per,a_id
     --tc = text color :: defines color of stack text viac func BlzConvertColor(a, r, g, b), if not defined default value is used = BlzConvertColor(255, 255, 255, 255)
     --is_d = isdebuff :: true if it is negative debuff, not set or false if it is positive buff
@@ -89,7 +118,7 @@ do
             e = {
                 {m = 'war3mapImported\\Sacred Guard Gold.mdx',a = 'chest'}
             }
-            ,d = 5
+            ,d = 30
             ,func_a = function(bt)
                 bt.a_id = Absorbs:apply(bt.s,bt.u,SpellPower:get(bt.s) * 3.0)
             end
@@ -111,7 +140,7 @@ do
             }
             ,d = 8
             ,st = {
-                ['atkspeed'] = {2.0}
+                ['atkspeed'] = {2.0,true}
                 ,['resist'] = {20}
                 ,['critchance'] = {25}
             }
@@ -123,6 +152,7 @@ do
             ,d = 30
             ,st = {
                 ['ctime_factor'] = {0.8,true}
+                ,['atkspeed'] = {1.35,true}
             }
         }
     end)    

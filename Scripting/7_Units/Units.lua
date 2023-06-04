@@ -1,6 +1,6 @@
 do  
-    AllUnits = setmetatable({}, {})
-    local au = getmetatable(AllUnits)
+    Units = setmetatable({}, {})
+    local au = getmetatable(Units)
     au.__index = au
 
     local units = {}
@@ -23,7 +23,7 @@ do
         return nil
     end
 
-    function au:get()
+    function au:get_all()
         self:refresh()
         return units
     end
@@ -61,7 +61,7 @@ do
         end
     end
 
-    function au:remove()
+    function au:remove_all()
         for u,_ in pairs(units) do
             if u ~= Hero:get() then RemoveUnit(u) end
         end
@@ -83,6 +83,7 @@ do
     local oldCreateUnit = CreateUnit
     function CreateUnit(p, ut, x, y, a)
         local u = oldCreateUnit(p, ut, x, y, a)
+        SetUnitColor(u, Data:get_unit_data(ut).cl or PLAYER_COLOR_SNOW)
         units[u] = {}
         return u
     end

@@ -13,14 +13,14 @@ do
 
     function cc:onCast()
         if GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_EFFECT then
-            AllUnits:register_cast_point(GetTriggerUnit(),GetSpellTargetX(),GetSpellTargetY())
+            Units:register_cast_point(GetTriggerUnit(),GetSpellTargetX(),GetSpellTargetY())
             if GetTriggerUnit() == Hero:get() then
                 Hero:setCasting(CastingController:getOrder())
                 CastingBar:start(Hero:get(),GetSpellAbilityId())
                 UI.a_panel:setPushed(GetSpellAbilityId())
             end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_ENDCAST then
-            AllUnits:clear_cast_point(GetTriggerUnit())
+            Units:clear_cast_point(GetTriggerUnit())
             if GetTriggerUnit() == Hero:get() then
                 Hero:clearCasting()
                 CastingBar:stop()
