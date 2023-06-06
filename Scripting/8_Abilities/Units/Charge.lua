@@ -23,7 +23,8 @@ do
     function ch:on_cast()
         local u = GetTriggerUnit()
         local x,y = Units:get_cast_point_x(u),Units:get_cast_point_y(u)
-        units[u] = {x=x,y=y,g={},tr = BlzGetUnitRealField(u, UNIT_RF_TURN_RATE)}
+        units[u] = units[u] or {x=x,y=y,g={}}
+        units[u].tr = units[u].tr or BlzGetUnitRealField(u, UNIT_RF_TURN_RATE)
         SetUnitPathing(u, false)
         SetUnitFacing(u, Utils:get_angle_between_points(GetUnitX(u),GetUnitY(u),x,y))
         EnableTrigger(trg)
@@ -36,7 +37,10 @@ do
             local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_RLF_CAST_RANGE, 0) 
             local dist,t = 0,{}
             for _,uu in ipairs(Units:get_area_alive_enemy(GetUnitX(u),GetUnitY(u),aoe,GetOwningPlayer(u))) do
-                table.insert(t,{u=uu,d=Utils:get_units_distance(u,uu)})
+                local d = Utils:get_units_distance(u,uu)
+                if d > 200.0 then 
+                    table.insert(t,{u=uu,d=d})
+                end
             end
             if #t == 0 then 
                 return false 
@@ -58,16 +62,18 @@ do
             SetUnitFacing(u, rad * bj_RADTODEG)
             x,y = Utils:move_xy(x,y,14.0,rad)
             local ude = not(Units:exists(u))
-            if Utils:get_distance(x,y,t.x,t.y) <= 20.0 or IsUnitDeadBJ(u) or ude then
+            if Utils:get_distance(x,y,t.x,t.y) <= 50.0 or IsUnitDeadBJ(u) or ude then
                 local tr = units[u].tr
                 units[u] = nil
                 if not(ude) then 
                     BlzSetUnitRealField(u,UNIT_RF_TURN_RATE,tr)
                     SetUnitPathing(u, true)
                     ResetUnitAnimation(u)
+                    MoveSpeed:recalculate(u)
                 end
             else
                 SetUnitAnimationByIndex(u, Data:get_unit_data(GetUnitTypeId(u)).a_w or 0)
+                MoveSpeed:set(u,0)
                 for _,un in ipairs(Units:get_area_alive_enemy(x,y,75.0,GetOwningPlayer(u))) do
                     if not(Utils:itable_contains(units[u].g,un)) then
                         table.insert(units[u].g,un)

@@ -59,6 +59,10 @@ do
         return s-c > 0
     end
 
+    function a:is_ability_available(u,ac)
+        return self:is_ability_ready(u,ac)
+    end
+
     function a:reset_ability_cooldown(u,ac)
         if Utils:type(cooldowns[u]) == 'table' then
             for i=#cooldowns[u],1,-1 do 

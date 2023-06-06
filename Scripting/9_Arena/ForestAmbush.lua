@@ -82,4 +82,8 @@ do
         Hero:move()
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
     end
+
+    OnInit.final(function()
+        Arena:register(ForestAmbush)
+    end)
 end

@@ -21,6 +21,8 @@ do
         stats['hpreg_factor'] = HitPointsReg
         stats['ctime_const'] = CastingTime
         stats['ctime_factor'] = CastingTime
+        stats['movespeed_const'] = MoveSpeed
+        stats['movespeed_factor'] = MoveSpeed
     end)
 
     function d:get_stat_class(sn)
@@ -101,6 +103,8 @@ do
             -- 'spepow_const = Spell Power constant (+)
             -- 'spepow_factor' = Spell Power factor (*)
             -- 'atkspeed' = Attack Speed (0 - 4.0) where numbers bellow 1 are slow and above 1 are boost
+            -- 'movespeed_const' = Moving Speed constant (+)
+            -- 'movespeed_factor' = Moving Speed factor (*)
             -- 'attdmg_const' = Attack Damage constant (+)
             -- 'attdmg_factor' = Attack Damage factor (*)
             -- 'hp_const' = Hit Points constant (+)

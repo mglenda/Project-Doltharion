@@ -8,7 +8,7 @@ do
 
     function b:get_all_modifiers(u,m)
         local tbl = {}
-        if Utils:type(buffs[u] == 'table') then
+        if Utils:type(buffs[u]) == 'table' then
             for i,v in ipairs(buffs[u]) do
                 if Utils:type(v.st) == 'table' and v.st[m] then
                     table.insert(tbl,{

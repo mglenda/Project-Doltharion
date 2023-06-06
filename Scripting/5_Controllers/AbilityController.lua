@@ -59,7 +59,7 @@ do
 
     function ac:noTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
-        if Abilities:is_ability_ready(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
             IssueImmediateOrderById(Hero:get(),order)
         end
@@ -71,7 +71,7 @@ do
 
     function ac:unitTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
-        if Abilities:is_ability_ready(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
             IssueTargetOrderById(Hero:get(), order, BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get())
         end
@@ -83,7 +83,7 @@ do
 
     function ac:pointTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
-        if Abilities:is_ability_ready(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
             ForceUIKeyBJ(Players:get_player(), fKey)
         end

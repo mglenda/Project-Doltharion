@@ -37,15 +37,13 @@ do
 
     function a:start(i)
         self.arenas[i]:start()
+        AI:start()
     end
 
     function a:stop(i)
+        AI:stop()
         self:flush_triggers()
         self.arenas[i].stop()
         self.data = {}
     end
-
-    OnInit.final(function()
-        Arena:register(ForestAmbush)
-    end)
 end

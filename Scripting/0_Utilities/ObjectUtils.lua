@@ -5,10 +5,10 @@ do
 
     local ab_codes = {}
 
-    function mt:getUnitAbilities(u)
+    function mt:getUnitAbilities(u,noAatk)
         local list = {}
         for _,ab_code in ipairs(ab_codes) do
-            if GetUnitAbilityLevel(u, FourCC(ab_code)) > 0 then
+            if GetUnitAbilityLevel(u, FourCC(ab_code)) > 0 and (not(noAatk) or ab_code ~= 'Aatk') then
                 table.insert(list,{ac = ab_code,p = BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, FourCC(ab_code)), ABILITY_ILF_MANA_COST, 0)})
             end
         end
