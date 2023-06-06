@@ -10,5 +10,14 @@ do
         TriggerAddAction(trg, function()
             Arena:stop(1)
         end)
+        trg = CreateTrigger()
+        TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "c", true)
+        TriggerAddAction(trg, function()
+            for u,_ in pairs(Units:get_all()) do
+                if GetUnitTypeId(u) == FourCC('h003') then
+                    print(tostring(Charge:ai_cast(u)))
+                end
+            end
+        end)
     end)
 end

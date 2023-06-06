@@ -23,15 +23,32 @@ do
     function ch:on_cast()
         local u = GetTriggerUnit()
         local x,y = Units:get_cast_point_x(u),Units:get_cast_point_y(u)
-        units[u] = {x=x,y=y,g={}}
+        units[u] = {x=x,y=y,g={},tr = BlzGetUnitRealField(u, UNIT_RF_TURN_RATE)}
         SetUnitPathing(u, false)
         SetUnitFacing(u, Utils:get_angle_between_points(GetUnitX(u),GetUnitY(u),x,y))
         EnableTrigger(trg)
+        BlzSetUnitRealField(u,UNIT_RF_TURN_RATE,0)
     end
 
-    function ch:on_end()
-        SetUnitAnimationByIndex(GetTriggerUnit(), Data:get_unit_data(GetUnitTypeId(GetTriggerUnit())).a_w or 0)
-    end 
+    function ch:ai_cast(u)
+        if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 then
+            local order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
+            local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_RLF_CAST_RANGE, 0) 
+            local dist,t = 0,{}
+            for _,uu in ipairs(Units:get_area_alive_enemy(GetUnitX(u),GetUnitY(u),aoe,GetOwningPlayer(u))) do
+                table.insert(t,{u=uu,d=Utils:get_units_distance(u,uu)})
+            end
+            if #t == 0 then 
+                return false 
+            else
+                table.sort(t, function (k1, k2) return k1.d > k2.d end)
+                local x,y = Utils:GetUnitXY(t[1].u)
+                IssuePointOrderById(u, order, x, y)
+                return true
+            end
+        end
+        return false
+    end
 
     function ch:period()
         local c = 0
@@ -39,12 +56,18 @@ do
             local x,y = Utils:GetUnitXY(u)
             local rad = Utils:get_rad_between_points(x,y,t.x,t.y)
             SetUnitFacing(u, rad * bj_RADTODEG)
-            x,y = Utils:move_xy(x,y,16.0,rad)
-            if Utils:get_distance(x,y,t.x,t.y) <= 20.0 then
+            x,y = Utils:move_xy(x,y,14.0,rad)
+            local ude = not(Units:exists(u))
+            if Utils:get_distance(x,y,t.x,t.y) <= 20.0 or IsUnitDeadBJ(u) or ude then
+                local tr = units[u].tr
                 units[u] = nil
-                SetUnitPathing(u, true)
-                ResetUnitAnimation(u)
+                if not(ude) then 
+                    BlzSetUnitRealField(u,UNIT_RF_TURN_RATE,tr)
+                    SetUnitPathing(u, true)
+                    ResetUnitAnimation(u)
+                end
             else
+                SetUnitAnimationByIndex(u, Data:get_unit_data(GetUnitTypeId(u)).a_w or 0)
                 for _,un in ipairs(Units:get_area_alive_enemy(x,y,75.0,GetOwningPlayer(u))) do
                     if not(Utils:itable_contains(units[u].g,un)) then
                         table.insert(units[u].g,un)

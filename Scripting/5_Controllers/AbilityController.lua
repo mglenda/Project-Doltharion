@@ -7,18 +7,18 @@ do
 
     function ac:load()
         for _,v in ipairs(ObjectUtils:getUnitAbilities(Hero:get())) do
-            if v ~= 'Aatk' then
-                local d = BlzGetAbilityActivatedTooltip(FourCC(v), GetUnitAbilityLevel(Hero:get(),FourCC(v)))
+            if v.ac ~= 'Aatk' then
+                local d = BlzGetAbilityActivatedTooltip(FourCC(v.ac), GetUnitAbilityLevel(Hero:get(),FourCC(v.ac)))
                 if d ~= 'Tool tip missing!' then
                     local castOsKey,castType,castForcedKey = ConvertOsKeyType(string.byte(d:sub(1,1))) ,d:sub(3,3),d:sub(5,5)
                     local tbl = {
                         trg = CreateTrigger()
-                        ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
+                        ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
                         ,forcedKey = castForcedKey
-                        ,ac = FourCC(v)
+                        ,ac = FourCC(v.ac)
                     }
-                    local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
-                    local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
+                    local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
+                    local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
 
                     BlzTriggerRegisterFrameEvent(tbl.trg, BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y)), FRAMEEVENT_CONTROL_CLICK)
                     BlzTriggerRegisterPlayerKeyEvent(tbl.trg, Players:get_player(), castOsKey, 0, true)

@@ -14,20 +14,22 @@ do
     function cc:onCast()
         if GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_EFFECT then
             Units:register_cast_point(GetTriggerUnit(),GetSpellTargetX(),GetSpellTargetY())
+            Units:register_casting(GetTriggerUnit(),GetSpellAbilityId())
             if GetTriggerUnit() == Hero:get() then
                 Hero:setCasting(CastingController:getOrder())
                 CastingBar:start(Hero:get(),GetSpellAbilityId())
                 UI.a_panel:setPushed(GetSpellAbilityId())
-                if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_start) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_start() end
             end
+            if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_start) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_start() end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_ENDCAST then
             Units:clear_cast_point(GetTriggerUnit())
+            Units:clear_casting(GetTriggerUnit())
             if GetTriggerUnit() == Hero:get() then
                 Hero:clearCasting()
                 CastingBar:stop()
                 UI.a_panel:setNormal(GetSpellAbilityId())
-                if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_end) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_end() end
             end
+            if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_end) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_end() end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_FINISH then
             Abilities:start_ability_cooldown(GetTriggerUnit(),GetSpellAbilityId())
             if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_cast) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_cast() end

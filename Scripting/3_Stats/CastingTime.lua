@@ -13,12 +13,12 @@ do
 
     function ct:recalculate(u)
         local ns,m,ab,abs = {},self:get_modifiers_const(u),{},ObjectUtils:getUnitAbilities(u)
-        for _,a in pairs(abs) do if a ~= 'Aatk' then ab[a] = self:get_default(u,a) end end
+        for _,a in pairs(abs) do if a.ac ~= 'Aatk' then ab[a.ac] = self:get_default(u,a.ac) end end
         for i,v in ipairs(m) do
             if not(ns[v.n]) then 
                 local al = Utils:type(v.al) == 'table' and v.al or abs
                 for _,a in ipairs(al) do
-                    if a ~= 'Aatk' and ab[a] then ab[a] = ab[a] + v.v end
+                    if a.ac ~= 'Aatk' and ab[a.ac] then ab[a.ac] = ab[a.ac] + v.v end
                 end
                 ns[v.n] = not(v.s)
             end
@@ -28,7 +28,7 @@ do
             if not(ns[v.n]) then 
                 local al = Utils:type(v.al) == 'table' and v.al or abs
                 for _,a in ipairs(al) do
-                    if a ~= 'Aatk' and ab[a] then ab[a] = ab[a] * v.v end
+                    if a.ac ~= 'Aatk' and ab[a.ac] then ab[a.ac] = ab[a.ac] * v.v end
                 end
                 ns[v.n] = not(v.s)
             end

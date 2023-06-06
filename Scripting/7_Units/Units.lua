@@ -4,7 +4,19 @@ do
     au.__index = au
 
     local units = {}
+
+    function au:register_casting(u,a)
+        units[u].ca = a
+    end
+
+    function au:clear_casting(u)
+        units[u].ca = nil
+    end
     
+    function au:is_casting(u)
+        return units[u].ca
+    end
+
     function au:register_cast_point(u,x,y)
         units[u].cp = {x=x,y=y}
     end
@@ -68,6 +80,10 @@ do
         for u,_ in pairs(units) do
             if GetUnitName(u) == '' then units[u] = nil end
         end
+    end
+
+    function au:exists(u)
+        return not(GetUnitName(u) == '')
     end
 
     function au:remove_all()
