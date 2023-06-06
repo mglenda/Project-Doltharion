@@ -18,6 +18,7 @@ do
                 Hero:setCasting(CastingController:getOrder())
                 CastingBar:start(Hero:get(),GetSpellAbilityId())
                 UI.a_panel:setPushed(GetSpellAbilityId())
+                if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_start) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_start() end
             end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_ENDCAST then
             Units:clear_cast_point(GetTriggerUnit())
@@ -25,6 +26,7 @@ do
                 Hero:clearCasting()
                 CastingBar:stop()
                 UI.a_panel:setNormal(GetSpellAbilityId())
+                if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_end) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_end() end
             end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_FINISH then
             Abilities:start_ability_cooldown(GetTriggerUnit(),GetSpellAbilityId())

@@ -51,6 +51,7 @@ do
         units[FourCC('h003')] = {
             l = 3
             ,cl = PLAYER_COLOR_WHEAT
+            ,a_w = 0
         }
         units[FourCC('h001')] = {
             l = 1
@@ -59,6 +60,7 @@ do
         units[FourCC('H000')] = {
             l = 1
             ,cl = PLAYER_COLOR_AQUA
+            ,a_w = 2
         }
     end)
 

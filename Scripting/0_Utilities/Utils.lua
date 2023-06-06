@@ -4,9 +4,18 @@ do
     u.__index = u
 
     function u:table_contains(tbl, x)
-        for _, v in pairs(tbl) do
+        for i, v in pairs(tbl) do
             if v == x then 
                 return true 
+            end
+        end
+        return false
+    end
+
+    function u:itable_contains(tbl, x)
+        for i,v in ipairs(tbl) do
+            if v == x then 
+                return i 
             end
         end
         return false
