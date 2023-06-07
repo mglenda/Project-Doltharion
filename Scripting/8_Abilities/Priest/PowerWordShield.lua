@@ -25,6 +25,7 @@ do
         DestroyEffect(eff)
         for _,u in ipairs(Units:get_area_alive_ally(x,y,aoe,GetOwningPlayer(GetTriggerUnit()))) do
             Buffs:apply(GetTriggerUnit(),u,'pwshield')
+            Heal:unit(GetTriggerUnit(),u,SpellPower:get(GetTriggerUnit()) * 4.0)
         end
     end
 

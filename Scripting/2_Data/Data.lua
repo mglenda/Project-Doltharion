@@ -132,8 +132,10 @@ do
                 return not(Absorbs:exists(bt.u,bt.a_id))
             end
             ,func_e = function(bt)
-                if Absorbs:exists(bt.u,bt.a_id) then
+                local av = Absorbs:exists(bt.u,bt.a_id)
+                if av then
                     Absorbs:clear(bt.u,bt.a_id)
+                    Heal:unit(bt.s,bt.u,av*2.5)
                 else
                     Buffs:apply(bt.s,bt.u,'innerfire')
                 end

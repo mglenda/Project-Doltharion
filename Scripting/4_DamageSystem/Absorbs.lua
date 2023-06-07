@@ -70,7 +70,7 @@ do
     function a:exists(u,id)
         if Utils:type(data[u]) == 'table' then
             for i,v in ipairs(data[u]) do
-                if v.id == id then return true end
+                if v.id == id then return v.v end
             end
         end
         return false
