@@ -101,6 +101,7 @@ do
 
     local oldRemoveUnit = RemoveUnit
     function RemoveUnit(u)
+        Buffs:erase_unit(u)
         units[u] = nil
         oldRemoveUnit(u)
     end

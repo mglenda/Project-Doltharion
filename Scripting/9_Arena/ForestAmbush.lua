@@ -80,7 +80,7 @@ do
         PauseAllUnitsBJ(false)
         Abilities:reset_all_cooldowns(Hero:get())
         Hero:move()
-        PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
+        --PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
     end
 
     OnInit.final(function()

@@ -6,6 +6,10 @@ do
     local buffs = {}
     local trg = CreateTrigger()
 
+    function b:erase_unit(u)
+        buffs[u] = nil
+    end
+
     function b:get_all_modifiers(u,m)
         local tbl = {}
         if Utils:type(buffs[u]) == 'table' then

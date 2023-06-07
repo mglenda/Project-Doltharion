@@ -6,6 +6,7 @@ do
     local dcm = 1.5
 
     function h:unit(s,u,v)
+        v = v * GetRandomReal(0.99, 1.01)
         local crit = CriticalChance:get(s) >= GetRandomInt(1, 100)
         v = crit and v * dcm or v
         local hp = GetUnitState(u, UNIT_STATE_LIFE)
