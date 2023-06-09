@@ -46,7 +46,6 @@ do
         SetUnitFacing(Hero:get(), 90.0)
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
         FogModifierStart(self.vision)
-        Abilities:reset_all_cooldowns(Hero:get())
 
         self:initial_spawn()
         Warband:spawn(90.0)

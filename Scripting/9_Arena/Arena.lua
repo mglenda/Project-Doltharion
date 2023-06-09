@@ -36,6 +36,7 @@ do
     end
 
     function a:start(i)
+        Abilities:reset_all_cooldowns(Hero:get())
         self.arenas[i]:start()
         AI:start()
     end
@@ -45,5 +46,6 @@ do
         self:flush_triggers()
         self.arenas[i].stop()
         self.data = {}
+        Abilities:reset_all_cooldowns(Hero:get())
     end
 end
