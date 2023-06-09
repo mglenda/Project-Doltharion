@@ -4,6 +4,7 @@ do
     au.__index = au
 
     local units = {}
+    local d_trg = CreateTrigger()
 
     function au:register_casting(u,a)
         units[u].ca = a
@@ -92,6 +93,27 @@ do
         end
     end
 
+    function au:on_death()
+        local u = GetDyingUnit()
+        if Utils:type(units[u].odf) == 'table' then
+            for i,v in pairs(units[u].odf) do
+                if Utils:type(v) == 'function' then v() end
+            end
+        end 
+        units[u].odf = nil
+    end
+
+    function au:register_on_death(u,i,f)
+        units[u].odf = units[u].odf or {}
+        units[u].odf[i] = f
+    end
+
+    function au:clear_on_death(u,i)
+        if Utils:type(units[u].odf) == 'table' then
+            units[u].odf[i] = nil
+        end 
+    end
+
     local oldBlzCreateUnitWithSkin = BlzCreateUnitWithSkin
     function BlzCreateUnitWithSkin(p, ut, x, y, a, s)
         local u = oldBlzCreateUnitWithSkin(p, ut, x, y, a, s)
@@ -113,4 +135,9 @@ do
         units[u] = {}
         return u
     end
+
+    OnInit.final(function()
+        TriggerRegisterAnyUnitEventBJ(d_trg, EVENT_PLAYER_UNIT_DEATH)
+        TriggerAddAction(d_trg, Units.on_death)
+    end)
 end

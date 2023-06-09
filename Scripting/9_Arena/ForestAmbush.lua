@@ -56,6 +56,10 @@ do
         TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_ATTACKED)
         TriggerAddAction(trg, self.focus_boss_as_last)
 
+        Units:register_on_death(Arena:get('boss'),'fa_boss_death',function()
+            print('boss is dead')
+        end)
+
         self:begin()
     end
 
