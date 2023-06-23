@@ -25,9 +25,11 @@ do
         for u,_ in pairs(Units:get_all()) do
             if IsUnitAliveBJ(u) and u ~= Hero:get() then
                 local abs = ObjectUtils:getUnitAbilities(u,true)
-                for _,v in ipairs(abs) do
-                    if Abilities:is_ability_available(u,FourCC(v.ac)) then
-                        if Utils:type(Data:get_ability_class(FourCC(v.ac)).ai_cast) == 'function' and Data:get_ability_class(FourCC(v.ac)):ai_cast(u) then break end
+                if not(Units:is_casting(u)) then
+                    for _,v in ipairs(abs) do
+                        if Abilities:is_ability_available(u,FourCC(v.ac)) then
+                            if Utils:type(Data:get_ability_class(FourCC(v.ac)).ai_cast) == 'function' and Data:get_ability_class(FourCC(v.ac)):ai_cast(u) then break end
+                        end
                     end
                 end
             end

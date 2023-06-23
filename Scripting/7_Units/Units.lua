@@ -123,6 +123,7 @@ do
 
     local oldRemoveUnit = RemoveUnit
     function RemoveUnit(u)
+        if u == Target:get() then Target:clearTarget() end
         Buffs:erase_unit(u)
         units[u] = nil
         oldRemoveUnit(u)

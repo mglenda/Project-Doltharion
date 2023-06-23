@@ -4,11 +4,10 @@ do
     target.__index = target
 
     function target:setTarget(unit)
-        if self.e then DestroyEffect(self.e) end
+        self:clear_e()
         if self.unit then Units:clear_on_death(self.unit,'target') end
         Units:register_on_death(unit,'target',function()
-            local e = Target:get_e()
-            if e then DestroyEffect(e) end
+            Target:clear_e()
         end)
         self.e = AddSpecialEffectTarget('Abilities\\Spells\\Other\\Aneu\\AneuTarget.mdl', unit, 'overhead')
         self.unit = unit
@@ -17,14 +16,17 @@ do
     end
 
     function target:clearTarget()
-        if self.e then DestroyEffect(self.e) end
+        self:clear_e()
         if self.unit then Units:clear_on_death(self.unit,'target') end
         self.unit = nil
         UI.t_panel:hide()
     end
 
-    function target:get_e()
-        return self.e
+    function target:clear_e()
+        if self.e then 
+            DestroyEffect(self.e)
+            self.e = nil
+        end
     end
 
     function target:get()

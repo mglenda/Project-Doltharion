@@ -91,7 +91,7 @@ do
                   --element should be table containing: 
                   --value at 1st position 
                   --true/false at 2nd position to define wether effect stacks or no where true means it does stack and false/nil/undefined means it does not
-                  --ability list which are affected by effect at 3rd position, false/nil means all abilities are affected
+                  --ability list at 3rd position which are affected by effect at 3rd position, false/nil means all abilities are affected
                   --Example: st = {['resist'] = {10,true}} = means this buff incrase resistance of unit by 10 per stack
                   --Example: st = {['resist'] = {5}}  = means this buff incrase resistance of unit by 5, does not stack
                   --Example: st = {['resist'] = {8,false}}  = means this buff incrase resistance of unit by 8, does not stack
