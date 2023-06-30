@@ -63,10 +63,6 @@ do
             CastingController:setOrder(order)
             IssueImmediateOrderById(Hero:get(),order)
         end
-        if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
-            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
-            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        end
     end
 
     function ac:unitTarget()
@@ -75,10 +71,6 @@ do
             CastingController:setOrder(order)
             IssueTargetOrderById(Hero:get(), order, BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get())
         end
-        if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
-            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
-            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        end
     end
 
     function ac:pointTarget()
@@ -86,10 +78,6 @@ do
         if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
             ForceUIKeyBJ(Players:get_player(), fKey)
-        end
-        if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
-            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
-            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
         end
     end
 end

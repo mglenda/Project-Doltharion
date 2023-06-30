@@ -163,5 +163,12 @@ do
                 ,['atkspeed'] = {1.35,true}
             }
         }
+        buffs['united'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
+            }
+            ,nd = true
+            ,ms = 1
+        }
     end)    
 end

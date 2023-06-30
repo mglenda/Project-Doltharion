@@ -114,13 +114,6 @@ do
         end 
     end
 
-    local oldBlzCreateUnitWithSkin = BlzCreateUnitWithSkin
-    function BlzCreateUnitWithSkin(p, ut, x, y, a, s)
-        local u = oldBlzCreateUnitWithSkin(p, ut, x, y, a, s)
-        units[u] = {}
-        return u
-    end
-
     local oldRemoveUnit = RemoveUnit
     function RemoveUnit(u)
         if u == Target:get() then Target:clearTarget() end
@@ -134,7 +127,26 @@ do
         local u = oldCreateUnit(p, ut, x, y, a)
         SetUnitColor(u, Data:get_unit_data(ut).cl or PLAYER_COLOR_SNOW)
         units[u] = {}
+        Units:check_auras(u)
         return u
+    end
+
+    local oldBlzCreateUnitWithSkin = BlzCreateUnitWithSkin
+    function BlzCreateUnitWithSkin(p, ut, x, y, a, s)
+        local u = oldBlzCreateUnitWithSkin(p, ut, x, y, a, s)
+        units[u] = {}
+        Units:check_auras(u)
+        return u
+    end
+
+    function au:check_auras(u)
+        for _,v in ipairs(ObjectUtils:getUnitAbilities(u)) do
+            if v.ac ~= 'Aatk' then
+                if Data:get_ability_class(FourCC(v.ac)) and Utils:type(Data:get_ability_class(FourCC(v.ac)).aura_periodic) == 'function' then
+                    Data:get_ability_class(FourCC(v.ac)):enable()
+                end
+            end
+        end
     end
 
     OnInit.final(function()

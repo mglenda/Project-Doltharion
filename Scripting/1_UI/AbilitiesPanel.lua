@@ -52,7 +52,7 @@ do
         this.main = BlzCreateSimpleFrame('AbilityContainer', UI:getConst('screen_frame'), 0)
         this.listenerCont = BlzCreateFrame('AbilityListenerContainer', UI:getConst('screen_frame'), 0, 0)
         --HOVERING BEHAVIOR UNCOMMENT WHEN/IF ACTIZZARD FIX FRAMEEVENT_MOUSE_ENTER BUG https://us.forums.blizzard.com/en/warcraft3/t/jasslua-frameeventmouseenter-infinite-loop/28659
-        --this.hoverListener = CreateTrigger()
+        this.hoverListener = CreateTrigger()
         
         local prev,cur = nil,nil
         for i,tbl in ipairs(this.predef) do
@@ -75,19 +75,24 @@ do
                 --HOVERING BEHAVIOR UNCOMMENT WHEN/IF ACTIZZARD FIX FRAMEEVENT_MOUSE_ENTER BUG https://us.forums.blizzard.com/en/warcraft3/t/jasslua-frameeventmouseenter-infinite-loop/28659
                 --[[BlzTriggerRegisterFrameEvent(this.hoverListener, listener, FRAMEEVENT_MOUSE_ENTER)
                 BlzTriggerRegisterFrameEvent(this.hoverListener, listener, FRAMEEVENT_MOUSE_LEAVE)]]--
+                BlzTriggerRegisterFrameEvent(this.hoverListener, listener, FRAMEEVENT_CONTROL_CLICK)
                 prev = cur
             end
         end
-        --HOVERING BEHAVIOR UNCOMMENT WHEN/IF ACTIZZARD FIX FRAMEEVENT_MOUSE_ENTER BUG https://us.forums.blizzard.com/en/warcraft3/t/jasslua-frameeventmouseenter-infinite-loop/28659
-        --[[TriggerAddAction(this.hoverListener, function()
-            local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), this:getAbilityByListener(BlzGetTriggerFrame())), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
+        TriggerAddAction(this.hoverListener, function()
+            --HOVERING BEHAVIOR UNCOMMENT WHEN/IF ACTIZZARD FIX FRAMEEVENT_MOUSE_ENTER BUG https://us.forums.blizzard.com/en/warcraft3/t/jasslua-frameeventmouseenter-infinite-loop/28659
+            --[[local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), this:getAbilityByListener(BlzGetTriggerFrame())), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
             local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), this:getAbilityByListener(BlzGetTriggerFrame())), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
             if BlzGetTriggerFrameEvent() == FRAMEEVENT_MOUSE_ENTER then
                 BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_FocusLayer', tonumber(x .. y)), true)
             elseif BlzGetTriggerFrameEvent() == FRAMEEVENT_MOUSE_LEAVE then
                 BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_FocusLayer', tonumber(x .. y)), false)
+            end]]--
+            if BlzGetTriggerFrameEvent() == FRAMEEVENT_CONTROL_CLICK then
+                BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+                BlzFrameSetEnable(BlzGetTriggerFrame(), true)
             end
-        end)]]--
+        end)
 
         this:hideIcons()
 
