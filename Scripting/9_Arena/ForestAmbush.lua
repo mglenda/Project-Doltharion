@@ -6,7 +6,10 @@ do
     function fa:create()
         self.arena = Rect(-7456.0, -11808.0, -5504.0, -9184.0)
         self.spawn = Rect(-6528.0, -11456.0, -6432.0, -11360.0)
-        self.vision = CreateFogModifierRectBJ(false, Players:get_player(), FOG_OF_WAR_VISIBLE, self.arena)
+        self.visions = {
+                CreateFogModifierRectBJ(false, Players:get_player(), FOG_OF_WAR_VISIBLE, self.arena)
+                ,CreateFogModifierRectBJ(false, Players:get_bandits(), FOG_OF_WAR_VISIBLE, self.arena)
+        }
         self.boss_spawn = Rect(-6464.0, -9664.0, -6368.0, -9568.0)
         self.boss_id = 'n005'
         return self
@@ -45,7 +48,7 @@ do
         Hero:move(GetRectCenterX(self.spawn),GetRectCenterY(self.spawn))
         SetUnitFacing(Hero:get(), 90.0)
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
-        FogModifierStart(self.vision)
+        for _,v in ipairs(self.visions) do FogModifierStart(v) end
 
         self:initial_spawn()
         Warband:spawn(90.0)

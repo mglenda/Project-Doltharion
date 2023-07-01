@@ -53,7 +53,7 @@ do
         end
         return false
     end
-
+    
     function ch:period()
         local c = 0
         for u,t in pairs(units) do

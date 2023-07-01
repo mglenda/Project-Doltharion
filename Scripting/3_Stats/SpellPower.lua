@@ -35,10 +35,10 @@ do
     end
 
     function sp:get(u)
-        return GetHeroInt(u, false) + BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, sp_ability), ABILITY_ILF_INTELLIGENCE_BONUS, 0)
+        return (GetHeroInt(u, false) + (Data:get_unit_data(GetUnitTypeId(u)).spower or 0)) + BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, sp_ability), ABILITY_ILF_INTELLIGENCE_BONUS, 0)
     end
 
     function sp:get_default(u)
-        return GetHeroInt(u, false)
+        return (GetHeroInt(u, false) + (Data:get_unit_data(GetUnitTypeId(u)).spower or 0))
     end
 end

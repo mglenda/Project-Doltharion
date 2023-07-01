@@ -9,7 +9,7 @@ do
         local list = {}
         for _,ab_code in ipairs(ab_codes) do
             if GetUnitAbilityLevel(u, FourCC(ab_code)) > 0 and (not(noAatk) or ab_code ~= 'Aatk') then
-                table.insert(list,{ac = ab_code,p = BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, FourCC(ab_code)), ABILITY_ILF_MANA_COST, 0)})
+                table.insert(list,{ac = ab_code,p = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(ab_code)), ABILITY_IF_TARGET_ATTACHMENTS)})
             end
         end
         table.sort(list, function (k1, k2) return k1.p < k2.p end)

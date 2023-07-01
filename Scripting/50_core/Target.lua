@@ -34,7 +34,9 @@ do
     end
 
     OnInit.map(function()
-        Controller:registerKeyboardEvent(OSKEY_ESCAPE,Target.clearTarget)
+        Controller:registerKeyboardEvent(OSKEY_ESCAPE,function()
+            Target:clearTarget()
+        end)
 
         local trg = CreateTrigger()
         TriggerRegisterPlayerSelectionEventBJ(trg, Players:get_player(), true)

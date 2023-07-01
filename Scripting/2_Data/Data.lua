@@ -64,6 +64,12 @@ do
             ,cl = PLAYER_COLOR_AQUA
             ,a_w = 2
         }
+        units[FourCC('h005')] = {
+            l = 4
+            ,cl = PLAYER_COLOR_AQUA
+            ,patt = 2
+            ,spower = 35.0
+        }
     end)
 
     function d:get_unit_data(u)
@@ -165,7 +171,7 @@ do
         }
         buffs['united'] = {
             e = {
-                {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
+                {m = 'Abilities\\Spells\\Orc\\CommandAura\\CommandAura.mdl',a = 'origin'}
             }
             ,nd = true
             ,ms = 1

@@ -31,7 +31,7 @@ do
                         if t ~= u then uc = uc + 1 end
                     end
                     if uc > 0 then
-                        Buffs:apply(u,u,'united',{st = {['resist'] = {6 * (uc > 10 and 10 or uc)}}})
+                        Buffs:apply(u,u,'united',{st = {['attdmg_const'] = {8 * (uc > 10 and 10 or uc)},['resist'] = {6 * (uc > 10 and 10 or uc)}}})
                     else
                         Buffs:clear_buff(u,'united')
                     end

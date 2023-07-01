@@ -14,6 +14,8 @@ do
         ,{u = FourCC('h001'),l = 3}
         ,{u = FourCC('h001'),l = 3}
         ,{u = FourCC('h001'),l = 3}
+        ,{u = FourCC('h005'),l = 4}
+        ,{u = FourCC('h005'),l = 4}
     }
 
     function w:spawn(facing)

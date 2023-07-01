@@ -24,7 +24,7 @@ do
 
     function up:loadUnit(unit)
         self.unit = unit
-        self.patt = BlzGetUnitIntegerField(unit, UNIT_IF_PRIMARY_ATTRIBUTE)
+        self.patt = Data:get_unit_data(GetUnitTypeId(unit)).patt or BlzGetUnitIntegerField(unit, UNIT_IF_PRIMARY_ATTRIBUTE)
         BlzFrameSetTexture(BlzGetFrameByName('Details_UnitIconTexture', self.f_id), 'ReplaceableTextures\\CommandButtons\\BTN' .. GetUnitName(self.unit):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetText(BlzGetFrameByName('Details_Bar_Name_Text', self.f_id), GetUnitName(self.unit))
         BlzFrameSetTexture(BlzGetFrameByName('Stats_StatTexture', (self.f_id*10) + UI_STAT_POWER), self.patt == 2 and 'war3mapImported\\STAT_SpellPower.dds' or 'war3mapImported\\STAT_AttackPower.dds', 0, true)
