@@ -12,6 +12,8 @@ do
             return 0.03 * scale
         elseif def == 'screen_frame' then
             return BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
+        elseif def == 'scale' then 
+            return scale 
         end
         return nil
     end

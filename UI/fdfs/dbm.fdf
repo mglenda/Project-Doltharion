@@ -1,0 +1,41 @@
+Frame "SIMPLEFRAME" "DBM_TimerFrame" {
+	Width 0.19,
+	Height 0.0281,
+	Texture "DBM_TimerFrame_Background" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "DBM_TimerFrameIcon" {
+	Width 0.0281,
+	Height 0.0281,
+	Texture "DBM_TimerFrameIcon_Texture" {
+		File "war3mapImported\BTN_Bloodlust.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "DBM_TimerBar" {
+	Width 0.1619,
+	Height 0.0271,
+	BarTexture "war3mapImported\DBM_BarFill_Green.dds",
+}
+
+Frame "SIMPLEFRAME" "DBM_TimerBar_Name" {
+	Width 0.1619,
+	Height 0.0281,
+	String "DBM_TimerBar_Name_Text" {
+		Anchor LEFT, 0.0069, 0,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "DBM_TimerBar_Time" {
+	Width 0.1619,
+	Height 0.0281,
+	String "DBM_TimerBar_Time_Text" {
+		Anchor RIGHT, -0.0069, 0,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}

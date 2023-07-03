@@ -12,6 +12,7 @@ do
         }
         self.boss_spawn = Rect(-6464.0, -9664.0, -6368.0, -9568.0)
         self.boss_id = 'n005'
+        self.r_spawn = Rect(-5920.0, -9408.0, -5728.0, -9248.0)
         return self
     end
 
@@ -44,6 +45,23 @@ do
         end
     end
 
+    function fa:reinforcements()
+        local x,y = GetRectCenterX(ForestAmbush.r_spawn),GetRectCenterY(ForestAmbush.r_spawn)
+        local facing = 270.0
+        for i = 1,3 do 
+            CreateUnit(Players:get_bandits(), FourCC('n002'),x,y,facing)
+            CreateUnit(Players:get_bandits(), FourCC('n001'),x,y,facing)
+        end
+        for i = 1,4 do 
+            CreateUnit(Players:get_bandits(), FourCC('n000'),x,y,facing)
+        end
+        for i = 1,2 do 
+            CreateUnit(Players:get_bandits(), FourCC('n004'),x,y,facing)
+            CreateUnit(Players:get_bandits(), FourCC('n003'),x,y,facing)
+        end
+        DBM:create({t=50.0,n='Reinforcements',t_bar=BarType:red(),f=ForestAmbush.reinforcements,t_icon='war3mapImported\\BTNUnitedAura.dds'})
+    end
+
     function fa:start()
         Hero:move(GetRectCenterX(self.spawn),GetRectCenterY(self.spawn))
         SetUnitFacing(Hero:get(), 90.0)
@@ -54,15 +72,20 @@ do
         Warband:spawn(90.0)
         PauseAllUnitsBJ(true)
         
-        Units:register_on_death(Arena:get('boss'),'fa_boss_death',function()
-            print('boss is dead')
-        end)
+        Units:register_on_death(Arena:get('boss'),'fa_boss_death',ForestAmbush.victory)
 
-        self:begin()
+        DBM:create({t=5.0,n='Begin in',t_bar=BarType:darkgreen(),f=ForestAmbush.begin,t_icon='war3mapImported\\ArenaBegin.dds'})
+    end
+
+    function fa:victory()
+        PauseAllUnitsBJ(true)
+        DBM:pause_all()
+        DBM:create({t=10.0,n='Victory',t_bar=BarType:darkgreen(),f=function() Arena:stop(1) end,t_icon='war3mapImported\\ArenaBegin.dds'})
     end
 
     function fa:begin()
         PauseAllUnitsBJ(false)
+        DBM:create({t=35.0,n='Reinforcements',t_bar=BarType:red(),f=ForestAmbush.reinforcements,t_icon='war3mapImported\\BTNUnitedAura.dds'})
     end
 
     function fa:stop()

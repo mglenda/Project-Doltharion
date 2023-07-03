@@ -52,7 +52,7 @@ do
     function p:missle_fly()
         for i = #mt,1,-1 do
             local ude = not(Units:exists(mt[i].t))
-            if Utils:get_distance(BlzGetLocalSpecialEffectX(mt[i].m),BlzGetLocalSpecialEffectY(mt[i].m),GetUnitX(mt[i].t),GetUnitY(mt[i].t)) <= 30.0 or ude then 
+            if Utils:get_distance(mt[i].mx,mt[i].my,GetUnitX(mt[i].t),GetUnitY(mt[i].t)) <= 30.0 or ude then 
                 if not(ude) and IsUnitAliveBJ(mt[i].t) then
                     if IsUnitEnemy(mt[i].t, GetOwningPlayer(mt[i].c)) then
                         DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 1.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_DIVINE,FourCC(a_code))
@@ -66,9 +66,9 @@ do
                 local r = Utils:get_rad_between_points(mt[i].mx,mt[i].my,GetUnitX(mt[i].t),GetUnitY(mt[i].t))
                 mt[i].mx = Utils:move_x(mt[i].mx,14.0,r)
                 mt[i].my = Utils:move_y(mt[i].my,14.0,r)
-                mt[i].a = mt[i].a + 0.125
-                local x = mt[i].mx + Cos(mt[i].a) * 25.0
-                local y = mt[i].my + Sin(mt[i].a) * 25.0
+                mt[i].a = mt[i].a + 0.1
+                local x = mt[i].mx + Cos(mt[i].a) * 45.0
+                local y = mt[i].my + Sin(mt[i].a) * 45.0
                 BlzSetSpecialEffectX(mt[i].m, x)
                 BlzSetSpecialEffectY(mt[i].m, y)
                 BlzSetSpecialEffectZ(mt[i].m, 75.0)

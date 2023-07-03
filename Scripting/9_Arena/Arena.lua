@@ -16,9 +16,11 @@ do
     end
 
     function a:flush_triggers()
-        for i=#self.triggers,1,-1 do
-            DestroyTrigger(self.triggers[i])
-            table.remove(self.triggers,i)
+        if Utils:type(self.triggers) == 'table' then 
+            for i=#self.triggers,1,-1 do
+                DestroyTrigger(self.triggers[i])
+                table.remove(self.triggers,i)
+            end
         end
     end
 
@@ -42,6 +44,7 @@ do
     end
 
     function a:stop(i)
+        DBM:destroy_all()
         AI:stop()
         self:flush_triggers()
         self.arenas[i].stop()

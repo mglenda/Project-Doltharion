@@ -42,7 +42,7 @@ do
                 u = CreateUnit(Players:get_empire(),ut,x,y,facing)
                 x,y = Utils:move_xy(GetUnitX(u),GetUnitY(u),100.0,Deg2Rad(facing+90))
             end
-            d = d + 200.0
+            d = d + 150.0
         end
     end
 end

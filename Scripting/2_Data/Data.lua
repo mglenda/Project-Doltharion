@@ -180,5 +180,13 @@ do
             ,nd = true
             ,ms = 1
         }
+        buffs['empired'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Other\\GeneralAuraTarget\\GeneralAuraTarget.mdl',a = 'origin'}
+            }
+            ,nd = true
+            ,ms = 1
+            ,d = 1.2
+        }
     end)    
 end
