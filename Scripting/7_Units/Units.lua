@@ -41,6 +41,15 @@ do
         return units
     end
 
+    function au:get_alive_enemy(p)
+        self:refresh()
+        local tbl = {}
+        for u,_ in pairs(units) do
+            if IsUnitAliveBJ(u) and IsUnitEnemy(u, p) then table.insert(tbl,u) end
+        end
+        return tbl
+    end
+
     function au:get_area_alive_enemy(x,y,aoe,p)
         self:refresh()
         local tbl = {}

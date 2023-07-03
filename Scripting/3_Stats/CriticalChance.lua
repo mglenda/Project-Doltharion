@@ -26,10 +26,10 @@ do
     end
 
     function cc:get(u)
-        return (IsHeroUnitId(GetUnitTypeId(u)) and GetHeroAgi(u, false) or 10.0) + BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, cc_ability), ABILITY_ILF_AGILITY_BONUS, 0)
+        return (GetHeroAgi(u, false) + (Data:get_unit_data(GetUnitTypeId(u)).crit or 10)) + BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, cc_ability), ABILITY_ILF_AGILITY_BONUS, 0)
     end
 
     function cc:get_default(u)
-        return (IsHeroUnitId(GetUnitTypeId(u)) and GetHeroAgi(u, false) or 10.0)
+        return (GetHeroAgi(u, false) + (Data:get_unit_data(GetUnitTypeId(u)).crit or 10))
     end
 end

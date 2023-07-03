@@ -53,28 +53,12 @@ do
         self:initial_spawn()
         Warband:spawn(90.0)
         PauseAllUnitsBJ(true)
-
-        local trg = Arena:create_trigger()
-        TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_ATTACKED)
-        TriggerAddAction(trg, self.focus_boss_as_last)
-
+        
         Units:register_on_death(Arena:get('boss'),'fa_boss_death',function()
             print('boss is dead')
         end)
 
         self:begin()
-    end
-
-    function fa:focus_boss_as_last()
-        if GetAttackedUnitBJ() == Arena:get('boss') then 
-            local a = GetAttacker()
-            for u,_ in pairs(Units:get_all()) do
-                if IsUnitEnemy(u, GetOwningPlayer(a)) and u ~= Arena:get('boss') and IsUnitAliveBJ(u) then
-                    IssueTargetOrderBJ(a, 'attack', u)
-                    break
-                end
-            end
-        end
     end
 
     function fa:begin()

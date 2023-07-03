@@ -5,7 +5,6 @@ do
 
     local warband = {
         {u = FourCC('h004'),l = 1}
-        ,{u = FourCC('h003'),l = 1}
         ,{u = FourCC('h004'),l = 1}
         ,{u = FourCC('h002'),l = 2}
         ,{u = FourCC('h002'),l = 2}
@@ -15,6 +14,7 @@ do
         ,{u = FourCC('h001'),l = 3}
         ,{u = FourCC('h001'),l = 3}
         ,{u = FourCC('h005'),l = 4}
+        ,{u = FourCC('h003'),l = 4}
         ,{u = FourCC('h005'),l = 4}
     }
 
@@ -42,7 +42,7 @@ do
                 u = CreateUnit(Players:get_empire(),ut,x,y,facing)
                 x,y = Utils:move_xy(GetUnitX(u),GetUnitY(u),100.0,Deg2Rad(facing+90))
             end
-            d = d + 100.0
+            d = d + 200.0
         end
     end
 end

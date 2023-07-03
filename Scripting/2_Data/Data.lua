@@ -53,7 +53,8 @@ do
         units[FourCC('h003')] = {
             l = 3
             ,cl = PLAYER_COLOR_WHEAT
-            ,a_w = 0
+            ,a_walk = 0
+            ,p_tolerance = 2
         }
         units[FourCC('h001')] = {
             l = 1
@@ -62,13 +63,15 @@ do
         units[FourCC('H000')] = {
             l = 1
             ,cl = PLAYER_COLOR_AQUA
-            ,a_w = 2
+            ,a_walk = 2
+            ,p = 3
         }
         units[FourCC('h005')] = {
             l = 4
-            ,cl = PLAYER_COLOR_AQUA
+            ,cl = PLAYER_COLOR_MAROON
             ,patt = 2
-            ,spower = 35.0
+            ,spower = 54.0
+            ,crit = 25.0
         }
     end)
 
@@ -155,6 +158,7 @@ do
             ,d = 8
             ,st = {
                 ['atkspeed'] = {2.0,true}
+                ,['ctime_factor'] = {0.75,true}
                 ,['resist'] = {20}
                 ,['critchance'] = {25}
             }

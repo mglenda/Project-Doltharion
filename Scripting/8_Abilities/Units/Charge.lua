@@ -72,7 +72,7 @@ do
                     MoveSpeed:recalculate(u)
                 end
             else
-                SetUnitAnimationByIndex(u, Data:get_unit_data(GetUnitTypeId(u)).a_w or 0)
+                SetUnitAnimationByIndex(u, Data:get_unit_data(GetUnitTypeId(u)).a_walk or 0)
                 MoveSpeed:set(u,0)
                 for _,un in ipairs(Units:get_area_alive_enemy(x,y,75.0,GetOwningPlayer(u))) do
                     if not(Utils:itable_contains(units[u].g,un)) then

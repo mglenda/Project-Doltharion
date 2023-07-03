@@ -35,6 +35,7 @@ do
 
     function p:channeling()
         for i=#ct,1,-1 do
+            if IsUnitDeadBJ(ct[i].t) then IssueImmediateOrderById(ct[i].c, String2OrderIdBJ('stop')) end
             ct[i].cp = Utils:round(ct[i].cp + 0.01,2)
             if ct[i].cp >= ct[i].p then 
                 ct[i].cp = 0.0

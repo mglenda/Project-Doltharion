@@ -35,6 +35,7 @@ do
 
     function fb:channeling()
         for i=#ct,1,-1 do
+            if IsUnitDeadBJ(ct[i].t) then IssueImmediateOrderById(ct[i].c, String2OrderIdBJ('stop')) end
             ct[i].cp = Utils:round(ct[i].cp + 0.01,2)
             if ct[i].cp >= ct[i].p then 
                 ct[i].cp = 0.0
@@ -52,21 +53,12 @@ do
         if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 then
             local order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
             local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_RLF_CAST_RANGE, 0) 
-            local dist,t = 0,{}
-            local p = 999
-            for _,uu in ipairs(Units:get_area_alive_enemy(GetUnitX(u),GetUnitY(u),aoe,GetOwningPlayer(u))) do
-                local up = GetUnitLevel(uu)
-                if up < p then 
-                    p,t = up,{}
-                end
-                if up == p then table.insert(t,uu) end
-            end
-            if #t == 0 then 
-                return false 
-            else
-                local rn = GetRandomInt(1, #t)
-                IssueTargetOrderById(u, order, t[rn])
+            local t,p = AI:get_target(u,aoe)
+            if t then 
+                IssueTargetOrderById(u, order, t) 
                 return true
+            else
+                return false
             end
         end
         return false
