@@ -36,6 +36,18 @@ do
         return nil
     end
 
+    function au:register_cast_target(u,t)
+        units[u].ct = t
+    end
+
+    function au:clear_cast_target(u)
+        units[u].ct = nil
+    end
+
+    function au:get_cast_target(u)
+        return units[u].ct
+    end
+
     function au:get_all()
         self:refresh()
         return units

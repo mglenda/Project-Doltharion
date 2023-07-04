@@ -14,6 +14,7 @@ do
     function cc:onCast()
         if GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_EFFECT then
             Units:register_cast_point(GetTriggerUnit(),GetSpellTargetX(),GetSpellTargetY())
+            Units:register_cast_target(GetTriggerUnit(),GetSpellTargetUnit())
             Units:register_casting(GetTriggerUnit(),GetSpellAbilityId())
             if GetTriggerUnit() == Hero:get() then
                 Hero:setCasting(CastingController:getOrder())
@@ -25,6 +26,7 @@ do
             local d = BlzGetAbilityActivatedTooltip(GetSpellAbilityId(), GetUnitAbilityLevel(GetTriggerUnit(),GetSpellAbilityId()))
             if d ~= 'Tool tip missing!' and d:sub(7,7) == 'C' then Abilities:start_ability_cooldown(GetTriggerUnit(),GetSpellAbilityId()) end
             Units:clear_cast_point(GetTriggerUnit())
+            Units:clear_cast_target(GetTriggerUnit())
             Units:clear_casting(GetTriggerUnit())
             if GetTriggerUnit() == Hero:get() then
                 Hero:clearCasting()

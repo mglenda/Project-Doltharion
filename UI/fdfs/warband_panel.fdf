@@ -30,3 +30,13 @@ Frame "SIMPLESTATUSBAR" "warband_panel_hpbar" {
 	Height 0.022,
 	BarTexture "war3mapImported\DBM_BarFill_Green.dds",
 }
+
+Frame "SIMPLEFRAME" "warband_panel_hpbar_text" {
+	Width 0.06,
+	Height 0.022,
+	String "warband_panel_hpbar_text_string" {
+		Anchor LEFT, 0.0069, 0,
+		Font "Prototype.ttf", 0.00875,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}

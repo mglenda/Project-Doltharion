@@ -8,26 +8,23 @@ do
 
     function wp:refresh()
         for i,u in ipairs(Warband:get()) do
-            local w_e = Utils:get_key_by_value(widgets,'u',u)
-            if Units:exists(u) and IsUnitAliveBJ(u) then 
-                if not(w_e) then WarbandPanel:create_widget(u) end
-            else
-                if w_e then 
-                    BlzDestroyFrame(widgets[w_e].main)
-                    table.remove(widgets,w_e)
-                end
-            end
+            if Units:exists(u) and IsUnitAliveBJ(u) and not(Utils:get_key_by_value(widgets,'u',u)) then WarbandPanel:create_widget(u) end
         end
 
         BlzFrameSetAbsPoint(widgets[#widgets].main, FRAMEPOINT_TOPLEFT, -0.1325, 0.595)
         for i = #widgets,1,-1 do
             BlzFrameSetValue(widgets[i].bar, GetUnitLifePercent(widgets[i].u))
+            BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%%')
             if i ~= #widgets then 
                 if Utils:mod(i,2) == Utils:mod(#widgets,2) then 
                     BlzFrameSetPoint(widgets[i].main, FRAMEPOINT_TOPLEFT, widgets[i+2].main, FRAMEPOINT_BOTTOMLEFT, 0, 0)
                 else
                     BlzFrameSetPoint(widgets[i].main, FRAMEPOINT_TOPLEFT, widgets[i+1].main, FRAMEPOINT_TOPRIGHT, 0.002, 0)
                 end
+            end
+            if not(Units:exists(widgets[i].u)) or not(IsUnitAliveBJ(widgets[i].u)) then 
+                BlzDestroyFrame(widgets[i].main)
+                table.remove(widgets,i)
             end
         end
     end
@@ -60,13 +57,17 @@ do
         this.bar = BlzCreateSimpleFrame('warband_panel_hpbar', bar, f_id)
         this.icon_button = BlzCreateSimpleFrame('warband_panel_icon', this.main, f_id)
         this.icon = BlzGetFrameByName('warband_panel_icon_texture', f_id)
+        local text = BlzCreateSimpleFrame('warband_panel_hpbar_text', bar, f_id)
+        this.text = BlzGetFrameByName('warband_panel_hpbar_text_string', f_id)
 
         BlzFrameSetPoint(this.icon_button, FRAMEPOINT_TOPLEFT, this.main, FRAMEPOINT_TOPLEFT, 0, 0)
         BlzFrameSetPoint(bar, FRAMEPOINT_TOPLEFT, this.icon_button, FRAMEPOINT_TOPRIGHT, 0, 0)
         BlzFrameSetPoint(this.bar, FRAMEPOINT_CENTER, bar, FRAMEPOINT_CENTER, 0, 0)
+        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, bar, FRAMEPOINT_CENTER, 0, 0)
 
         BlzFrameSetTexture(this.icon, 'ReplaceableTextures\\CommandButtons\\BTN' .. GetUnitName(this.u):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetValue(this.bar, GetUnitLifePercent(this.u))
+        BlzFrameSetText(this.text, StringUtils:round(GetUnitLifePercent(this.u),1) .. '%%')
 
         BlzFrameSetScale(this.main,UI:getConst('scale'))
 
