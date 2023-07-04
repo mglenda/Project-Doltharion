@@ -2,3 +2,4 @@ war3mapImported\unit_details.fdf
 war3mapImported\abilities.fdf
 war3mapImported\casting_bar.fdf
 war3mapImported\dbm.fdf
+war3mapImported\warband_panel.fdf

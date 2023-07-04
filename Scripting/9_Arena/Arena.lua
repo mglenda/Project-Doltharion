@@ -49,6 +49,8 @@ do
         self:flush_triggers()
         self.arenas[i].stop()
         self.data = {}
+        Warband:clear()
+        WarbandPanel:clear()
         Abilities:reset_all_cooldowns(Hero:get())
     end
 end

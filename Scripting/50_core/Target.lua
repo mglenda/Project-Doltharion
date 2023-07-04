@@ -3,7 +3,7 @@ do
     local target = getmetatable(Target)
     target.__index = target
 
-    function target:setTarget(unit)
+    function target:set(unit)
         self:clear_e()
         if self.unit then Units:clear_on_death(self.unit,'target') end
         Units:register_on_death(unit,'target',function()
@@ -42,7 +42,7 @@ do
         TriggerRegisterPlayerSelectionEventBJ(trg, Players:get_player(), true)
         TriggerAddAction(trg, function()
             if GetTriggerUnit() ~= Hero:get() then
-                Target:setTarget(GetTriggerUnit())
+                Target:set(GetTriggerUnit())
                 SelectUnitForPlayerSingle(Hero:get(), Players:get_player())
             end
         end)

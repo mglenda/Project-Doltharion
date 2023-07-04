@@ -114,7 +114,7 @@ do
             local f = BlzCreateSimpleFrame('Buff_Frame', this.main, (f_id*10) + i)
             if i == 1 then
                 BlzFrameSetPoint(f, f_id == 1 and FRAMEPOINT_TOPRIGHT or FRAMEPOINT_TOPLEFT, this.main, f_id == 1 and FRAMEPOINT_TOPRIGHT or FRAMEPOINT_TOPLEFT, f_id == 1 and -0.006 or 0.006, -0.00225)
-            elseif (i-1) - math.floor((i-1)/3)*3 == 0 then
+            elseif Utils:mod(i-1,3) == 0 then
                 BlzFrameSetPoint(f, FRAMEPOINT_TOP, BlzGetFrameByName('Buff_Frame', (f_id*10) + (i-3)), FRAMEPOINT_BOTTOM, 0, -0.00225)
             else
                 BlzFrameSetPoint(f, f_id == 1 and FRAMEPOINT_RIGHT or FRAMEPOINT_LEFT, BlzGetFrameByName('Buff_Frame', (f_id*10) + (i-1)), f_id == 1 and FRAMEPOINT_LEFT or FRAMEPOINT_RIGHT, f_id == 1 and -0.006 or 0.006, 0)

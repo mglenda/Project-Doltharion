@@ -102,6 +102,10 @@ do
         end
     end
 
+    function au:remove(u)
+        RemoveUnit(u)
+    end
+
     function au:on_death()
         local u = GetDyingUnit()
         if Utils:type(units[u].odf) == 'table' then

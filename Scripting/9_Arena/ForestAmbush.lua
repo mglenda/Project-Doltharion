@@ -12,7 +12,9 @@ do
         }
         self.boss_spawn = Rect(-6464.0, -9664.0, -6368.0, -9568.0)
         self.boss_id = 'n005'
-        self.r_spawn = Rect(-5920.0, -9408.0, -5728.0, -9248.0)
+        self.r_spawns = {Rect(-7392.0, -10592.0, -7264.0, -9536.0)
+                        ,Rect(-7072.0, -9376.0, -5536.0, -9248.0)
+                        ,Rect(-5664.0, -10720.0, -5536.0, -9440.0)}
         return self
     end
 
@@ -46,17 +48,22 @@ do
     end
 
     function fa:reinforcements()
-        local x,y = GetRectCenterX(ForestAmbush.r_spawn),GetRectCenterY(ForestAmbush.r_spawn)
+        local x,y
         local facing = 270.0
         for i = 1,3 do 
+            x,y = Utils:get_rect_random_xy(ForestAmbush.r_spawns[GetRandomInt(1, #ForestAmbush.r_spawns)])
             CreateUnit(Players:get_bandits(), FourCC('n002'),x,y,facing)
+            x,y = Utils:get_rect_random_xy(ForestAmbush.r_spawns[GetRandomInt(1, #ForestAmbush.r_spawns)])
             CreateUnit(Players:get_bandits(), FourCC('n001'),x,y,facing)
         end
         for i = 1,4 do 
+            x,y = Utils:get_rect_random_xy(ForestAmbush.r_spawns[GetRandomInt(1, #ForestAmbush.r_spawns)])
             CreateUnit(Players:get_bandits(), FourCC('n000'),x,y,facing)
         end
         for i = 1,2 do 
+            x,y = Utils:get_rect_random_xy(ForestAmbush.r_spawns[GetRandomInt(1, #ForestAmbush.r_spawns)])
             CreateUnit(Players:get_bandits(), FourCC('n004'),x,y,facing)
+            x,y = Utils:get_rect_random_xy(ForestAmbush.r_spawns[GetRandomInt(1, #ForestAmbush.r_spawns)])
             CreateUnit(Players:get_bandits(), FourCC('n003'),x,y,facing)
         end
         DBM:create({t=50.0,n='Reinforcements',t_bar=BarType:red(),f=ForestAmbush.reinforcements,t_icon='war3mapImported\\BTNUnitedAura.dds'})

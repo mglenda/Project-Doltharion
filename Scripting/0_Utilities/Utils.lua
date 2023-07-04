@@ -112,6 +112,18 @@ do
         return GetRectMinX(r),GetRectMinY(r),GetRectMaxX(r),GetRectMaxY(r)
     end
 
+    function u:get_rect_random_x(r)
+        return GetRandomReal(GetRectMinX(r), GetRectMaxX(r))
+    end
+
+    function u:get_rect_random_y(r)
+        return GetRandomReal(GetRectMinY(r), GetRectMaxY(r))
+    end
+    
+    function u:get_rect_random_xy(r)
+        return self:get_rect_random_x(r),self:get_rect_random_y(r)
+    end
+
     function u:is_unit_in_rect(u,r)
         local ux,uy = self:GetUnitXY(u)
         local rx1,ry1,rx2,ry2 = self:get_rect_min_max(r)

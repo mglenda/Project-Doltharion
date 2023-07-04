@@ -1,0 +1,32 @@
+Texture "MySimpleButtonButtonHighlight" {
+    File "UI\Glues\ScoreScreen\scorescreen-tab-hilight.blp",
+    AlphaMode "ADD",
+}
+
+Frame "SIMPLEFRAME" "warband_panel_frame" {
+	Width 0.084,
+	Height 0.024,
+}
+
+Frame "SIMPLEBUTTON" "warband_panel_icon" {
+	Width 0.024,
+	Height 0.024,
+    UseHighlight "MySimpleButtonButtonHighlight",
+	Texture "warband_panel_icon_texture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_panel_hpbar_frame" {
+	Width 0.06,
+	Height 0.022,
+	Texture "warband_panel_hpbar_frame_texture" {
+		File "war3mapImported\HPBar_Background.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "warband_panel_hpbar" {
+	Width 0.06,
+	Height 0.022,
+	BarTexture "war3mapImported\DBM_BarFill_Green.dds",
+}
