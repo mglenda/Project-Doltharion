@@ -10,12 +10,13 @@ do
             if v.ac ~= 'Aatk' then
                 local d = BlzGetAbilityActivatedTooltip(FourCC(v.ac), GetUnitAbilityLevel(Hero:get(),FourCC(v.ac)))
                 if d ~= 'Tool tip missing!' then
-                    local castOsKey,castType,castForcedKey = ConvertOsKeyType(string.byte(d:sub(1,1))) ,d:sub(3,3),d:sub(5,5)
+                    local castOsKey,castType,castForcedKey,cliqueKey = ConvertOsKeyType(string.byte(d:sub(1,1))) ,d:sub(3,3),d:sub(5,5),d:sub(9,9)
                     local tbl = {
                         trg = CreateTrigger()
                         ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
                         ,forcedKey = castForcedKey
                         ,ac = FourCC(v.ac)
+                        ,cliqueKey = tonumber(cliqueKey)
                     }
                     local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
                     local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
@@ -34,6 +35,13 @@ do
                 end
             end
         end
+    end
+
+    function ac:get_clique_order(cliqueKey)
+        for _,v in ipairs(list) do
+            if v.cliqueKey == cliqueKey then return v.order end
+        end
+        return nil
     end
 
     function ac:flush()

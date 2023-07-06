@@ -44,7 +44,10 @@ do
 
     function wp:on_click()
         local w_e = Utils:get_key_by_value(widgets,'icon_button',BlzGetTriggerFrame())
-        if widgets[w_e].u then Target:set(widgets[w_e].u) end
+        if widgets[w_e].u then 
+            Clique:on_click(widgets[w_e].u)
+            Target:set(widgets[w_e].u) 
+        end
     end
 
     function wp:create_widget(u)

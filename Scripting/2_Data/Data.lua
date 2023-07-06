@@ -188,5 +188,26 @@ do
             ,ms = 1
             ,d = 1.2
         }
+        buffs['painsupression'] = {
+            e = {
+                {m = 'war3mapImported\\Sacred Guard Blue.mdx',a = 'chest',s = 1.1}
+            }
+            ,d = 8
+            ,st = {
+                ['resist'] = {60,true}
+            }
+        }
+        buffs['defend'] = {
+            d = 6
+            ,st = {
+                ['resist'] = {40,true}
+            }
+            ,func_a = function(bt)
+                AddUnitAnimationProperties(bt.u, "Defend", true)
+            end
+            ,func_e = function(bt)
+                AddUnitAnimationProperties(bt.u, "Defend", false)
+            end
+        }
     end)    
 end

@@ -5,6 +5,7 @@ do
 
     local cast_trg = CreateTrigger()
     local attack_trg = CreateTrigger()
+    local damage_trg = CreateTrigger()
 
     function ai:start_casting()
         EnableTrigger(cast_trg)
@@ -22,14 +23,24 @@ do
         DisableTrigger(attack_trg)
     end
 
+    function ai:start_damaging()
+        EnableTrigger(damage_trg)
+    end
+
+    function ai:stop_damaging()
+        DisableTrigger(damage_trg)
+    end
+
     function ai:start()
         self:start_casting()
         self:start_attacking()
+        self:start_damaging()
     end
 
     function ai:stop()
         self:stop_casting()
         self:stop_attacking()
+        self:stop_damaging()
     end
 
     function ai:get_target(u,aoe)
@@ -47,6 +58,30 @@ do
         else
             local rn = GetRandomInt(1, #t)
             return t[rn],p
+        end
+    end
+
+    function ai:damaging_action()
+        local s,t = GetEventDamageSource(),BlzGetEventDamageTarget()
+        if IsUnitAliveBJ(s) and s ~= Hero:get() then
+            local abs = ObjectUtils:getUnitAbilities(s,true)
+            if not(Units:is_casting(s)) then
+                for _,v in ipairs(abs) do
+                    if Abilities:is_ability_available(s,FourCC(v.ac)) then
+                        if Utils:type(Data:get_ability_class(FourCC(v.ac)).on_ai_damaging) == 'function' and Data:get_ability_class(FourCC(v.ac)):on_ai_damaging(s) then break end
+                    end
+                end
+            end
+        end
+        if IsUnitAliveBJ(t) and t ~= Hero:get() then
+            local abs = ObjectUtils:getUnitAbilities(t,true)
+            if not(Units:is_casting(t)) then
+                for _,v in ipairs(abs) do
+                    if Abilities:is_ability_available(t,FourCC(v.ac)) then
+                        if Utils:type(Data:get_ability_class(FourCC(v.ac)).on_ai_damaged) == 'function' and Data:get_ability_class(FourCC(v.ac)):on_ai_damaged(t) then break end
+                    end
+                end
+            end
         end
     end
 
@@ -83,5 +118,9 @@ do
         TriggerRegisterAnyUnitEventBJ(attack_trg, EVENT_PLAYER_UNIT_ATTACKED)
         TriggerAddAction(attack_trg, AI.attack_action)
         DisableTrigger(attack_trg)
+
+        TriggerRegisterAnyUnitEventBJ(damage_trg, EVENT_PLAYER_UNIT_DAMAGING)
+        TriggerAddAction(damage_trg, AI.damaging_action)
+        DisableTrigger(damage_trg)
     end)
 end 

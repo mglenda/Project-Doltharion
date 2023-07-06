@@ -10,5 +10,10 @@ do
         TriggerAddAction(trg, function()
             Arena:stop(1)
         end)
+        trg = CreateTrigger()
+        TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "a", true)
+        TriggerAddAction(trg, function()
+            AddLightningEx("HWSB", true, GetUnitX(Hero:get()), GetUnitY(Hero:get()), Utils:get_unit_z(Hero:get()) + 30, GetUnitX(Target:get()), GetUnitY(Target:get()), Utils:get_unit_z(Target:get()) + 30)
+        end)
     end)
 end

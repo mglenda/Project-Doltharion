@@ -23,6 +23,7 @@ do
         if IsUnitAliveBJ(t) then 
             AddSpecialEffectTargetUnitBJ('chest', t, 'Abilities\\Spells\\Human\\Heal\\HealTarget.mdl')
             Heal:unit(c,t,SpellPower:get(c) * 2.5)
+            Abilities:add_to_cooldown(c,PainSupression:get_a_code(),-3.0)
         end
     end
 

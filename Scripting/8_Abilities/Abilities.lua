@@ -59,6 +59,16 @@ do
         return s-c > 0
     end
 
+    function a:add_to_cooldown(u,ac,val)
+        if Utils:type(cooldowns[u]) == 'table' then
+            for i,v in ipairs(cooldowns[u]) do
+                if v.ac == ac then 
+                    v.d = v.d + val < 0 and 0 or v.d + val
+                end
+            end
+        end
+    end
+
     function a:is_ability_available(u,ac)
         return self:is_ability_ready(u,ac)
     end
