@@ -209,5 +209,14 @@ do
                 AddUnitAnimationProperties(bt.u, "Defend", false)
             end
         }
+        buffs['eyeofheaven'] = {
+            e = {
+                {m = 'war3mapImported\\Rejuvenation.mdx',a = 'chest'}
+            }
+            ,st = {
+                ['resist'] = {30,true}
+                ,['hpreg_const'] = {35.0,true}
+            }
+        }
     end)    
 end

@@ -41,6 +41,7 @@ do
                         for _,u in ipairs(Units:get_area_alive_ally(tbl[i].x,tbl[i].y,tbl[i].aoe,GetOwningPlayer(tbl[i].c))) do
                             if not(Utils:get_key_by_value(tbl[i].l_units,'u',u)) then
                                 table.insert(tbl[i].l_units,{u=u,c=16})
+                                if not(Buffs:unit_has_buff(u,'eyeofheaven')) then Buffs:apply(tbl[i].c,u,'eyeofheaven') end
                             end
                         end
                         tbl[i].p = period_a
@@ -49,6 +50,7 @@ do
                 else
                     for _,v in ipairs(tbl[i].l_units) do
                         if v.l then DestroyLightning(v.l) end
+                        Buffs:clear_buff(v.u,'eyeofheaven')
                     end
                     DestroyEffect(tbl[i].e)
                     table.remove(tbl,i)
@@ -64,6 +66,7 @@ do
             local u = tbl[j].l_units[i].u
             if Utils:get_unit_distance(tbl[j].x,tbl[j].y,u) > tbl[j].aoe then
                 if tbl[j].l_units[i].l then DestroyLightning(tbl[j].l_units[i].l) end
+                Buffs:clear_buff(u,'eyeofheaven')
                 table.remove(tbl[j].l_units,i)
             else
                 if tbl[j].l_units[i].c >= 16 then

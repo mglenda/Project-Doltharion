@@ -138,6 +138,14 @@ do
         return c
     end
 
+    function b:unit_has_buff(u,bn)
+        if Utils:type(buffs[u]) ~= 'table' then return false end
+        for i,d in ipairs(buffs[u]) do
+            if d.bn == bn then return true end
+        end
+        return false
+    end
+
     function b:erase_effects(bt)
         if Utils:type(bt.e) == 'table' then
             for _,e in ipairs(bt.e) do

@@ -21,7 +21,7 @@ do
         local c = GetSpellAbilityUnit()
         local t = Units:get_cast_target(c)
         if IsUnitAliveBJ(t) then 
-            AddSpecialEffectTargetUnitBJ('chest', t, 'Abilities\\Spells\\Human\\Heal\\HealTarget.mdl')
+            AddSpecialEffectTargetUnitBJ('origin', t, 'Abilities\\Spells\\Human\\Heal\\HealTarget.mdl')
             Heal:unit(c,t,SpellPower:get(c) * 2.5)
             Abilities:add_to_cooldown(c,PainSupression:get_a_code(),-3.0)
         end
