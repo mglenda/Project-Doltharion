@@ -52,7 +52,7 @@ do
                         if v.l then DestroyLightning(v.l) end
                         Buffs:clear_buff(v.u,'eyeofheaven')
                     end
-                    DestroyEffect(tbl[i].e)
+                    EffectAnimation:vanish(tbl[i].e,2.5)
                     table.remove(tbl,i)
                 end
             end

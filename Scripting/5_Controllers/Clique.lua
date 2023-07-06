@@ -58,8 +58,8 @@ do
     end
 
     function c:on_click(u)
-        local order = AbilityController:get_clique_order(key)
-        if order and not(Hero:isCasting()) and Units:exists(u) then 
+        local order,ac = AbilityController:get_clique_data(key)
+        if order and not(Hero:isCasting()) and Units:exists(u) and Abilities:is_ability_available(Hero:get(),ac) then 
             CastingController:setOrder(order)
             IssueTargetOrderById(Hero:get(), order, u) 
         end

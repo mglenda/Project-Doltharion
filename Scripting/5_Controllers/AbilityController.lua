@@ -37,11 +37,11 @@ do
         end
     end
 
-    function ac:get_clique_order(cliqueKey)
+    function ac:get_clique_data(cliqueKey)
         for _,v in ipairs(list) do
-            if v.cliqueKey == cliqueKey then return v.order end
+            if v.cliqueKey == cliqueKey then return v.order,v.ac end
         end
-        return nil
+        return nil,nil
     end
 
     function ac:flush()
