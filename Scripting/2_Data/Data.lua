@@ -91,6 +91,7 @@ do
     --dp = death persistent :: true buff will not end on target death / false or not defined buff will end on target death
     --ms = max stacks :: integer number if defined then buff will have maximum of ms stacks / not defined buff will create new stack on each apply
     --nd = not dispellable :: true buff is not dispellable with dispells / not defined or false buff is dispellable with dispells
+    --wp = warband panel :: true buff will be displayed on warband panel / not defined or fales it won't
     --func_a = apply func :: function which happens when buff is applied
     --func_p = period func :: function which happens on period end
     --func_q = quit func :: function which if returns true buff will expire
@@ -150,6 +151,8 @@ do
                 end
             end
             ,tc = BlzConvertColor(255, 0, 0, 0)
+            ,wp = true
+            ,prio = 9
         }
         buffs['innerfire'] = {
             e = {
@@ -162,6 +165,9 @@ do
                 ,['resist'] = {20}
                 ,['critchance'] = {25}
             }
+            ,wp = true
+            ,prio = 10
+            ,tc = BlzConvertColor(255, 0, 0, 0)
         }
         buffs['bloodlust'] = {
             e = {
@@ -172,6 +178,8 @@ do
                 ['ctime_factor'] = {0.8,true}
                 ,['atkspeed'] = {1.35,true}
             }
+            ,wp = true
+            ,prio = 8
         }
         buffs['united'] = {
             e = {
@@ -196,6 +204,9 @@ do
             ,st = {
                 ['resist'] = {60,true}
             }
+            ,wp = true
+            ,prio = 7
+            ,tc = BlzConvertColor(255, 0, 0, 0)
         }
         buffs['defend'] = {
             d = 6
@@ -217,6 +228,9 @@ do
                 ['resist'] = {30,true}
                 ,['hpreg_const'] = {35.0,true}
             }
+            ,wp = true
+            ,prio = 6
+            ,tc = BlzConvertColor(255, 0, 0, 0)
         }
     end)    
 end

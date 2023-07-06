@@ -105,15 +105,15 @@ do
         return nil
     end
 
-    function b:get_ui_tbl(u)
+    function b:get_ui_tbl(u,wp)
         local t = {}
         if Utils:type(buffs[u]) ~= 'table' then return t end
         for i,d in ipairs(buffs[u]) do
-            if not(d.h) then
+            if not(d.h) and (not(wp) or d.wp) then
                 local k = Utils:get_key_by_value(t,'bn',d.bn)
                 if not(k) then
                     table.insert(t,{
-                        prio = d.prio or 10
+                        prio = d.prio or 20
                         ,sc = 1
                         ,bn = d.bn
                         ,is_d = d.is_d
@@ -164,9 +164,10 @@ do
                 t[#t].id = i
             end
         end
-
-        table.sort(t, function (k1, k2) return k1.c_prio > k2.c_prio end)
-        Buffs:clear(u,t[#t].id,#t,dis)
+        if #t > 0 then 
+            table.sort(t, function (k1, k2) return k1.c_prio > k2.c_prio end)
+            Buffs:clear(u,t[#t].id,#t,dis)
+        end
     end
 
     function b:clear(u,i,sc,dis)

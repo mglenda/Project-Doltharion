@@ -35,8 +35,22 @@ Frame "SIMPLEFRAME" "warband_panel_hpbar_text" {
 	Width 0.06,
 	Height 0.022,
 	String "warband_panel_hpbar_text_string" {
-		Anchor LEFT, 0.0069, 0,
+		Anchor LEFT, 0.0069, 0.0069,
 		Font "Prototype.ttf", 0.00875,
 		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_panel_buff" {
+	Width 0.012,
+	Height 0.012,
+	Texture "warband_panel_buff_icon" {
+		File "war3mapImported\buff_eyeofheaven.dds",
+	}
+	String "warband_panel_buff_text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.008,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "2",
 	}
 }

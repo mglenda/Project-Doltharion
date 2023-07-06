@@ -13,8 +13,6 @@ do
 
         BlzFrameSetAbsPoint(widgets[#widgets].main, FRAMEPOINT_TOPLEFT, -0.1325, 0.595)
         for i = #widgets,1,-1 do
-            BlzFrameSetValue(widgets[i].bar, GetUnitLifePercent(widgets[i].u))
-            BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%%')
             if i ~= #widgets then 
                 if Utils:mod(i,2) == Utils:mod(#widgets,2) then 
                     BlzFrameSetPoint(widgets[i].main, FRAMEPOINT_TOPLEFT, widgets[i+2].main, FRAMEPOINT_BOTTOMLEFT, 0, 0)
@@ -25,6 +23,20 @@ do
             if not(Units:exists(widgets[i].u)) or not(IsUnitAliveBJ(widgets[i].u)) then 
                 BlzDestroyFrame(widgets[i].main)
                 table.remove(widgets,i)
+            else
+                BlzFrameSetValue(widgets[i].bar, GetUnitLifePercent(widgets[i].u))
+                BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%%')
+                local bt = Buffs:get_ui_tbl(widgets[i].u,true)
+                for j=1,3 do
+                    if bt[j] then
+                        if not(BlzFrameIsVisible(widgets[i].buffs[j].m)) then BlzFrameSetVisible(widgets[i].buffs[j].m, true) end
+                        BlzFrameSetTexture(widgets[i].buffs[j].i, 'war3mapImported\\' .. (bt[j].is_d and 'debuff_' or 'buff_') .. bt[j].bn .. '.dds', 0, true)
+                        BlzFrameSetText(widgets[i].buffs[j].t,tostring(bt[j].sc > 1 and bt[j].sc or ''))
+                        BlzFrameSetTextColor(widgets[i].buffs[j].t, bt[j].tc or BlzConvertColor(255, 255, 255, 255))
+                    else
+                        BlzFrameSetVisible(widgets[i].buffs[j].m, false)
+                    end 
+                end
             end
         end
     end
@@ -71,6 +83,17 @@ do
         BlzFrameSetTexture(this.icon, 'ReplaceableTextures\\CommandButtons\\BTN' .. GetUnitName(this.u):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetValue(this.bar, GetUnitLifePercent(this.u))
         BlzFrameSetText(this.text, StringUtils:round(GetUnitLifePercent(this.u),1) .. '%%')
+
+        this.buffs = {}
+        for i=1,3 do
+            local bf = BlzCreateSimpleFrame('warband_panel_buff', this.bar, f_id-(1000*i))
+            table.insert(this.buffs,{m=bf,i=BlzGetFrameByName('warband_panel_buff_icon', f_id-(1000*i)),t=BlzGetFrameByName('warband_panel_buff_text', f_id-(1000*i))})
+            if i == 1 then
+                BlzFrameSetPoint(bf, FRAMEPOINT_BOTTOMRIGHT, this.bar, FRAMEPOINT_BOTTOMRIGHT, -0.001, 0.001)
+            else
+                BlzFrameSetPoint(bf, FRAMEPOINT_BOTTOMRIGHT, this.buffs[i-1].m, FRAMEPOINT_BOTTOMLEFT, -0.001, 0)
+            end
+        end
 
         BlzFrameSetScale(this.main,UI:getConst('scale'))
 

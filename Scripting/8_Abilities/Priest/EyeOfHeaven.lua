@@ -39,10 +39,8 @@ do
                         tbl[i].p = tbl[i].p - period
                     else
                         for _,u in ipairs(Units:get_area_alive_ally(tbl[i].x,tbl[i].y,tbl[i].aoe,GetOwningPlayer(tbl[i].c))) do
-                            if not(Utils:get_key_by_value(tbl[i].l_units,'u',u)) then
-                                table.insert(tbl[i].l_units,{u=u,c=16})
-                                if not(Buffs:unit_has_buff(u,'eyeofheaven')) then Buffs:apply(tbl[i].c,u,'eyeofheaven') end
-                            end
+                            if not(Buffs:unit_has_buff(u,'eyeofheaven')) then Buffs:apply(tbl[i].c,u,'eyeofheaven') end
+                            if not(Utils:get_key_by_value(tbl[i].l_units,'u',u)) then table.insert(tbl[i].l_units,{u=u,c=16}) end
                         end
                         tbl[i].p = period_a
                     end
@@ -65,16 +63,19 @@ do
         for i=#tbl[j].l_units,1,-1 do
             local u = tbl[j].l_units[i].u
             if Utils:get_unit_distance(tbl[j].x,tbl[j].y,u) > tbl[j].aoe then
-                if tbl[j].l_units[i].l then DestroyLightning(tbl[j].l_units[i].l) end
+                if tbl[j].l_units[i].l then 
+                    DestroyLightning(tbl[j].l_units[i].l) 
+                    tbl[j].l_units[i].l = nil
+                end
                 Buffs:clear_buff(u,'eyeofheaven')
                 table.remove(tbl[j].l_units,i)
             else
                 if tbl[j].l_units[i].c >= 16 then
                     if tbl[j].l_units[i].l then DestroyLightning(tbl[j].l_units[i].l) end
-                    tbl[j].l_units[i].l = AddLightningEx('HWSB', true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 30)
+                    tbl[j].l_units[i].l = AddLightningEx('HWSB', true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)
                     tbl[j].l_units[i].c = 0
                 else
-                    if tbl[j].l_units[i].l then MoveLightningEx(tbl[j].l_units[i].l, true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 30)  end
+                    if tbl[j].l_units[i].l then MoveLightningEx(tbl[j].l_units[i].l, true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)  end
                     tbl[j].l_units[i].c = tbl[j].l_units[i].c + 1
                 end
             end
