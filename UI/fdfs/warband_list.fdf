@@ -6,11 +6,64 @@ Frame "SIMPLEFRAME" "warband_list_main" {
 	}
 }
 
+Frame "SIMPLEFRAME" "warband_list_v_panel" {
+	Width 0.18,
+	Height 0.03,
+	Texture "warband_list_v_panel_texture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_list_v_panel_icon" {
+	Width 0.025,
+	Height 0.025,
+	Texture "warband_list_v_panel_icon_texture" {
+		File "war3mapImported\ValorIcon.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_list_v_panel_text" {
+	Width 0.1,
+	Height 0.025,
+	String "warband_list_v_panel_string" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.015,
+		FontColor 1.0 0.84 0.0 1.0,
+	}
+}
+
+
 Frame "SIMPLEBUTTON" "warband_list_slot" {
 	Width 0.04,
 	Height 0.04,
     UseHighlight "MySimpleButtonButtonHighlight",
 	Texture "warband_list_slot_icon" {
 		File "ReplaceableTextures\CommandButtons\BTNFootman.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_list_valor_panel" {
+	Width 0.04,
+	Height 0.015,
+	Texture "warband_list_valor_panel_texture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_list_valor_panel_icon" {
+	Width 0.015,
+	Height 0.015,
+	Texture "warband_list_valor_panel_icon_texture" {
+		File "war3mapImported\ValorIcon.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_list_valor_panel_text" {
+	Width 0.025,
+	Height 0.015,
+	String "warband_list_valor_panel_text_string" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.01,
+		FontColor 1.0 0.84 0.0 1.0,
 	}
 }

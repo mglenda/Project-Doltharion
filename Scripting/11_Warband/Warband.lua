@@ -4,7 +4,7 @@ do
     w.__index = w
 
     local warband = {
-        0,FourCC('h004'),FourCC('h004'),0
+        0,FourCC('h004'),0,0
         ,0,0,0,0
         ,0,FourCC('h003'),FourCC('h003'),0
         ,0,0,0,0

@@ -46,9 +46,10 @@ do
 
     function wj:add_unit(ut)
         if ic and si then 
-            BlzFrameSetTexture(ic, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_unit_name(ut):gsub(" ","") .. '.dds', 0, true)
+            BlzFrameSetTexture(ic, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_name(ut):gsub(" ","") .. '.dds', 0, true)
             self.slots[si].ut = ut
             Warband:set_slot(si,ut)
+            WarbandList:refresh_valor()
         end
     end
 
@@ -57,6 +58,7 @@ do
             BlzFrameSetTexture(ic, 'war3mapImported\\UnitSlotPushed.dds', 0, true)
             WarbandJournal:get_slots()[si].ut = nil
             Warband:set_slot(si,0)
+            WarbandList:refresh_valor()
         end
     end
 
@@ -64,7 +66,7 @@ do
         for i,ut in ipairs(Warband:get()) do
             if ut ~= 0 then 
                 WarbandJournal:get_slots()[i].ut = ut
-                BlzFrameSetTexture(WarbandJournal:get_slots()[i].i, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_unit_name(ut):gsub(" ","") .. '.dds', 0, true)
+                BlzFrameSetTexture(WarbandJournal:get_slots()[i].i, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_name(ut):gsub(" ","") .. '.dds', 0, true)
             else
                 WarbandJournal:get_slots()[i].ut = nil
                 BlzFrameSetTexture(WarbandJournal:get_slots()[i].i, 'war3mapImported\\UnitSlot.dds', 0, true)
@@ -87,7 +89,7 @@ do
     end
 
     function wj:unselect_slot()
-        if (not(si) or not(self.slots[si].ut)) and i then BlzFrameSetTexture(ic, 'war3mapImported\\UnitSlot.dds', 0, true) end
+        if (not(si) or not(self.slots[si].ut)) and ic then BlzFrameSetTexture(ic, 'war3mapImported\\UnitSlot.dds', 0, true) end
         ic,si = nil,nil
         Controller:destroy('wl_rem_unit_tab')
     end
@@ -95,12 +97,14 @@ do
     function wj:reset_all_slots()
         for i,v in ipairs(WarbandJournal:get_slots()) do
             Warband:set_slot(i,0)
+            v.ut = nil
             if i == si then 
                 BlzFrameSetTexture(v.i, 'war3mapImported\\UnitSlotPushed.dds', 0, true)
             else
                 BlzFrameSetTexture(v.i, 'war3mapImported\\UnitSlot.dds', 0, true)
             end
         end
+        WarbandList:refresh_valor()
     end
 
     function wj:rescale(s)

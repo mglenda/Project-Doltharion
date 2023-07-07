@@ -13,14 +13,27 @@ do
     function wl:create()
         self.main = BlzCreateSimpleFrame('warband_list_main', UI:getConst('screen_frame'), 0)
         BlzFrameSetPoint(self.main, FRAMEPOINT_TOPRIGHT, WarbandJournal:get(), FRAMEPOINT_TOPLEFT, 0, 0)
-
+        local mvp = BlzCreateSimpleFrame('warband_list_v_panel', self.main, 0)
+        local mvi = BlzCreateSimpleFrame('warband_list_v_panel_icon', mvp, 0)
+        local mvt = BlzCreateSimpleFrame('warband_list_v_panel_text', mvp, 0)
+        BlzFrameSetPoint(mvp, FRAMEPOINT_BOTTOMLEFT, self.main, FRAMEPOINT_TOPLEFT, 0, 0)
+        BlzFrameSetPoint(mvt, FRAMEPOINT_CENTER, mvp, FRAMEPOINT_CENTER, 0, 0)
+        BlzFrameSetPoint(mvi, FRAMEPOINT_BOTTOMRIGHT, mvt, FRAMEPOINT_BOTTOMLEFT, 0, 0)
+        self.vt = BlzGetFrameByName('warband_list_v_panel_string', 0)
+        
         self.slots = {}
         for l=1,5 do
             for i=1,3 do
                 local f_id = l * 100 + i
                 local b = BlzCreateSimpleFrame('warband_list_slot', self.main, f_id)
                 BlzTriggerRegisterFrameEvent(s_trg, b, FRAMEEVENT_CONTROL_CLICK)
-                table.insert(self.slots,{i=BlzGetFrameByName('warband_list_slot_icon', f_id),b=b,l=l,s=i})
+                local vp = BlzCreateSimpleFrame('warband_list_valor_panel', b, f_id)
+                local vi = BlzCreateSimpleFrame('warband_list_valor_panel_icon', vp, f_id)
+                local vt = BlzCreateSimpleFrame('warband_list_valor_panel_text', vp, f_id)
+                BlzFrameSetPoint(vp, FRAMEPOINT_BOTTOMLEFT, b, FRAMEPOINT_BOTTOMLEFT, 0, 0)
+                BlzFrameSetPoint(vi, FRAMEPOINT_BOTTOMLEFT, vp, FRAMEPOINT_BOTTOMLEFT, 0, 0)
+                BlzFrameSetPoint(vt, FRAMEPOINT_BOTTOMRIGHT, vp, FRAMEPOINT_BOTTOMRIGHT, 0, 0)
+                table.insert(self.slots,{i=BlzGetFrameByName('warband_list_slot_icon', f_id),b=b,l=l,s=i,vt=BlzGetFrameByName('warband_list_valor_panel_text_string', f_id)})
                 if l == 1 and i == 1 then 
                     BlzFrameSetPoint(b, FRAMEPOINT_TOPLEFT, self.main, FRAMEPOINT_TOPLEFT, 0.015, -0.01)
                 else
@@ -42,9 +55,16 @@ do
         return nil
     end
 
+    function wl:refresh_valor()
+        local v = Valor:recalculate()
+        return BlzFrameSetText(self.vt,StringUtils:round(Valor:get() - v,0) .. '/'.. StringUtils:round(Valor:get(),0))
+    end
+
     function wl:on_slot_click()
         local t = WarbandList:get_slot(BlzGetTriggerFrame())
-        if Utils:type(t) == 'table' then WarbandJournal:add_unit(t.ut) end
+        if Utils:type(t) == 'table' and Valor:is_affordable(t.ut) then 
+            WarbandJournal:add_unit(t.ut) 
+        end
     end
 
     function wl:load_unit_data()
@@ -52,12 +72,14 @@ do
         for i,v in ipairs(self.slots) do
             if Utils:type(ud[i]) == 'table' then
                 BlzFrameSetVisible(v.b, true)
-                BlzFrameSetTexture(v.i, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_unit_name(ud[i].ut):gsub(" ","") .. '.dds', 0, true)
+                BlzFrameSetTexture(v.i, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_name(ud[i].ut):gsub(" ","") .. '.dds', 0, true)
+                BlzFrameSetText(v.vt, StringUtils:round(UnitType:get_valor_cost(ud[i].ut),0))
                 v.ut = ud[i].ut
             else
                 BlzFrameSetVisible(v.b, false)
             end
         end
+        self:refresh_valor()
     end
 
     function wl:rescale(s)
@@ -74,4 +96,5 @@ do
             self:load_unit_data()
         end
     end
+    
 end
