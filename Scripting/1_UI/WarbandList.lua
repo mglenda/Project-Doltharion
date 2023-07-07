@@ -32,11 +32,31 @@ do
                 end
             end
         end
+        TriggerAddAction(s_trg, self.on_slot_click)
+    end
+
+    function wl:get_slot(b)
+        for _,v in ipairs(self.slots) do
+            if v.b == b then return v end
+        end
+        return nil
+    end
+
+    function wl:on_slot_click()
+        local t = WarbandList:get_slot(BlzGetTriggerFrame())
+        if Utils:type(t) == 'table' then WarbandJournal:add_unit(t.ut) end
     end
 
     function wl:load_unit_data()
-        for _,v in ipairs(Data:get_warband_list_data()) do
-            print(UnitType:get_unit_name(v.ut))
+        local ud = Data:get_warband_list_data()
+        for i,v in ipairs(self.slots) do
+            if Utils:type(ud[i]) == 'table' then
+                BlzFrameSetVisible(v.b, true)
+                BlzFrameSetTexture(v.i, 'ReplaceableTextures\\CommandButtons\\BTN' .. UnitType:get_unit_name(ud[i].ut):gsub(" ","") .. '.dds', 0, true)
+                v.ut = ud[i].ut
+            else
+                BlzFrameSetVisible(v.b, false)
+            end
         end
     end
 

@@ -3,6 +3,11 @@ Texture "MySimpleButtonButtonHighlight" {
     AlphaMode "ADD",
 }
 
+Frame "SIMPLEFRAME" "warband_panel_container" {
+	Width 0.001,
+	Height 0.001,
+}
+
 Frame "SIMPLEFRAME" "warband_panel_frame" {
 	Width 0.084,
 	Height 0.024,

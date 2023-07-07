@@ -73,7 +73,7 @@ do
     end
 
     function c:destroy(key)
-        if not(key) or key == 'def' then
+        if key then
             for i,tbl in ipairs(events) do
                 if tbl.key == key then
                     if events[i].trigger then DestroyTrigger(events[i].trigger) end

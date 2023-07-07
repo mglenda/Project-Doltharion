@@ -48,6 +48,53 @@ do
         return units[u].ct
     end
 
+    function au:register_unit_effect(u,e,a,k,dp)
+        units[u].effs = units[u].effs or {}
+        table.insert(units[u].effs,{e=AddSpecialEffectTarget(e, u, a),k=k or 'def',dp=dp})
+    end
+
+    function au:get_unit_effect(u,k)
+        if Utils:type(units[u].effs) == 'table' then
+            for i,v in ipairs(units[u].effs) do
+                if v.k == (k or 'def') then
+                    return v.e
+                end
+            end
+        end
+        return nil
+    end
+
+    function au:destroy_unit_effects(u)
+        if Utils:type(units[u].effs) == 'table' then
+            for i=#units[u].effs,1,-1 do
+                DestroyEffect(units[u].effs[i].e)
+                table.remove(units[u].effs,i)
+            end
+        end
+    end
+
+    function au:destroy_unit_effects_on_death(u)
+        if Utils:type(units[u].effs) == 'table' then
+            for i=#units[u].effs,1,-1 do
+                if not(units[u].effs[i].dp) then
+                    DestroyEffect(units[u].effs[i].e)
+                    table.remove(units[u].effs,i)
+                end
+            end
+        end
+    end
+
+    function au:destroy_unit_effect(u,k)
+        if Utils:type(units[u].effs) == 'table' then
+            for i,v in ipairs(units[u].effs) do
+                if v.k == (k or 'def') then
+                    DestroyEffect(v.e)
+                    table.remove(units[u].effs,i)
+                end
+            end
+        end
+    end
+
     function au:get_all()
         self:refresh()
         return units
@@ -120,6 +167,7 @@ do
 
     function au:on_death()
         local u = GetDyingUnit()
+        Units:destroy_unit_effects_on_death(u)
         if Utils:type(units[u].odf) == 'table' then
             for i,v in pairs(units[u].odf) do
                 if Utils:type(v) == 'function' then v() end
@@ -143,6 +191,7 @@ do
     function RemoveUnit(u)
         if u == Target:get() then Target:clearTarget() end
         Buffs:erase_unit(u)
+        Units:destroy_unit_effects(u)
         units[u] = nil
         oldRemoveUnit(u)
     end

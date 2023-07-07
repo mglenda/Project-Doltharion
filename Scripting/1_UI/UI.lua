@@ -58,6 +58,7 @@ do
 
         UI:create()
         UI:rescale(1.1)
+        Controller:registerKeyboardEvent(OSKEY_W,WarbandJournal.show,'wl_show',Clique:alt())
         --
     end)
 end

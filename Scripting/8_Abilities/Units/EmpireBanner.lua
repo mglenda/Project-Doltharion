@@ -5,6 +5,7 @@ do
 
     local a_code = 'A006'
     local trg = CreateTrigger()
+    local tbl = {}
 
     function eb:get_a_code()
         return FourCC(a_code)
@@ -23,6 +24,7 @@ do
         for u,_ in pairs(Units:get_all()) do
             if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 then 
                 ac = ac + 1
+                if not(Units:get_unit_effect(u,'emp_aura')) then Units:register_unit_effect(u,'Abilities\\Spells\\Human\\DevotionAura\\DevotionAura.mdl','origin','emp_aura') end
                 if IsUnitAliveBJ(u) then 
                     local ut = {}
                     local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_RLF_AREA_OF_EFFECT, 0)
@@ -32,8 +34,7 @@ do
                     end
                     for _,t in ipairs(ut) do
                         Buffs:apply(u,t,'empired',{
-                            e = t == u and {{m = 'Abilities\\Spells\\Human\\DevotionAura\\DevotionAura.mdl',a = 'origin'}} or nil 
-                            ,st = {['attdmg_factor'] = {1 + (0.02 * #ut)},['spepow_factor'] = {1 + (0.02 * #ut)},['attpow_factor'] = {1 + (0.02 * #ut)}}
+                            st = {['attdmg_factor'] = {1 + (0.02 * #ut)},['spepow_factor'] = {1 + (0.02 * #ut)},['attpow_factor'] = {1 + (0.02 * #ut)}}
                         })
                     end
                 end

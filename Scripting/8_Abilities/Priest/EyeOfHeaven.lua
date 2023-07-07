@@ -26,14 +26,13 @@ do
         local e = AddSpecialEffect('war3mapImported\\Life High.mdl', x, y)
         BlzSetSpecialEffectScale(e, 10.0)
         BlzSetSpecialEffectZ(e, 180.0)
-        table.insert(tbl,{aoe=aoe,x=x,y=y,c=GetTriggerUnit(),e=e,l_units={},d=12.0,p=period_a})
+        table.insert(tbl,{aoe=aoe,x=x,y=y,c=GetTriggerUnit(),e=e,l_units={},d=12.0,p=0})
         EnableTrigger(trg)
     end
 
     function eoh:refresh()
         if #tbl > 0 then 
             for i=#tbl,1,-1 do
-                EyeOfHeaven:refresh_lightings(i)
                 if tbl[i].d > 0 then 
                     if tbl[i].p > 0 then
                         tbl[i].p = tbl[i].p - period
@@ -45,6 +44,7 @@ do
                         tbl[i].p = period_a
                     end
                     tbl[i].d = tbl[i].d - period
+                    EyeOfHeaven:refresh_lightings(i)
                 else
                     for _,v in ipairs(tbl[i].l_units) do
                         if v.l then DestroyLightning(v.l) end

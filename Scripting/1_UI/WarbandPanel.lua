@@ -5,13 +5,14 @@ do
 
     local trg = CreateTrigger()
     local widgets = {}
+    local main = nil
 
     function wp:refresh()
-        for i,u in ipairs(Warband:get()) do
+        for i,u in ipairs(Warband:get_units()) do
             if Units:exists(u) and IsUnitAliveBJ(u) and not(Utils:get_key_by_value(widgets,'u',u)) then WarbandPanel:create_widget(u) end
         end
 
-        BlzFrameSetAbsPoint(widgets[#widgets].main, FRAMEPOINT_TOPLEFT, -0.1325, 0.595)
+        BlzFrameSetPoint(widgets[#widgets].main, FRAMEPOINT_TOPLEFT, main, FRAMEPOINT_TOPLEFT, 0, 0)
         for i = #widgets,1,-1 do
             if i ~= #widgets then 
                 if Utils:mod(i,2) == Utils:mod(#widgets,2) then 
@@ -23,6 +24,9 @@ do
             if not(Units:exists(widgets[i].u)) or not(IsUnitAliveBJ(widgets[i].u)) then 
                 BlzDestroyFrame(widgets[i].main)
                 table.remove(widgets,i)
+                if i == #widgets + 1 and #widgets > 0 then 
+                    BlzFrameSetPoint(widgets[#widgets].main, FRAMEPOINT_TOPLEFT, main, FRAMEPOINT_TOPLEFT, 0, 0) 
+                end
             else
                 BlzFrameSetValue(widgets[i].bar, GetUnitLifePercent(widgets[i].u))
                 BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%%')
@@ -65,7 +69,7 @@ do
     function wp:create_widget(u)
         local f_id = GetHandleIdBJ(u)
         local this = {}
-        this.main = BlzCreateSimpleFrame('warband_panel_frame', UI:getConst('screen_frame'), f_id)
+        this.main = BlzCreateSimpleFrame('warband_panel_frame', main, f_id)
         this.u = u
 
         local bar = BlzCreateSimpleFrame('warband_panel_hpbar_frame', this.main, f_id)
@@ -107,5 +111,7 @@ do
     OnInit.final(function()
         TriggerRegisterTimerEventPeriodic(trg, 0.1)
         TriggerAddAction(trg, WarbandPanel.refresh)
+        main = BlzCreateSimpleFrame('warband_panel_container', UI:getConst('screen_frame'), 0)
+        BlzFrameSetAbsPoint(main, FRAMEPOINT_TOPLEFT, -0.1325, 0.595)
     end)
 end
