@@ -1,0 +1,16 @@
+Frame "SIMPLEFRAME" "warband_list_main" {
+	Width 0.18,
+	Height 0.26,
+	Texture "warband_list_main_texture" {
+		File "war3mapImported\WarbandList_Background.dds",
+	}
+}
+
+Frame "SIMPLEBUTTON" "warband_list_slot" {
+	Width 0.04,
+	Height 0.04,
+    UseHighlight "MySimpleButtonButtonHighlight",
+	Texture "warband_list_slot_icon" {
+		File "ReplaceableTextures\CommandButtons\BTNFootman.dds",
+	}
+}

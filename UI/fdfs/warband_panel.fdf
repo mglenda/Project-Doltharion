@@ -8,13 +8,18 @@ Frame "SIMPLEFRAME" "warband_panel_frame" {
 	Height 0.024,
 }
 
-Frame "SIMPLEBUTTON" "warband_panel_icon" {
+Frame "SIMPLEFRAME" "warband_panel_icon" {
 	Width 0.024,
 	Height 0.024,
-    UseHighlight "MySimpleButtonButtonHighlight",
 	Texture "warband_panel_icon_texture" {
 		File "war3mapImported\DBM_Background.dds",
 	}
+}
+
+Frame "SIMPLEBUTTON" "warband_panel_listener" {
+	Width 0.084,
+	Height 0.024,
+	UseHighlight "MySimpleButtonButtonHighlight",
 }
 
 Frame "SIMPLEFRAME" "warband_panel_hpbar_frame" {

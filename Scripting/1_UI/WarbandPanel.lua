@@ -51,11 +51,11 @@ do
             self.b_trg = CreateTrigger() 
             TriggerAddAction(self.b_trg, self.on_click)
         end
-        BlzTriggerRegisterFrameEvent(self.b_trg, w.icon_button, FRAMEEVENT_CONTROL_CLICK)
+        BlzTriggerRegisterFrameEvent(self.b_trg, w.listener, FRAMEEVENT_CONTROL_CLICK)
     end
 
     function wp:on_click()
-        local w_e = Utils:get_key_by_value(widgets,'icon_button',BlzGetTriggerFrame())
+        local w_e = Utils:get_key_by_value(widgets,'listener',BlzGetTriggerFrame())
         if widgets[w_e].u then 
             Clique:on_click(widgets[w_e].u)
             Target:set(widgets[w_e].u) 
@@ -70,15 +70,17 @@ do
 
         local bar = BlzCreateSimpleFrame('warband_panel_hpbar_frame', this.main, f_id)
         this.bar = BlzCreateSimpleFrame('warband_panel_hpbar', bar, f_id)
-        this.icon_button = BlzCreateSimpleFrame('warband_panel_icon', this.main, f_id)
+        icon = BlzCreateSimpleFrame('warband_panel_icon', this.main, f_id)
         this.icon = BlzGetFrameByName('warband_panel_icon_texture', f_id)
         local text = BlzCreateSimpleFrame('warband_panel_hpbar_text', bar, f_id)
         this.text = BlzGetFrameByName('warband_panel_hpbar_text_string', f_id)
+        this.listener = BlzCreateSimpleFrame('warband_panel_listener', this.bar, f_id)
 
-        BlzFrameSetPoint(this.icon_button, FRAMEPOINT_TOPLEFT, this.main, FRAMEPOINT_TOPLEFT, 0, 0)
-        BlzFrameSetPoint(bar, FRAMEPOINT_TOPLEFT, this.icon_button, FRAMEPOINT_TOPRIGHT, 0, 0)
+        BlzFrameSetPoint(icon, FRAMEPOINT_TOPLEFT, this.main, FRAMEPOINT_TOPLEFT, 0, 0)
+        BlzFrameSetPoint(bar, FRAMEPOINT_TOPLEFT, icon, FRAMEPOINT_TOPRIGHT, 0, 0)
         BlzFrameSetPoint(this.bar, FRAMEPOINT_CENTER, bar, FRAMEPOINT_CENTER, 0, 0)
         BlzFrameSetPoint(text, FRAMEPOINT_CENTER, bar, FRAMEPOINT_CENTER, 0, 0)
+        BlzFrameSetPoint(this.listener, FRAMEPOINT_CENTER, this.main, FRAMEPOINT_CENTER, 0, 0)
 
         BlzFrameSetTexture(this.icon, 'ReplaceableTextures\\CommandButtons\\BTN' .. GetUnitName(this.u):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetValue(this.bar, GetUnitLifePercent(this.u))

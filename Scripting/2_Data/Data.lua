@@ -45,20 +45,24 @@ do
         units[FourCC('h004')] = {
             l = 2
             ,cl = PLAYER_COLOR_VIOLET
+            ,wl = true
         }
         units[FourCC('h002')] = {
             l = 2
             ,cl = PLAYER_COLOR_LIGHT_BLUE
+            ,wl = true
         }
         units[FourCC('h003')] = {
             l = 3
             ,cl = PLAYER_COLOR_WHEAT
             ,a_walk = 0
             ,p_tolerance = 2
+            ,wl = true
         }
         units[FourCC('h001')] = {
             l = 1
             ,cl = PLAYER_COLOR_LIGHT_BLUE
+            ,wl = true
         }
         units[FourCC('H000')] = {
             l = 1
@@ -72,11 +76,25 @@ do
             ,patt = 2
             ,spower = 54.0
             ,crit = 25.0
+            ,wl = true
         }
     end)
 
     function d:get_unit_data(u)
         return units[u] or {}
+    end
+
+    function d:get_warband_list_data()
+        local tbl = {}
+        for ut,v in pairs(units) do
+            if v.wl then 
+                table.insert(tbl,{
+                    ut = ut 
+                    ,l = v.l or 1
+                })
+            end
+        end
+        return tbl
     end
 
     --reserved u,s,bn,dur,per,a_id

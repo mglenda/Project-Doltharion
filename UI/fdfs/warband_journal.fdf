@@ -1,0 +1,16 @@
+Frame "SIMPLEFRAME" "warband_journal_main" {
+	Width 0.22,
+	Height 0.26,
+	Texture "warband_journal_main_texture" {
+		File "war3mapImported\WarbandJournal_Background.dds",
+	}
+}
+
+Frame "SIMPLEBUTTON" "warband_journal_slot" {
+	Width 0.04,
+	Height 0.04,
+    UseHighlight "MySimpleButtonButtonHighlight",
+	Texture "warband_journal_slot_icon" {
+		File "war3mapImported\UnitSlot.dds",
+	}
+}

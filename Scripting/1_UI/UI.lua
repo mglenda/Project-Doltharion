@@ -33,7 +33,10 @@ do
         UI.h_panel:hide()
         UI.a_panel:hide()
         CastingBar:create()
-        --this.t_panel:hide()
+        WarbandJournal:create()
+        WarbandJournal:hide()
+        WarbandList:create()
+        WarbandList:hide()
     end
 
     function ui:rescale(s)
@@ -42,6 +45,8 @@ do
         UI.t_panel:rescale(s)
         UI.h_panel:rescale(s)
         CastingBar:rescale(s)
+        WarbandJournal:rescale(s)
+        WarbandList:rescale(s)
     end
 
     OnInit(function()
@@ -52,7 +57,7 @@ do
         BlzEnableUIAutoPosition(false)
 
         UI:create()
-        UI:rescale(1.2)
+        UI:rescale(1.1)
         --
     end)
 end

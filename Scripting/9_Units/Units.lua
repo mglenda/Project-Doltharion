@@ -139,7 +139,7 @@ do
         end 
     end
 
-    local oldRemoveUnit = RemoveUnit
+    oldRemoveUnit = RemoveUnit
     function RemoveUnit(u)
         if u == Target:get() then Target:clearTarget() end
         Buffs:erase_unit(u)
@@ -147,7 +147,7 @@ do
         oldRemoveUnit(u)
     end
 
-    local oldCreateUnit = CreateUnit
+    oldCreateUnit = CreateUnit
     function CreateUnit(p, ut, x, y, a)
         local u = oldCreateUnit(p, ut, x, y, a)
         SetUnitColor(u, Data:get_unit_data(ut).cl or PLAYER_COLOR_SNOW)
@@ -156,7 +156,7 @@ do
         return u
     end
 
-    local oldBlzCreateUnitWithSkin = BlzCreateUnitWithSkin
+    oldBlzCreateUnitWithSkin = BlzCreateUnitWithSkin
     function BlzCreateUnitWithSkin(p, ut, x, y, a, s)
         local u = oldBlzCreateUnitWithSkin(p, ut, x, y, a, s)
         units[u] = {}

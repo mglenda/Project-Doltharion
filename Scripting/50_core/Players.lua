@@ -14,4 +14,8 @@ do
     function p:get_bandits()
         return Player(2)
     end
+
+    function p:get_passive()
+        return Player(PLAYER_NEUTRAL_PASSIVE)
+    end
 end
