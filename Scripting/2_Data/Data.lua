@@ -71,6 +71,7 @@ do
             ,spower = 54.0
             ,crit = 25.0
             ,wl = true
+            ,p_tolerance = 2
         }
     end)
 
@@ -237,11 +238,28 @@ do
             }
             ,st = {
                 ['resist'] = {30,true}
-                ,['hpreg_const'] = {35.0,true}
+                ,['hpreg_const'] = {70.0,true}
             }
             ,wp = true
             ,prio = 6
             ,tc = BlzConvertColor(255, 0, 0, 0)
+        }
+        buffs['fireball'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl',a = 'chest'}
+            }
+            ,prio = 10
+            ,d = 9
+            ,is_d = true
+            ,p = function(bt)
+                return Utils:round(CastingTime:get(bt.s,Fireball:get_a_string()),2)
+            end
+            ,func_p = function(bt)
+                DamageEngine:damage_unit(bt.s,bt.u,Utils:round(SpellPower:get(bt.s) * 0.25,0),ATTACK_TYPE_MAGIC,DAMAGE_TYPE_FIRE,Fireball:get_a_code())
+            end
+            ,func_a = function(bt)
+                Buffs:refresh_duration_all_stacks(bt.u,bt.bn)
+            end
         }
     end)    
 end

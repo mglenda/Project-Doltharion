@@ -129,6 +129,14 @@ do
         return t
     end
 
+    function b:refresh_duration_all_stacks(u,bn)
+        if Utils:type(buffs[u]) == 'table' then
+            for i,d in ipairs(buffs[u]) do
+                if d.bn == bn then d.dur = 0 end
+            end
+        end
+    end
+
     function b:get_stack_count(u,bn)
         local c = 0
         if Utils:type(buffs[u]) ~= 'table' then return c end

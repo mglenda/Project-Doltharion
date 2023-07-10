@@ -4,11 +4,11 @@ do
     w.__index = w
 
     local warband = {
-        0,FourCC('h004'),0,0
+        0,0,FourCC('h002'),0
         ,0,0,0,0
         ,0,FourCC('h003'),FourCC('h003'),0
         ,0,0,0,0
-        ,FourCC('h005'),FourCC('h005'),FourCC('h005'),FourCC('h005')
+        ,0,FourCC('h005'),FourCC('h005'),FourCC('h005')
     }
 
     local units = {}

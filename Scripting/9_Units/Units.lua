@@ -100,6 +100,19 @@ do
         return units
     end
 
+    function au:get_ai_target(u,aoe)
+        self:refresh()
+        local tbl,m_p = {},999
+        for uu,_ in pairs(units) do
+            if IsUnitAliveBJ(uu) and IsUnitEnemy(uu, GetOwningPlayer(u)) and (not(aoe) or Utils:get_units_distance(uu,u) <= aoe) then 
+                table.insert(tbl,uu) 
+                local up = Data:get_unit_data(GetUnitTypeId(uu)).p or GetUnitLevel(uu)
+                m_p = up < m_p and up or m_p 
+            end
+        end
+        return tbl,m_p
+    end
+
     function au:get_alive_enemy(p)
         self:refresh()
         local tbl = {}

@@ -10,14 +10,18 @@ do
     function a:refresh()
         local c = 0
         for u,cds in pairs(cooldowns) do
-            for i=#cds,1,-1 do
-                if cds[i].d > 0 then
-                    cds[i].d = Utils:round(cds[i].d - refreshRate,1)
-                else
-                    table.remove(cds,i)
+            if #cds > 0 then 
+                for i=#cds,1,-1 do
+                    if cds[i].d > 0 then
+                        cds[i].d = Utils:round(cds[i].d - refreshRate,1)
+                    else
+                        table.remove(cds,i)
+                    end
                 end
+                c = c + 1
+            else
+                cooldowns[u] = nil
             end
-            c = c + 1
         end
         if c == 0 then DisableTrigger(counter) end
     end

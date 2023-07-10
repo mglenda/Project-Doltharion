@@ -39,6 +39,7 @@ do
 
     function a:start(i)
         Abilities:reset_all_cooldowns(Hero:get())
+        DamageEngine:clear_all_records()
         self.arenas[i]:start()
         AI:start()
     end

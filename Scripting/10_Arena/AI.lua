@@ -6,6 +6,7 @@ do
     local cast_trg = CreateTrigger()
     local attack_trg = CreateTrigger()
     local damage_trg = CreateTrigger()
+    local smart_order = 851971
 
     function ai:start_casting()
         EnableTrigger(cast_trg)
@@ -44,20 +45,20 @@ do
     end
 
     function ai:get_target(u,aoe)
-        local g = aoe and Units:get_area_alive_enemy(GetUnitX(u),GetUnitY(u),aoe,GetOwningPlayer(u)) or Units:get_alive_enemy(GetOwningPlayer(u))
-        local t,p = {},999
+        local g,m_p = Units:get_ai_target(u,aoe)
+        m_p = m_p + (Data:get_unit_data(GetUnitTypeId(u)).p_tolerance or 0)
+        local t = {}
         for _,uu in ipairs(g) do
             local up = Data:get_unit_data(GetUnitTypeId(uu)).p or GetUnitLevel(uu)
-            if up < p then 
-                p,t = up,{}
+            if up <= m_p then 
+                table.insert(t,uu)
             end
-            if up == p then table.insert(t,uu) end
         end
         if #t == 0 then 
-            return nil,p
+            return nil,m_p
         else
             local rn = GetRandomInt(1, #t)
-            return t[rn],p
+            return t[rn],m_p
         end
     end
 
@@ -86,15 +87,21 @@ do
     end
 
     function ai:attack_action()
-        local u,v = GetAttacker(),GetAttackedUnitBJ()
-        local t,p = AI:get_target(u)
-        local p_t = Data:get_unit_data(GetUnitTypeId(u)).p_tolerance or 0
-        local vp = Data:get_unit_data(GetUnitTypeId(v)).p or GetUnitLevel(v)
-        if t and math.abs(p - vp) > p_t then 
-            IssueTargetOrderById(u, String2OrderIdBJ('attack'), t) 
+        if GetTriggerEventId() == EVENT_PLAYER_UNIT_ATTACKED or GetIssuedOrderId() == smart_order then 
+            local u,v = GetTriggerEventId() == EVENT_PLAYER_UNIT_ATTACKED and GetAttacker() or GetOrderedUnit(),GetTriggerEventId() == EVENT_PLAYER_UNIT_ATTACKED and GetAttackedUnitBJ() or nil
+            if u ~= Hero:get() and (not(v) or v ~= Hero:get()) then
+                local t,p = AI:get_target(u)
+                if v and t then 
+                    local vp = Data:get_unit_data(GetUnitTypeId(v)).p or GetUnitLevel(v)
+                    if vp <= p then 
+                        t = v
+                    end
+                end
+                IssueTargetOrderById(u, String2OrderIdBJ('attack'), t) 
+            end
         end
     end
-
+    
     function ai:cast_action()
         for u,_ in pairs(Units:get_all()) do
             if IsUnitAliveBJ(u) and u ~= Hero:get() then
@@ -116,6 +123,7 @@ do
         DisableTrigger(cast_trg)
 
         TriggerRegisterAnyUnitEventBJ(attack_trg, EVENT_PLAYER_UNIT_ATTACKED)
+        TriggerRegisterAnyUnitEventBJ(attack_trg, EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)
         TriggerAddAction(attack_trg, AI.attack_action)
         DisableTrigger(attack_trg)
 

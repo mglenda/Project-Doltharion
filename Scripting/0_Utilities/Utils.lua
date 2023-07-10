@@ -137,6 +137,18 @@ do
     function u:get_angle_between_points(x1,y1,x2,y2)
         return self:get_rad_between_points(x1,y1,x2,y2) * bj_RADTODEG
     end
+    
+    function u:get_rad_between_units(u1,u2)
+        local x1,y1 = self:GetUnitXY(u1)
+        local x2,y2 = self:GetUnitXY(u2)
+        return self:get_rad_between_points(x1,y1,x2,y2)
+    end
+
+    function u:get_angle_between_units(u1,u2)
+        local x1,y1 = self:GetUnitXY(u1)
+        local x2,y2 = self:GetUnitXY(u2)
+        return self:get_angle_between_points(x1,y1,x2,y2)
+    end
 
     function u:move_x(x,d,r)
         return x + d * Cos(r)

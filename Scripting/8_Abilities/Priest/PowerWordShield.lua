@@ -9,6 +9,10 @@ do
         return FourCC(a_code)
     end
 
+    function pws:get_a_string()
+        return a_code
+    end
+
     function pws:get_s_color()
         return BlzConvertColor(255, 0, 0, 0)
     end

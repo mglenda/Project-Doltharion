@@ -9,6 +9,10 @@ do
         return FourCC(a_code)
     end
 
+    function b:get_a_string()
+        return a_code
+    end
+
     function b:get_s_color()
         return BlzConvertColor(255, 255, 255, 255)
     end

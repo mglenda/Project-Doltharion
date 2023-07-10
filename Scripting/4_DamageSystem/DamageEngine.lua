@@ -28,11 +28,23 @@ do
 
     function de:set_id(u,id)
         records[u] = records[u] or {}
+        records[u][id] = records[u][id] or {}
+        records[u].ut = ut or GetUnitTypeId(u)
         records[u].id = id
     end
 
     function de:get_id(u)
         return Utils:type(records[u]) == 'table' and records[u].id or FourCC('Aatk')
+    end
+
+    function de:clear_unit_records(u)
+        records[u] = nil
+    end
+
+    function de:clear_all_records()
+        for u,_ in pairs(records) do
+            records[u] = nil
+        end
     end
 
     function de:damage_unit(s,t,d,at,dt,id)
