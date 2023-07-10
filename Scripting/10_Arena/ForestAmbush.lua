@@ -72,7 +72,6 @@ do
     function fa:start()
         Hero:move(GetRectCenterX(self.spawn),GetRectCenterY(self.spawn))
         SetUnitFacing(Hero:get(), 90.0)
-        PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
         for _,v in ipairs(self.visions) do FogModifierStart(v) end
 
         self:initial_spawn()
@@ -98,9 +97,6 @@ do
     function fa:stop()
         Units:remove_all()
         PauseAllUnitsBJ(false)
-        Abilities:reset_all_cooldowns(Hero:get())
-        Hero:move()
-        --PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
     end
 
     OnInit.final(function()

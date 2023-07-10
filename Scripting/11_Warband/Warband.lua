@@ -19,7 +19,7 @@ do
 
     function w:clear()
         for i=#units,1,-1 do
-            Units:remove(units[i])
+            if GetUnitName(u) ~= '' then Units:remove(units[i]) end
             table.remove(units,i)
         end
     end

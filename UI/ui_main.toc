@@ -5,3 +5,4 @@ war3mapImported\dbm.fdf
 war3mapImported\warband_panel.fdf
 war3mapImported\warband_journal.fdf
 war3mapImported\warband_list.fdf
+war3mapImported\main_menu.fdf

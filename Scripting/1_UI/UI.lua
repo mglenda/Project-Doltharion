@@ -37,6 +37,16 @@ do
         WarbandJournal:hide()
         WarbandList:create()
         WarbandList:hide()
+        MainMenu:create()
+    end
+
+    function ui:hide_idle_panels()
+        MainMenu:hide()
+        WarbandJournal:hide()
+    end
+
+    function ui:show_idle_panels()
+        MainMenu:show()
     end
 
     function ui:rescale(s)
@@ -47,6 +57,7 @@ do
         CastingBar:rescale(s)
         WarbandJournal:rescale(s)
         WarbandList:rescale(s)
+        MainMenu:rescale(s)
     end
 
     OnInit(function()

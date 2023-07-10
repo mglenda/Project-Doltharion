@@ -18,6 +18,7 @@ do
     function hero:move(x,y)
         x,y = x or GetPlayerStartLocationX(Players:get_player()),y or GetPlayerStartLocationY(Players:get_player())
         Utils:set_unit_xy(self:get(),x,y)
+        PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
     end
 
     function hero:get()

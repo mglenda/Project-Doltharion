@@ -31,7 +31,7 @@ do
                 BlzFrameSetValue(widgets[i].bar, GetUnitLifePercent(widgets[i].u))
                 BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%%')
                 local bt = Buffs:get_ui_tbl(widgets[i].u,true)
-                for j=1,3 do
+                for j=1,#widgets[i].buffs do
                     if bt[j] then
                         if not(BlzFrameIsVisible(widgets[i].buffs[j].m)) then BlzFrameSetVisible(widgets[i].buffs[j].m, true) end
                         BlzFrameSetTexture(widgets[i].buffs[j].i, 'war3mapImported\\' .. (bt[j].is_d and 'debuff_' or 'buff_') .. bt[j].bn .. '.dds', 0, true)
@@ -91,7 +91,7 @@ do
         BlzFrameSetText(this.text, StringUtils:round(GetUnitLifePercent(this.u),1) .. '%%')
 
         this.buffs = {}
-        for i=1,3 do
+        for i=1,4 do
             local bf = BlzCreateSimpleFrame('warband_panel_buff', this.bar, f_id-(1000*i))
             table.insert(this.buffs,{m=bf,i=BlzGetFrameByName('warband_panel_buff_icon', f_id-(1000*i)),t=BlzGetFrameByName('warband_panel_buff_text', f_id-(1000*i))})
             if i == 1 then

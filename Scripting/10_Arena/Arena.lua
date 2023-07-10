@@ -40,6 +40,7 @@ do
     function a:start(i)
         Abilities:reset_all_cooldowns(Hero:get())
         DamageEngine:clear_all_records()
+        UI:hide_idle_panels()
         self.arenas[i]:start()
         AI:start()
     end
@@ -52,6 +53,8 @@ do
         self.data = {}
         Warband:clear()
         WarbandPanel:clear()
+        UI:show_idle_panels()
         Abilities:reset_all_cooldowns(Hero:get())
+        Hero:move()
     end
 end
