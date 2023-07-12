@@ -38,11 +38,14 @@ do
         WarbandList:create()
         WarbandList:hide()
         MainMenu:create()
+        ArenaJournal:create()
+        ArenaJournal:hide()
     end
 
     function ui:hide_idle_panels()
         MainMenu:hide()
         WarbandJournal:hide()
+        ArenaJournal:hide()
     end
 
     function ui:show_idle_panels()
@@ -58,6 +61,7 @@ do
         WarbandJournal:rescale(s)
         WarbandList:rescale(s)
         MainMenu:rescale(s)
+        ArenaJournal:rescale(s)
     end
 
     OnInit(function()

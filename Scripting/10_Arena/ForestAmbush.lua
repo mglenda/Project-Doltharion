@@ -3,6 +3,17 @@ do
     local fa = getmetatable(ForestAmbush)
     fa.__index = fa
 
+    local img = 'war3mapImported\\ForestAmbush.dds'
+    local name = 'Forest Ambush'
+
+    function fa:get_name()
+        return name 
+    end
+
+    function fa:get_img()
+        return img
+    end
+
     function fa:create()
         self.arena = Rect(-7456.0, -11808.0, -5504.0, -9184.0)
         self.spawn = Rect(-6528.0, -11456.0, -6432.0, -11360.0)
@@ -99,7 +110,7 @@ do
         PauseAllUnitsBJ(false)
     end
 
-    OnInit.final(function()
+    OnInit.main(function()
         Arena:register(ForestAmbush)
     end)
 end

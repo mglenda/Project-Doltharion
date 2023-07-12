@@ -1,0 +1,31 @@
+Frame "SIMPLEFRAME" "arena_journal_container" {
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "SIMPLEFRAME" "arena_journal_widget" {
+	Width 0.2,
+	Height 0.123,
+}
+
+Frame "SIMPLEBUTTON" "arena_journal_button" {
+	Width 0.2,
+	Height 0.093,
+    UseHighlight "MySimpleButtonButtonHighlight",
+	Texture "arena_journal_button_texture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "arena_journal_caption" {
+	Width 0.2,
+	Height 0.03,
+	Texture "arena_journal_caption_texture" {
+		File "war3mapImported\Details_Background.dds",
+	}
+    String "arena_journal_caption_text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.018,
+		FontColor 1.0 0.84 0.0 1.0,
+	}
+}

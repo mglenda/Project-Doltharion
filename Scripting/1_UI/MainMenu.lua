@@ -27,7 +27,7 @@ do
         if BlzGetTriggerFrame() == MainMenu.w_button then 
             WarbandJournal:show()
         elseif BlzGetTriggerFrame() == MainMenu.a_button then 
-            print('Challenges')
+            ArenaJournal:show()
         end
     end
 

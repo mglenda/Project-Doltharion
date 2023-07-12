@@ -8,6 +8,10 @@ do
         table.insert(self.arenas,arena:create())
     end
 
+    function a:get_arenas()
+        return self.arenas
+    end
+
     function a:create_trigger()
         local trg = CreateTrigger()
         self.triggers = self.triggers or {}
