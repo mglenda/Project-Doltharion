@@ -87,7 +87,7 @@ do
 
         self:initial_spawn()
         Warband:spawn(90.0)
-        PauseAllUnitsBJ(true)
+        Units:pause_all()
         
         Units:register_on_death(Arena:get('boss'),'fa_boss_death',ForestAmbush.victory)
 
@@ -95,19 +95,19 @@ do
     end
 
     function fa:victory()
-        PauseAllUnitsBJ(true)
+        Units:pause_all()
         DBM:pause_all()
         DBM:create({t=10.0,n='Victory',t_bar=BarType:darkgreen(),f=function() Arena:stop(1) end,t_icon='war3mapImported\\ArenaBegin.dds'})
     end
 
     function fa:begin()
-        PauseAllUnitsBJ(false)
+        Units:unpause_all()
         DBM:create({t=35.0,n='Reinforcements',t_bar=BarType:red(),f=ForestAmbush.reinforcements,t_icon='war3mapImported\\BTNUnitedAura.dds'})
     end
 
     function fa:stop()
         Units:remove_all()
-        PauseAllUnitsBJ(false)
+        Units:unpause_all()
     end
 
     OnInit.main(function()

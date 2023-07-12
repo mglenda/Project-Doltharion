@@ -29,9 +29,9 @@ do
         if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 then
             local order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
             IssueImmediateOrderById(u,order)
-            return true
+            return order
         end
-        return false
+        return nil
     end
 
     OnInit.map(function()

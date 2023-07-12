@@ -18,6 +18,18 @@ do
         return units[u].ca
     end
 
+    function au:register_order(u,o)
+        units[u].o = o
+    end
+
+    function au:clear_order(u)
+        units[u].o = nil
+    end
+
+    function au:is_ordered(u)
+        return units[u].o
+    end
+
     function au:register_cast_point(u,x,y)
         units[u].cp = {x=x,y=y}
     end
@@ -98,6 +110,29 @@ do
     function au:get_all()
         self:refresh()
         return units
+    end
+
+    function au:pause_all()
+        self:refresh()
+        for uu,_ in pairs(units) do
+            self:pause(uu)
+        end
+    end
+
+    function au:unpause_all()
+        self:refresh()
+        for uu,_ in pairs(units) do
+            self:unpause(uu)
+        end
+    end
+
+    function au:pause(u)
+        PauseUnit(u, true)
+        self:clear_order(u)
+    end
+
+    function au:unpause(u)
+        PauseUnit(u, false)
     end
 
     function au:get_ai_target(u,aoe)

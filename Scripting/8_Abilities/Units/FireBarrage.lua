@@ -60,12 +60,12 @@ do
             local t,p = AI:get_target(u,aoe)
             if t then 
                 IssueTargetOrderById(u, order, t) 
-                return true
+                return order
             else
-                return false
+                return nil
             end
         end
-        return false
+        return nil
     end
 
     function fb:missle_fly()

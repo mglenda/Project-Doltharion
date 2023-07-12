@@ -47,15 +47,15 @@ do
                 end
             end
             if #t == 0 then 
-                return false 
+                return nil 
             else
                 table.sort(t, function (k1, k2) return k1.d > k2.d end)
                 local x,y = Utils:GetUnitXY(t[1].u)
                 IssuePointOrderById(u, order, x, y)
-                return true
+                return order
             end
         end
-        return false
+        return nil
     end
     
     function ch:period()
