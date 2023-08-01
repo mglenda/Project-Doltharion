@@ -15,9 +15,23 @@ do
                 e = e
                 ,vr = BlzGetSpecialEffectScale(e) / (t/period)
                 ,p = Utils:round(t/period,0)
+                ,d = true
             })
             EnableTrigger(trg)
         end
+    end
+
+    function ea:create_xyz(em,x,y,z,s,t)
+        local e = AddSpecialEffect(em, x, y)
+        BlzSetSpecialEffectZ(e, z)
+        BlzSetSpecialEffectScale(e, 0.01)
+        table.insert(tbl,{
+            e = e
+            ,vr = (s / (t/period)) * (-1)
+            ,p = Utils:round(t/period,0)
+        })
+        EnableTrigger(trg)
+        return e
     end
 
     function ea:animate()
@@ -27,7 +41,7 @@ do
                     BlzSetSpecialEffectScale(tbl[i].e, BlzGetSpecialEffectScale(tbl[i].e) - tbl[i].vr)
                     tbl[i].p = tbl[i].p - 1
                 else
-                    oldDestroyEffect(tbl[i].e)
+                    if tbl[i].d then oldDestroyEffect(tbl[i].e) end
                     table.remove(tbl,i)
                 end
             end
@@ -38,9 +52,9 @@ do
 
     oldDestroyEffect = DestroyEffect
     function DestroyEffect(e)
-        if not(Utils:get_key_by_value(tbl,'e',e)) then
-            oldDestroyEffect(e)
-        end
+        local i = Utils:get_key_by_value(tbl,'e',e)
+        if i then table.remove(tbl,i) end
+        oldDestroyEffect(e)
     end
 
     OnInit.map(function()

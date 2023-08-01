@@ -79,7 +79,7 @@ do
                     tbl[j].l_units[i].l = AddLightningEx('HWSB', true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)
                     tbl[j].l_units[i].c = 0
                 else
-                    if tbl[j].l_units[i].l then MoveLightningEx(tbl[j].l_units[i].l, true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)  end
+                    if tbl[j].l_units[i].l then MoveLightningEx(tbl[j].l_units[i].l, true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50) end
                     tbl[j].l_units[i].c = tbl[j].l_units[i].c + 1
                 end
             end

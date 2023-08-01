@@ -111,7 +111,6 @@ do
     end
     
     function ai:cast_action()
-        local c = 0
         for u,_ in pairs(Units:get_all()) do
             if IsUnitAliveBJ(u) and u ~= Hero:get() and not(IsUnitPaused(u)) then
                 if not(Units:is_casting(u)) and not(Units:is_ordered(u)) then
@@ -127,7 +126,6 @@ do
                     end
                 end
             end
-            c = c + 1
         end
     end
 
