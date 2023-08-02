@@ -23,12 +23,12 @@ do
             end
             if Utils:type(Data:get_ability_class(GetSpellAbilityId()).on_start) == 'function' then Data:get_ability_class(GetSpellAbilityId()):on_start() end
         elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_SPELL_ENDCAST then
-            Units:clear_order(GetTriggerUnit())
             local d = BlzGetAbilityActivatedTooltip(GetSpellAbilityId(), GetUnitAbilityLevel(GetTriggerUnit(),GetSpellAbilityId()))
             if d ~= 'Tool tip missing!' and d:sub(7,7) == 'C' then Abilities:start_ability_cooldown(GetTriggerUnit(),GetSpellAbilityId()) end
             Units:clear_cast_point(GetTriggerUnit())
             Units:clear_cast_target(GetTriggerUnit())
             Units:clear_casting(GetTriggerUnit())
+            Units:clear_order(GetTriggerUnit())
             if GetTriggerUnit() == Hero:get() then
                 Hero:clearCasting()
                 CastingBar:stop()

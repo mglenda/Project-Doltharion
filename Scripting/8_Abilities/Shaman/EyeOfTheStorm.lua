@@ -81,7 +81,7 @@ do
                     t[i].cp = Utils:round(t[i].cp - 0.01,2)
                 end
                 local x,y = MouseCoords:get_xy()
-                if Utils:get_distance(t[i].tx,t[i].ty,x,y) > 50.0 then 
+                if Utils:get_distance(t[i].tx,t[i].ty,x,y) > 5.0 then 
                     local r = Utils:get_rad_between_points(t[i].tx,t[i].ty,x,y)
                     t[i].tx = Utils:move_x(t[i].tx,3.0,r)
                     t[i].ty = Utils:move_y(t[i].ty,3.0,r)
