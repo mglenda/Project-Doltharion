@@ -124,18 +124,54 @@ P;ECalibri;M220;L11
 P;ECalibri;M220;SI;L24
 P;ECalibri;M220;SB;L9
 P;ECalibri;M220;L10
+P;ECalibri;M220;L9
+P;ECalibri Light;M360;L55
+P;ECalibri;M300;SB;L55
+P;ECalibri;M260;SB;L55
+P;ECalibri;M220;SB;L55
+P;ECalibri;M220;L18
+P;ECalibri;M220;L21
+P;ECalibri;M220;L61
+P;ECalibri;M220;L63
+P;ECalibri;M220;SB;L64
+P;ECalibri;M220;SB;L53
+P;ECalibri;M220;L53
+P;ECalibri;M220;SB;L10
+P;ECalibri;M220;L11
+P;ECalibri;M220;SI;L24
+P;ECalibri;M220;SB;L9
+P;ECalibri;M220;L10
+P;ECalibri;M220;L9
+P;ECalibri Light;M360;L55
+P;ECalibri;M300;SB;L55
+P;ECalibri;M260;SB;L55
+P;ECalibri;M220;SB;L55
+P;ECalibri;M220;L18
+P;ECalibri;M220;L21
+P;ECalibri;M220;L61
+P;ECalibri;M220;L63
+P;ECalibri;M220;SB;L64
+P;ECalibri;M220;SB;L53
+P;ECalibri;M220;L53
+P;ECalibri;M220;SB;L10
+P;ECalibri;M220;L11
+P;ECalibri;M220;SI;L24
+P;ECalibri;M220;SB;L9
+P;ECalibri;M220;L10
 P;ESegoe UI;M200;L9
 P;ECalibri;M220;L9
 P;ECalibri;M220;L9
 P;ECalibri;M220;L9
 P;ECalibri;M220;L9
-F;P0;DG0G8;M292
-B;Y21;X15;D0 0 20 14
+P;ECalibri;M220;L9
+P;ECalibri;M220;L9
+F;P0;DG0G8;M295
+B;Y22;X15;D0 0 21 14
 O;D;V0;K47;G100 0.001
 F;W1 1 9
 F;W2 2 27
-F;W3 3 25
-F;W4 4 20
+F;W3 3 28
+F;W4 4 22
 F;W5 5 10
 F;W6 11 9
 F;W12 12 13
@@ -383,17 +419,18 @@ C;X15;K"Abilities/Ribbon/AerialShackles.pkfx"
 C;Y17;X1;K"PURP"
 C;X2;K"PURP"
 C;X3;K"ReplaceableTextures\Weather"
-C;X4;K"lightning.dds"
-C;X5;K50
-C;X6;K40
+C;X4;K"Lightning.dds"
+C;X5;K100
+C;X6;K50
 C;X7;K255
 C;X8;K255
 C;X9;K255
 C;X10;K255
-C;X11;K0.01
-C;X12;K-0.8
+C;X11;K0.05
+C;X12;K0.5
 C;X13;K2
 C;X14;K1
+C;X15;K"Abilities/Ribbon/ChainLightning.pkfx"
 C;Y18;X1;K"FIRL"
 C;X2;K"FIRL"
 C;X3;K"ReplaceableTextures\Weather"
@@ -450,4 +487,19 @@ C;X11;K0.01
 C;X12;K-0.8
 C;X13;K2
 C;X14;K1
+C;Y22;X1;K"EOHL"
+C;X2;K"EOHL"
+C;X3;K"ReplaceableTextures\Weather"
+C;X4;K"HealBeam.dds"
+C;X5;K100
+C;X6;K40
+C;X7;K255
+C;X8;K255
+C;X9;K255
+C;X10;K255
+C;X11;K0.0001
+C;X12;K0.6
+C;X13;K2
+C;X14;K1
+C;X15;K"Abilities/Ribbon/HealingWaveTarget.pkfx"
 E

@@ -43,7 +43,13 @@ do
                     else
                         for _,u in ipairs(Units:get_area_alive_ally(tbl[i].x,tbl[i].y,tbl[i].aoe,GetOwningPlayer(tbl[i].c))) do
                             if not(Buffs:unit_has_buff(u,'eyeofheaven')) then Buffs:apply(tbl[i].c,u,'eyeofheaven') end
-                            if not(Utils:get_key_by_value(tbl[i].l_units,'u',u)) then table.insert(tbl[i].l_units,{u=u,c=16}) end
+                            if not(Utils:get_key_by_value(tbl[i].l_units,'u',u)) then 
+                                table.insert(tbl[i].l_units,{
+                                    u=u
+                                    ,c=0
+                                    ,l=AddLightningEx('EOHL', true, tbl[i].x, tbl[i].y, BlzGetLocalSpecialEffectZ(tbl[i].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)
+                                }) 
+                            end
                         end
                         tbl[i].p = period_a
                     end
@@ -76,7 +82,7 @@ do
             else
                 if tbl[j].l_units[i].c >= 16 then
                     if tbl[j].l_units[i].l then DestroyLightning(tbl[j].l_units[i].l) end
-                    tbl[j].l_units[i].l = AddLightningEx('HWSB', true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)
+                    tbl[j].l_units[i].l = AddLightningEx('EOHL', true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50)
                     tbl[j].l_units[i].c = 0
                 else
                     if tbl[j].l_units[i].l then MoveLightningEx(tbl[j].l_units[i].l, true, tbl[j].x, tbl[j].y, BlzGetLocalSpecialEffectZ(tbl[j].e) - 15, GetUnitX(u), GetUnitY(u), Utils:get_unit_z(u) + 50) end

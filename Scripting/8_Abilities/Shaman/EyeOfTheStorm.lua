@@ -35,6 +35,7 @@ do
             ,ty=ty
             ,aoe=BlzGetAbilityRealLevelField(BlzGetUnitAbility(c, FourCC(a_code)), ABILITY_RLF_AREA_OF_EFFECT, 0) 
             ,e=EffectAnimation:create_xyz('Abilities\\Weapons\\FarseerMissile\\FarseerMissile.mdl',x,y,450.0,5.0,1.5)
+            ,lc=0
         })
         EnableTrigger(trg)
     end
@@ -44,7 +45,7 @@ do
         for i=#t,1,-1 do
             if t[i].c == c then 
                 DestroyEffect(t[i].e)
-                DestroyLightning(t[i].l)
+                if t[i].l then DestroyLightning(t[i].l) end
                 table.remove(t,i) 
             end
         end
@@ -60,6 +61,15 @@ do
     function eots:channeling()
         for i=#t,1,-1 do
             if BlzGetSpecialEffectScale(t[i].e) >= 5 then 
+                if t[i].lc >= 40 then 
+                    if t[i].l then 
+                        DestroyLightning(t[i].l)
+                        t[i].l = nil
+                    end
+                    t[i].lc = 0
+                else 
+                    t[i].lc = t[i].lc + 1 
+                end
                 if not(t[i].l) then 
                     t[i].l = AddLightningEx('PURP', false, BlzGetLocalSpecialEffectX(t[i].e), BlzGetLocalSpecialEffectY(t[i].e), BlzGetLocalSpecialEffectZ(t[i].e), t[i].tx, t[i].ty, 30.0) 
                     EyeOfTheStorm:damage_area(i)
