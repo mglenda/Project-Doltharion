@@ -10,6 +10,8 @@ do
     function ui:getConst(def)
         if def == 'ab_border_def_width' then
             return 0.03 * scale
+        elseif def == 'ab_sprite_def_scale' then
+            return 0.45 * scale
         elseif def == 'screen_frame' then
             return BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
         elseif def == 'scale' then 

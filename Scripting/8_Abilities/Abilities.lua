@@ -4,6 +4,7 @@ do
     a.__index = a
 
     local cooldowns = {}
+    local highlighted = {}
     local counter = CreateTrigger()
     local refreshRate = 0.1
 
@@ -48,7 +49,7 @@ do
                 end
             end
         end
-        return s-c <= 0 and 'cd' or 'rdy',s-c,mc
+        return s-c <= 0 and 'cd' or 'rdy',s-c,mc,self:is_highlighted(u,ac)
     end
 
     function a:is_ability_ready(u,ac)
@@ -83,6 +84,23 @@ do
                 if cooldowns[u][i].ac == ac then table.remove(cooldowns[u],i) end
             end
         end
+    end
+
+    function a:enable_highlight(u,ac)
+        highlighted[u] = Utils:type(highlighted[u]) == 'table' and highlighted[u] or {}
+        highlighted[u][ac] = true
+    end
+
+    function a:disable_highlight(u,ac)
+        highlighted[u] = Utils:type(highlighted[u]) == 'table' and highlighted[u] or {}
+        highlighted[u][ac] = false
+    end
+
+    function a:is_highlighted(u,ac)
+        if Utils:type(highlighted[u]) == 'table' then
+            return highlighted[u][ac]
+        end
+        return false
     end
 
     function a:reset_all_cooldowns(u)

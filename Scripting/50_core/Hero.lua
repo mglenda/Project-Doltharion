@@ -17,7 +17,13 @@ do
 
     function hero:move(x,y)
         x,y = x or GetPlayerStartLocationX(Players:get_player()),y or GetPlayerStartLocationY(Players:get_player())
-        Utils:set_unit_xy(self:get(),x,y)
+        if IsUnitAliveBJ(self:get()) then
+            Utils:set_unit_xy(self:get(),x,y)
+        else
+            ReviveHero(self:get(), x, y, false)
+            SelectUnitForPlayerSingle(self:get(), Players:get_player())
+        end
+        SetUnitLifePercentBJ(self:get(), 100)
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
     end
 

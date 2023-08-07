@@ -25,6 +25,7 @@ do
                 end
                 BlzFrameSetScale(BlzGetFrameByName('AbilityButton_Border', tonumber(f_id)), (s * 4) / #tbl)
                 BlzFrameSetScale(BlzGetFrameByName('AbilityButton_Listener', tonumber(f_id)), (s * 4) / #tbl)
+                BlzFrameSetScale(BlzGetFrameByName('AbilityButton_Sprite', tonumber(f_id)), Utils:round(UI:getConst('ab_sprite_def_scale') * (((UI:getConst('ab_border_def_width') * 4) / #tbl) / UI:getConst('ab_border_def_width')),2))
             end
         end
     end
@@ -60,9 +61,14 @@ do
                 cur = BlzCreateSimpleFrame('AbilityButton_Border', this.main, tonumber(f_id))
                 local icon = BlzCreateSimpleFrame('AbilityButton_Icon', cur, tonumber(f_id))
                 local shortcut = BlzCreateSimpleFrame('AbilityButton_Shortcut', icon, tonumber(f_id))
-                local listener = BlzCreateFrame('AbilityButton_Listener', this.listenerCont, 0, tonumber(f_id))
                 BlzFrameSetPoint(icon, FRAMEPOINT_CENTER, cur, FRAMEPOINT_CENTER, 0, 0)
                 BlzFrameSetPoint(shortcut, FRAMEPOINT_BOTTOMRIGHT, icon, FRAMEPOINT_BOTTOMRIGHT, 0, 0)
+                local sprite = BlzCreateFrameByType('SPRITE', 'AbilityButton_Sprite', this.listenerCont, "", tonumber(f_id))
+                BlzFrameClearAllPoints(sprite)
+                BlzFrameSetPoint(sprite, FRAMEPOINT_BOTTOMLEFT, cur, FRAMEPOINT_BOTTOMLEFT, 0, 0)
+                BlzFrameSetSize(sprite, 0.00001, 0.00001)
+                BlzFrameSetModel(sprite, 'war3mapImported\\neon_sprite.mdx', 0)
+                local listener = BlzCreateFrame('AbilityButton_Listener', sprite, 0, tonumber(f_id))
                 BlzFrameSetPoint(listener, FRAMEPOINT_CENTER, cur, FRAMEPOINT_CENTER, 0, 0)
                 if i == 1 and j == 1 then
                     BlzFrameSetAbsPoint(cur, FRAMEPOINT_BOTTOMLEFT, x, y)
@@ -70,6 +76,7 @@ do
                     BlzFrameSetPoint(cur,j == 1 and FRAMEPOINT_BOTTOMLEFT or FRAMEPOINT_LEFT,j == 1 and BlzGetFrameByName('AbilityButton_Border', tonumber(this.predef[i-1][1])) or prev, j == 1 and FRAMEPOINT_TOPLEFT or FRAMEPOINT_RIGHT, 0, 0)
                     BlzFrameSetScale(cur, ((UI:getConst('ab_border_def_width') * 4) / #tbl) / UI:getConst('ab_border_def_width'))
                     BlzFrameSetScale(listener, ((UI:getConst('ab_border_def_width') * 4) / #tbl) / UI:getConst('ab_border_def_width'))
+                    BlzFrameSetScale(sprite, Utils:round(UI:getConst('ab_sprite_def_scale') * (((UI:getConst('ab_border_def_width') * 4) / #tbl) / UI:getConst('ab_border_def_width')),2))
                 end
 
                 --HOVERING BEHAVIOR UNCOMMENT WHEN/IF ACTIZZARD FIX FRAMEEVENT_MOUSE_ENTER BUG https://us.forums.blizzard.com/en/warcraft3/t/jasslua-frameeventmouseenter-infinite-loop/28659
@@ -115,6 +122,7 @@ do
         for i,tbl in ipairs(self.predef) do
             for j,f_id in ipairs(tbl) do
                 BlzFrameSetVisible(BlzGetFrameByName("AbilityButton_Listener", tonumber(f_id)), false)
+                BlzFrameSetVisible(BlzGetFrameByName("AbilityButton_Sprite", tonumber(f_id)), false)
                 BlzFrameSetVisible(BlzGetFrameByName(string.sub(f_id, -1) == '2' and "AbilityButton_Border" or "AbilityButton_Icon", tonumber(f_id)), false)
             end
         end
@@ -169,7 +177,7 @@ do
     function ap:refresh_ability_status()
         if self.list then 
             for ac,v in pairs(self.list) do
-                local s,st,c = Abilities:get_ability_status(Hero:get(),ac)
+                local s,st,c,ih = Abilities:get_ability_status(Hero:get(),ac)
                 if not(self.list[ac][2]) then
                     if s == 'rdy' then 
                         self:setNormal(ac)
@@ -179,6 +187,7 @@ do
                         BlzFrameSetText(self.list[ac][4], StringUtils:round(c,1))
                     end
                 end
+                BlzFrameSetVisible(self.list[ac][5], ih)
             end
         end
     end
@@ -193,11 +202,11 @@ do
                     BlzFrameSetVisible(BlzGetFrameByName(y == 2 and "AbilityButton_Border" or "AbilityButton_Icon", tonumber(x .. y)), true)
                     BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y)), true)
                     local sc = BlzGetAbilityActivatedTooltip(FourCC(v.ac), GetUnitAbilityLevel(u,FourCC(v.ac)))
-                    BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_Shortcut', tonumber(x .. y)), not(sc == 'Tool tip missing!'))
+                    BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_Shortcut', tonumber(x .. y)), not(sc == 'Tool tip missing!' or sc:sub(1, 1) == '_'))
                     BlzFrameSetText(BlzGetFrameByName('AbilityButton_Shortcut_Text', tonumber(x .. y)), sc == 'Tool tip missing!' and '' or sc:sub(1, 1))
                     BlzFrameSetText(BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y)),'')
                     BlzFrameSetTexture(BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)), 'war3mapImported\\BTN' .. GetAbilityName(FourCC(v.ac)):gsub(" ","") .. '.dds', 0, true)
-                    self.list[FourCC(v.ac)] = {BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)),false,false,BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y))}
+                    self.list[FourCC(v.ac)] = {BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)),false,false,BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y)),BlzGetFrameByName('AbilityButton_Sprite', tonumber(x .. y))}
                     self.listeners[BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y))] = FourCC(v.ac)
                 end 
             end

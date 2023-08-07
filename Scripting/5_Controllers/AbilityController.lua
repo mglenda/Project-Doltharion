@@ -4,6 +4,7 @@ do
     ac.__index = ac
 
     local list = {}
+    local trg = CreateTrigger()
 
     function ac:load()
         for _,v in ipairs(ObjectUtils:getUnitAbilities(Hero:get())) do
@@ -75,9 +76,10 @@ do
 
     function ac:unitTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
-        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
-            CastingController:setOrder(order)
-            IssueTargetOrderById(Hero:get(), order, BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get())
+        local t = BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get()
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) and (not(CastingController:getOrder()) or order ~= CastingController:getOrder() or t ~= CastingController:getTarget()) then
+            CastingController:setOrder(order, t)
+            IssueTargetOrderById(Hero:get(), order, t)
         end
     end
 
@@ -88,4 +90,15 @@ do
             ForceUIKeyBJ(Players:get_player(), fKey)
         end
     end
+
+    OnInit.final(function()
+        TriggerRegisterAnyUnitEventBJ(trg,EVENT_PLAYER_UNIT_ISSUED_ORDER)
+        TriggerRegisterAnyUnitEventBJ(trg,EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)
+        TriggerRegisterAnyUnitEventBJ(trg,EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
+        TriggerAddAction(trg, function()
+            if GetOrderedUnit() == Hero:get() and GetIssuedOrderId() ~= CastingController:getOrder() then
+                CastingController:clearOrder()
+            end
+        end)
+    end)
 end

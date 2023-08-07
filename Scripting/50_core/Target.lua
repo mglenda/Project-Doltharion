@@ -40,9 +40,15 @@ do
 
         local trg = CreateTrigger()
         TriggerRegisterPlayerSelectionEventBJ(trg, Players:get_player(), true)
+        TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
+        TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_ATTACKED)
         TriggerAddAction(trg, function()
-            if GetTriggerUnit() ~= Hero:get() then
-                Target:set(GetTriggerUnit())
+            if GetTriggerEventId() == EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER then 
+                if GetOrderedUnit() == Hero:get() and GetOrderTargetUnit() ~= Target:get() then Target:set(GetOrderTargetUnit()) end
+            elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_ATTACKED then 
+                if GetAttacker() == Hero:get() and GetAttackedUnitBJ() ~= Target:get() then Target:set(GetAttackedUnitBJ()) end
+            elseif GetTriggerUnit() ~= Hero:get() then
+                if GetTriggerUnit() ~= Target:get() then Target:set(GetTriggerUnit()) end
                 SelectUnitForPlayerSingle(Hero:get(), Players:get_player())
             end
         end)

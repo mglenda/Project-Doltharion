@@ -27,6 +27,7 @@ do
         local c = GetTriggerUnit()
         local p = Utils:round(CastingTime:get(c,a_code) / BlzGetAbilityIntegerField(BlzGetUnitAbility(c, FourCC(a_code)), ABILITY_IF_MISSILE_SPEED) - 0.01,2)
         local tx,ty,x,y = Units:get_cast_point_x(c),Units:get_cast_point_y(c),GetUnitX(c),GetUnitY(c)
+        if GetUnitTypeId(c) == AnimShaman:get_ut() then AnimationSeq:start(c,AnimShaman:seq_spellchannel()) end
         table.insert(t, {
             c=c
             ,p=p
@@ -56,7 +57,9 @@ do
     end
 
     function eots:damage_area(i)
-        DestroyEffect(AddSpecialEffect('Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl', t[i].tx, t[i].ty))
+        local e = AddSpecialEffect('Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl', t[i].tx, t[i].ty)
+        BlzSetSpecialEffectScale(e, 1.4)
+        DestroyEffect(e)
         for _,u in ipairs(Units:get_area_alive_enemy(t[i].tx,t[i].ty,t[i].aoe,GetOwningPlayer(t[i].c))) do
             DamageEngine:damage_unit(t[i].c,u,AttackPower:get(t[i].c) * 0.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_LIGHTNING,FourCC(a_code))
         end
