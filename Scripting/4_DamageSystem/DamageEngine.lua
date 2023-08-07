@@ -18,7 +18,11 @@ do
         --Absorbs Apply
         dmg,ab = Absorbs:damage(t,dmg)
 
-        BlzSetEventDamage(dmg < 0 and 0 or dmg)
+        if GetUnitAbilityLevel(t, FourCC('DUMM')) > 0 then
+            BlzSetEventDamage(0)
+        else
+            BlzSetEventDamage(dmg < 0 and 0 or dmg)
+        end
 
         if GetOwningPlayer(s) == Players:get_player() or crit then
             local msg = ab and 'Absorbed' or (dmg > 0 and (crit and StringUtils:round(dmg,1) .. '!' or StringUtils:round(dmg,1)) or '')

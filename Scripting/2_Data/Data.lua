@@ -65,6 +65,10 @@ do
             ,a_walk = 2
             ,p = 3
         }
+        units[FourCC('H001')] = {
+            cl = GetPlayerColor(Players:get_passive())
+            ,p = 2
+        }
         units[FourCC('h005')] = {
             cl = PLAYER_COLOR_MAROON
             ,patt = 2

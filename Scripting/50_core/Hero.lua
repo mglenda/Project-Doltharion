@@ -38,6 +38,6 @@ do
     end
 
     OnInit.final(function()
-        Hero:create('H000')
+        Hero:create('H001')
     end)
 end

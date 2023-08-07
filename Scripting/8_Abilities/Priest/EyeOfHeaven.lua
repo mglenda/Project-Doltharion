@@ -29,7 +29,7 @@ do
         local x,y = Units:get_cast_point_x(GetTriggerUnit()),Units:get_cast_point_y(GetTriggerUnit())
         local e = AddSpecialEffect('war3mapImported\\Life High.mdl', x, y)
         BlzSetSpecialEffectScale(e, 10.0)
-        BlzSetSpecialEffectZ(e, 180.0)
+        BlzSetSpecialEffectZ(e,Utils:get_point_z(x,y) + 180.0)
         table.insert(tbl,{aoe=aoe,x=x,y=y,c=GetTriggerUnit(),e=e,l_units={},d=12.0,p=0})
         EnableTrigger(trg)
     end

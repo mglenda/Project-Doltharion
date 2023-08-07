@@ -205,7 +205,7 @@ do
 
     function au:remove_all()
         for u,_ in pairs(units) do
-            if u ~= Hero:get() then RemoveUnit(u) end
+            if u ~= Hero:get() and GetUnitAbilityLevel(u, FourCC('DUMM')) <= 0 then RemoveUnit(u) end
         end
     end
 

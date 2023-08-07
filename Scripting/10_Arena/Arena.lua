@@ -53,7 +53,7 @@ do
         DBM:destroy_all()
         AI:stop()
         self:flush_triggers()
-        self.arenas[i].stop()
+        self.arenas[i]:stop()
         self.data = {}
         Warband:clear()
         WarbandPanel:clear()
