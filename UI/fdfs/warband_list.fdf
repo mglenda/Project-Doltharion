@@ -27,7 +27,7 @@ Frame "SIMPLEFRAME" "warband_list_v_panel_text" {
 	Height 0.025,
 	String "warband_list_v_panel_string" {
 		Anchor CENTER, 0, 0,
-		Font "Prototype.ttf", 0.015,
+		Font "Prototype.ttf", 0.01,
 		FontColor 1.0 0.84 0.0 1.0,
 	}
 }
@@ -63,7 +63,7 @@ Frame "SIMPLEFRAME" "warband_list_valor_panel_text" {
 	Height 0.015,
 	String "warband_list_valor_panel_text_string" {
 		Anchor CENTER, 0, 0,
-		Font "Prototype.ttf", 0.01,
+		Font "Prototype.ttf", 0.007,
 		FontColor 1.0 0.84 0.0 1.0,
 	}
 }

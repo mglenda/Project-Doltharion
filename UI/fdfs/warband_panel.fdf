@@ -46,7 +46,7 @@ Frame "SIMPLEFRAME" "warband_panel_hpbar_text" {
 	Height 0.022,
 	String "warband_panel_hpbar_text_string" {
 		Anchor LEFT, 0.0069, 0.0069,
-		Font "Prototype.ttf", 0.00875,
+		Font "Prototype.ttf", 0.0075,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -59,7 +59,7 @@ Frame "SIMPLEFRAME" "warband_panel_buff" {
 	}
 	String "warband_panel_buff_text" {
 		Anchor CENTER, 0, 0,
-		Font "Prototype.ttf", 0.008,
+		Font "Prototype.ttf", 0.007,
 		FontColor 1.0 1.0 1.0 1.0,
 		Text "2",
 	}

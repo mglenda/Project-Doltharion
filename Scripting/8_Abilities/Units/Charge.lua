@@ -81,7 +81,7 @@ do
                 for _,un in ipairs(Units:get_area_alive_enemy(x,y,75.0,GetOwningPlayer(u))) do
                     if not(Utils:itable_contains(units[u].g,un)) then
                         table.insert(units[u].g,un)
-                        DamageEngine:damage_unit(u,un,AttackDamage:get(u) * 2.5,ATTACK_TYPE_NORMAL,DAMAGE_TYPE_DEMOLITION,FourCC(a_code))
+                        --DamageEngine:damage_unit(u,un,AttackDamage:get(u) * 2.5,ATTACK_TYPE_NORMAL,DAMAGE_TYPE_DEMOLITION,FourCC(a_code))
                         DestroyEffect(AddSpecialEffectTarget('Objects\\Spawnmodels\\Human\\HumanBlood\\HumanBloodFootman.mdl', un, 'chest'))
                     end
                 end

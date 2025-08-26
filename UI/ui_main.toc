@@ -7,3 +7,5 @@ war3mapImported\warband_journal.fdf
 war3mapImported\warband_list.fdf
 war3mapImported\main_menu.fdf
 war3mapImported\arena_journal.fdf
+war3mapImported\damage_meter.fdf
+war3mapImported\buff_panel.fdf

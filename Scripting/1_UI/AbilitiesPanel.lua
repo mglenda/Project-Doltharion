@@ -45,7 +45,7 @@ do
         TriggerRegisterTimerEventPeriodic(this.trg, 0.1)
         DisableTrigger(this.trg)
         TriggerAddAction(this.trg, function()
-            if UI.a_panel then UI.a_panel:refresh_ability_status() end
+            if UI.a_panel then UI.a_panel:refresh_ability_status_all() end
         end)
         
         local x,y = 0.4 - (2 * UI:getConst('ab_border_def_width')),0.0
@@ -146,6 +146,7 @@ do
         if Utils:type(self.list[ac]) == 'table' then 
             self.list[ac][3] = false
             if not(self.list[ac][2]) then
+                self:refresh_ability_status(ac)
                 BlzFrameSetTexture(self.list[ac][1], 'war3mapImported\\BTN' .. GetAbilityName(ac):gsub(" ","") .. 'Pushed.dds', 0, true)
             end
             self.list[ac][2] = true
@@ -174,22 +175,26 @@ do
         return nil
     end
 
-    function ap:refresh_ability_status()
+    function ap:refresh_ability_status_all()
         if self.list then 
             for ac,v in pairs(self.list) do
-                local s,st,c,ih = Abilities:get_ability_status(Hero:get(),ac)
-                if not(self.list[ac][2]) then
-                    if s == 'rdy' then 
-                        self:setNormal(ac)
-                        BlzFrameSetText(self.list[ac][4], st > 1 and StringUtils:round(st,0) or '')
-                    elseif s == 'cd' then 
-                        self:setDisabled(ac) 
-                        BlzFrameSetText(self.list[ac][4], StringUtils:round(c,1))
-                    end
-                end
-                BlzFrameSetVisible(self.list[ac][5], ih)
+                self:refresh_ability_status(ac)
             end
         end
+    end
+
+    function ap:refresh_ability_status(ac)
+        local s,st,c,ih = Abilities:get_ability_status(Hero:get(),ac)
+        if not(self.list[ac][2]) then
+            if s == 'rdy' then 
+                self:setNormal(ac)
+                BlzFrameSetText(self.list[ac][4], st > 1 and StringUtils:round(st,0) or '')
+            elseif s == 'cd' then 
+                self:setDisabled(ac) 
+                BlzFrameSetText(self.list[ac][4], StringUtils:round(c,1))
+            end
+        end
+        BlzFrameSetVisible(self.list[ac][5], ih)
     end
     
     function ap:loadUnit(u)

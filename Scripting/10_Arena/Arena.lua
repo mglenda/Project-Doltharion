@@ -3,9 +3,29 @@ do
     local a = getmetatable(Arena)
     a.__index = a
 
-    function a:register(arena)
+    a.d_normal = 1
+    a.d_heroic = 2
+    a.d_mythic = 3
+
+    function a:set_difficulty(difficulty)
+        self.difficulty = difficulty
+        print(self.difficulty)
+    end
+
+    function a:get_difficulty()
+        return self.difficulty
+    end
+
+    function a:register(arena_class)
         if Utils:type(self.arenas) ~= 'table' then self.arenas = {} end
-        table.insert(self.arenas,arena:create())
+        arena = arena_class:create()
+        arena.d_normal_avail = true
+        arena.d_normal_beaten = false
+        arena.d_heroic_avail = true
+        arena.d_heroic_beaten = false
+        arena.d_mythic_avail = false
+        arena.d_mythic_beaten = false
+        table.insert(self.arenas,arena)
     end
 
     function a:get_arenas()
@@ -43,7 +63,7 @@ do
 
     function a:start(i)
         Abilities:reset_all_cooldowns(Hero:get())
-        DamageEngine:clear_all_records()
+        DamageMeter:reset()
         UI:hide_idle_panels()
         self.arenas[i]:start()
         AI:start()

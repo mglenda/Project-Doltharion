@@ -33,7 +33,7 @@ Frame "SIMPLEFRAME" "Details_Energy_Bar_Value" {
 	Height 0.01,
 	String "Details_Energy_Bar_Value_Text" {
 		Anchor CENTER, 0, -0.001,
-		Font "Prototype.ttf", 0.0075,
+		Font "Prototype.ttf", 0.0058,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -52,12 +52,18 @@ Frame "SIMPLESTATUSBAR" "Details_Bar" {
 	BarTexture "war3mapImported\DBM_BarFill_DarkGreen.dds",
 }
 
+Frame "SIMPLESTATUSBAR" "Details_AbsorbsBar" {
+	Width 0.111,
+	Height 0.0232,
+	BarTexture "war3mapImported\DBM_BarFill_DarkBlue.dds",
+}
+
 Frame "SIMPLEFRAME" "Details_Bar_Name" {
 	Width 0.111,
 	Height 0.024,
 	String "Details_Bar_Name_Text" {
 		Anchor LEFT, 0.0069, 0,
-		Font "Prototype.ttf", 0.00875,
+		Font "Prototype.ttf", 0.006,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -67,7 +73,7 @@ Frame "SIMPLEFRAME" "Details_Bar_HP" {
 	Height 0.012,
 	String "Details_Bar_HP_Text" {
 		Anchor RIGHT, -0.0069, 0,
-		Font "Prototype.ttf", 0.00875,
+		Font "Prototype.ttf", 0.0065,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -76,8 +82,8 @@ Frame "SIMPLEFRAME" "Details_Bar_HPReg" {
 	Width 0.111,
 	Height 0.012,
 	String "Details_Bar_HPReg_Text" {
-		Anchor RIGHT, -0.0069, 0,
-		Font "Prototype.ttf", 0.00875,
+		Anchor LEFT, 0.0069, 0,
+		Font "Prototype.ttf", 0.0065,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -98,7 +104,7 @@ Frame "SIMPLEFRAME" "Stats_StatFrame" {
 	}
 	String "Stats_StatText" { 
 		Anchor BOTTOM, 0, -0.009,
-		Font "Prototype.ttf", 0.01,
+		Font "Prototype.ttf", 0.006,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 	Frame "SIMPLEBUTTON" "Stats_FrameListener" {
@@ -115,7 +121,7 @@ Frame "SIMPLEFRAME" "Buff_Frame" {
 	}
 	String "Buff_Text" {
 		Anchor CENTER, 0, 0,
-		Font "Prototype.ttf", 0.0125,
+		Font "Prototype.ttf", 0.0075,
 		FontColor 1.0 1.0 1.0 1.0,
 		Text "2",
 	}

@@ -29,7 +29,7 @@ Frame "SIMPLEFRAME" "AbilityButton_Icon"{
 	}
 	String "AbilityButton_Icon_Text" {
 		Anchor TOP, 0, -0.003,
-		Font "Prototype.ttf", 0.015,
+		Font "Prototype.ttf", 0.01,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -39,7 +39,7 @@ Frame "SIMPLEFRAME" "AbilityButton_Shortcut"{
 	Height 0.011,
 	String "AbilityButton_Shortcut_Text" {
 		Anchor CENTER, 0, -0.0003,
-		Font "Prototype.ttf", 0.018,
+		Font "Prototype.ttf", 0.01,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 	Texture "AbilityButton_Shortcut_Texture" {

@@ -12,7 +12,7 @@ Frame "SIMPLEBUTTON" "main_menu_button" {
 	}
     String "main_menu_button_text" {
 		Anchor CENTER, 0, 0,
-		Font "Prototype.ttf", 0.018,
+		Font "Prototype.ttf", 0.012,
 		FontColor 1.0 0.84 0.0 1.0,
 	}
 }

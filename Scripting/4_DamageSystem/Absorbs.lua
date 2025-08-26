@@ -53,12 +53,12 @@ do
 
     function a:set_mana(u)
         local v,m = self:get_all(u)
-        BlzSetUnitMaxMana(u, m)
+        if GetUnitStateSwap(UNIT_STATE_MAX_MANA, u) < m or m <= 0 then
+            BlzSetUnitMaxMana(u, m)
+        end
         SetUnitManaBJ(u, v)
         if m <= 0 then
-            ShowUnitHide(u)
-            ShowUnitShow(u)
-            if u == Hero:get() then SelectUnitForPlayerSingle(u, Players:get_player()) end
+            Utils:refresh_unit_bars()
         end
     end
 

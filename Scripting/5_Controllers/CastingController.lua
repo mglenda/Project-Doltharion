@@ -4,6 +4,7 @@ do
     cc.__index = cc
 
     function cc:load()
+        if self.trigger then DestroyTrigger(self.trigger) end
         self.trigger = CreateTrigger()
         TriggerRegisterAnyUnitEventBJ(self.trigger, EVENT_PLAYER_UNIT_SPELL_EFFECT)
         TriggerRegisterAnyUnitEventBJ(self.trigger, EVENT_PLAYER_UNIT_SPELL_CAST)

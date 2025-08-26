@@ -25,7 +25,7 @@ Frame "SIMPLEFRAME" "CastingBar_BarText_Frame" {
 	Height 0.025,
 	String "CastingBar_BarText_Text" {
 		Anchor LEFT, 0.0069, 0,
-		Font "Prototype.ttf", 0.012,
+		Font "Prototype.ttf", 0.008,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -35,7 +35,7 @@ Frame "SIMPLEFRAME" "CastingBar_Number_Frame" {
 	Height 0.025,
 	String "CastingBar_Number_Text" {
 		Anchor RIGHT, -0.0069, 0,
-		Font "Prototype.ttf", 0.012,
+		Font "Prototype.ttf", 0.008,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }

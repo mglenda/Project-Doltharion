@@ -16,6 +16,10 @@ do
             return BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
         elseif def == 'scale' then 
             return scale 
+        elseif def == 'max_x' then
+            return 0.93
+        elseif def == 'max_y' then
+            return 0.6
         end
         return nil
     end
@@ -28,6 +32,7 @@ do
 
     function ui:create()
         UI:loadTocFile()
+        BuffPanel:create()
         UI.h_panel = UnitPanel:create(0)
         UI.t_panel = UnitPanel:create(1)
         UI.a_panel = AbilitiesPanel:create()
@@ -35,23 +40,31 @@ do
         UI.h_panel:hide()
         UI.a_panel:hide()
         CastingBar:create()
+
+        --Not Really Used
         WarbandJournal:create()
         WarbandJournal:hide()
         WarbandList:create()
         WarbandList:hide()
         MainMenu:create()
+        MainMenu:hide()
+        ------------------
+
         ArenaJournal:create()
         ArenaJournal:hide()
+        DamageMeterPanel:create()
+    end
+
+    function ui:get_h_panel()
+        return UI.h_panel:get()
     end
 
     function ui:hide_idle_panels()
-        MainMenu:hide()
-        WarbandJournal:hide()
-        ArenaJournal:hide()
+        ArenaJournal:hide_book_button()
     end
 
     function ui:show_idle_panels()
-        MainMenu:show()
+        ArenaJournal:show_book_button()
     end
 
     function ui:rescale(s)
@@ -64,6 +77,8 @@ do
         WarbandList:rescale(s)
         MainMenu:rescale(s)
         ArenaJournal:rescale(s)
+        DamageMeterPanel:rescale(s)
+        BuffPanel:rescale(s)
     end
 
     OnInit(function()
@@ -75,7 +90,7 @@ do
 
         UI:create()
         UI:rescale(1.1)
-        Controller:registerKeyboardEvent(OSKEY_W,WarbandJournal.show,'wl_show',Clique:alt())
+        --Controller:registerKeyboardEvent(OSKEY_W,WarbandJournal.show,'wl_show',Clique:alt())
         --
     end)
 end

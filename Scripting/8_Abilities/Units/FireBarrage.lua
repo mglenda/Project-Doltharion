@@ -73,7 +73,7 @@ do
             local ude = not(Units:exists(mt[i].t))
             if Utils:get_distance(mt[i].mx,mt[i].my,GetUnitX(mt[i].t),GetUnitY(mt[i].t)) <= 30.0 or ude then 
                 if not(ude) and IsUnitAliveBJ(mt[i].t) then
-                    DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 1.0,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_FIRE,FourCC(a_code))
+                    --DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 1.0,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_FIRE,FourCC(a_code))
                 end
                 DestroyEffect(mt[i].m)
                 table.remove(mt,i)

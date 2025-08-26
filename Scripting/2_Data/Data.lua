@@ -39,6 +39,13 @@ do
         return abilities[ac]
     end
 
+    function d:get_dmg_color(ac)
+        if abilities[ac] and Utils:type(abilities[ac].get_dmg_color) == 'function' then
+            return abilities[ac]:get_dmg_color()
+        end
+        return 255,76,76
+    end
+
     local units = {}
 
     OnInit.map(function()
@@ -263,6 +270,31 @@ do
             end
             ,func_a = function(bt)
                 Buffs:refresh_duration_all_stacks(bt.u,bt.bn)
+            end
+        }
+        buffs['ignited'] = {
+            d = 8
+            ,e = {
+                {m = 'Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl',a = 'chest'}
+            }
+            ,es = true
+            ,st = {
+                ['resist'] = {-1,true}
+            }
+            ,is_d = true
+            ,prio = 5
+            ,p = function(bt)
+                return Utils:round(CastingTime:get(bt.s,Ignite:get_a_string()),2)
+            end
+            ,func_p = function(bt)
+                DamageEngine:damage_unit{
+                        source = bt.s
+                        ,target = bt.u
+                        ,damage = bt.dmg
+                        ,attack_type = ATTACK_TYPE_MAGIC
+                        ,damage_type = DAMAGE_TYPE_FIRE
+                        ,id = Ignite:get_a_code()
+                    }
             end
         }
     end)    

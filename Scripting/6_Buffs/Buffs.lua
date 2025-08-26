@@ -118,9 +118,11 @@ do
                         ,bn = d.bn
                         ,is_d = d.is_d
                         ,tc = d.tc
+                        ,rem_dur = d.d and d.d - d.dur or nil
                     })
                 else
                     t[k].sc = (t[k].sc or 0) + 1
+                    t[k].rem_dur = (d.d and t[k].rem_dur) and (d.d - d.dur > t[k].rem_dur and d.d - d.dur or t[k].rem_dur) or nil
                 end
             end
         end
@@ -133,6 +135,16 @@ do
         if Utils:type(buffs[u]) == 'table' then
             for i,d in ipairs(buffs[u]) do
                 if d.bn == bn then d.dur = 0 end
+            end
+        end
+    end
+
+    function b:increase_duration_all_stacks(u,bn,inc,overflow)
+        if Utils:type(buffs[u]) == 'table' then
+            for i,d in ipairs(buffs[u]) do
+                if d.bn == bn then 
+                    d.dur = (d.dur - inc > 0 or overflow) and d.dur - inc or 0
+                end
             end
         end
     end

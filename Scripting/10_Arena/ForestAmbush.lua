@@ -111,6 +111,6 @@ do
     end
 
     OnInit.main(function()
-        Arena:register(ForestAmbush)
+        --Arena:register(ForestAmbush)
     end)
 end

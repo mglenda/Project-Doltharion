@@ -26,4 +26,16 @@ do
         minutes = (minutes:len() == 2 and keepAll) and '0' .. minutes or minutes
         return tostring(hours .. minutes .. seconds)
     end
+
+    function stringUtils:format_seconds_minutes(time)
+        time = time > 0 and time * 10 or 0
+        local minutes = self:round(time / 600,0)
+        time = time - math.floor(time/600)*600
+        local seconds = self:round(time / 10,0)
+        time = time - math.floor(time/10)*10
+        seconds = (minutes == '0' and seconds or ("0"..seconds):sub(-2)) .. '.' .. self:round(time,0)
+        minutes = (minutes == '0' and '' or minutes .. ':')
+        minutes = minutes:len() == 2 and '0' .. minutes or minutes
+        return tostring(minutes .. seconds)
+    end
 end

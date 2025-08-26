@@ -1,31 +1,112 @@
-Frame "SIMPLEFRAME" "arena_journal_container" {
-	Width 0.001,
-	Height 0.001,
+Texture "MySimpleButtonButtonHighlight" {
+    File "UI\Glues\ScoreScreen\scorescreen-tab-hilight.blp",
+    AlphaMode "ADD",
 }
 
-Frame "SIMPLEFRAME" "arena_journal_widget" {
-	Width 0.2,
-	Height 0.123,
-}
-
-Frame "SIMPLEBUTTON" "arena_journal_button" {
-	Width 0.2,
-	Height 0.093,
-    UseHighlight "MySimpleButtonButtonHighlight",
+Frame "SIMPLEBUTTON" "arena_journal_button"{
+	Width 0.063,
+	Height 0.084,
+	UseHighlight "MySimpleButtonButtonHighlight",
 	Texture "arena_journal_button_texture" {
-		File "war3mapImported\Details_Background.dds",
+		File "war3mapImported\ArenaJournalButton.dds",
 	}
 }
 
-Frame "SIMPLEFRAME" "arena_journal_caption" {
-	Width 0.2,
-	Height 0.03,
-	Texture "arena_journal_caption_texture" {
-		File "war3mapImported\Details_Background.dds",
+Frame "SIMPLEFRAME" "arena_journal_main_frame" {
+	Width 0.65,
+	Height 0.48,
+	Texture "arena_journal_main_frame_texture" {
+		File "war3mapImported\ArenaJournalBackground.dds",
 	}
-    String "arena_journal_caption_text" {
-		Anchor CENTER, 0, 0,
-		Font "Prototype.ttf", 0.018,
-		FontColor 1.0 0.84 0.0 1.0,
+}
+
+Frame "BUTTON" "boss_widget_listener"{
+	Width 0.18,
+	Height 0.09,
+}
+
+Frame "SIMPLEFRAME" "boss_widget_button"{
+	Width 0.18,
+	Height 0.09,
+	Texture "boss_widget_button_texture" {
+		File "war3mapImported\ArenaWidgetEnabled.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "boss_widget_theme"{
+	Width 0.18,
+	Height 0.09,
+	Texture "boss_widget_theme_texture" {
+		File "war3mapImported\BeastmasterArena.dds",
+	}	
+}
+
+Frame "SIMPLEFRAME" "boss_widget_disable_layer"{
+	Width 0.18,
+	Height 0.09,
+	Texture "boss_widget_disable_layer_texture" {
+		File "war3mapImported\ArenaWidgetDisabled.dds",
+	}	
+}
+
+Frame "SIMPLEFRAME" "boss_widget_difficulty_layer"{
+	Width 0.18,
+	Height 0.09,
+	Texture "boss_widget_disable_layer_texture" {
+		File "war3mapImported\ArenaWidgetDisabled.dds",
+	}	
+}
+
+Frame "SIMPLEBUTTON" "boss_widget_difficulty_normal"{
+	Width 0.025,
+	Height 0.025,
+	UseHighlight "MySimpleButtonButtonHighlight",
+	
+	Texture "boss_widget_difficulty_normal_icon" {
+		File "war3mapImported\BTN_Normal.dds",
+	}		
+	String "boss_widget_difficulty_normal_text" {
+		Anchor BOTTOM, 0, -0.016,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "blq85web.ttf", 0.01,
+		FontColor 0.91 0.75 0.1 1.0,
+		Text "Normal",
+	}
+}
+
+Frame "SIMPLEBUTTON" "boss_widget_difficulty_heroic"{
+	Width 0.025,
+	Height 0.025,
+	UseHighlight "MySimpleButtonButtonHighlight",
+	
+	Texture "boss_widget_difficulty_heroic_icon" {
+		File "war3mapImported\BTN_Heroic.dds",
+	}		
+	String "boss_widget_difficulty_heroic_text" {
+		Anchor BOTTOM, 0, -0.016,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "blq85web.ttf", 0.01,
+		FontColor 0.91 0.75 0.1 1.0,
+		Text "Heroic",
+	}
+}
+
+Frame "SIMPLEBUTTON" "boss_widget_difficulty_mythic"{
+	Width 0.025,
+	Height 0.025,
+	UseHighlight "MySimpleButtonButtonHighlight",
+	
+	Texture "boss_widget_difficulty_mythic_icon" {
+		File "war3mapImported\BTN_Mythic.dds",
+	}		
+	String "boss_widget_difficulty_mythic_text" {
+		Anchor BOTTOM, 0, -0.016,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "blq85web.ttf", 0.01,
+		FontColor 0.91 0.75 0.1 1.0,
+		Text "Mythic",
 	}
 }

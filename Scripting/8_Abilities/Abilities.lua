@@ -64,11 +64,23 @@ do
         return s-c > 0
     end
 
-    function a:add_to_cooldown(u,ac,val)
-        if Utils:type(cooldowns[u]) == 'table' then
-            for i,v in ipairs(cooldowns[u]) do
-                if v.ac == ac then 
-                    v.d = v.d + val < 0 and 0 or v.d + val
+    --[[
+        Abilities:add_to_cooldown{
+            unit = 
+            ,ab_id = 
+            ,value = 
+
+            ,first_only = true
+        }
+    ]]--
+
+    function a:add_to_cooldown(args)
+        if Utils:type(cooldowns[args.unit]) == 'table' then
+            table.sort(cooldowns[args.unit], function (k1, k2) return k1.d < k2.d end)
+            for i,v in ipairs(cooldowns[args.unit]) do
+                if v.ac == args.ab_id then 
+                    v.d = v.d + args.value < 0 and 0 or v.d + args.value
+                    if args.first_only then return end
                 end
             end
         end
@@ -121,6 +133,10 @@ do
 
     function a:set_ability_cooldown(u,ac,v)
         BlzSetAbilityRealLevelField(BlzGetUnitAbility(u,ac), ABILITY_RLF_DURATION_HERO, 0, v)
+    end
+
+    function a:get_cast_range(u,ac)
+        return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u,ac), ABILITY_RLF_CAST_RANGE, 0)
     end
 
     OnInit(function()

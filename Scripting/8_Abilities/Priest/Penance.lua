@@ -23,6 +23,10 @@ do
         return BlzConvertColor(255, 255, 255, 255)
     end
 
+    function p:get_dmg_color()
+        return 255,215,0
+    end
+
     function p:on_start()
         local c = GetTriggerUnit()
         local p = Utils:round(CastingTime:get(c,a_code) / BlzGetAbilityIntegerField(BlzGetUnitAbility(c, FourCC(a_code)), ABILITY_IF_MISSILE_SPEED) - 0.01,2)
@@ -59,7 +63,7 @@ do
             if Utils:get_distance(mt[i].mx,mt[i].my,GetUnitX(mt[i].t),GetUnitY(mt[i].t)) <= 30.0 or ude then 
                 if not(ude) and IsUnitAliveBJ(mt[i].t) then
                     if IsUnitEnemy(mt[i].t, GetOwningPlayer(mt[i].c)) then
-                        DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 1.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_DIVINE,FourCC(a_code))
+                        --DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 1.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_DIVINE,FourCC(a_code))
                     else
                         Heal:unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 1.5)
                     end

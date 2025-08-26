@@ -82,9 +82,9 @@ do
         local tx,ty = Utils:GetUnitXY(t[i].t)
         DestroyEffect(AddSpecialEffect('Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl', tx, ty))
         if j == 3 then DestroyEffect(AddSpecialEffect('Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl', tx, ty)) end
-        DamageEngine:reg_onCrit(t[i].c,self:get_a_code(),LightingSpheres.add,LightingSpheres,t[i].c)
+        --DamageEngine:reg_onCrit(t[i].c,self:get_a_code(),LightingSpheres.add,LightingSpheres,t[i].c) obsolete replaced by Snippets
         for _,u in ipairs(Units:get_area_alive_enemy(tx,ty,t[i].aoe,GetOwningPlayer(t[i].c))) do
-            DamageEngine:damage_unit(t[i].c,u,AttackPower:get(t[i].c) * (2.0 + (0.75 * j)),ATTACK_TYPE_MAGIC,DAMAGE_TYPE_LIGHTNING,FourCC(a_code))
+            --DamageEngine:damage_unit(t[i].c,u,AttackPower:get(t[i].c) * (2.0 + (0.75 * j)),ATTACK_TYPE_MAGIC,DAMAGE_TYPE_LIGHTNING,FourCC(a_code))
         end
     end
 

@@ -61,7 +61,7 @@ do
         BlzSetSpecialEffectScale(e, 1.4)
         DestroyEffect(e)
         for _,u in ipairs(Units:get_area_alive_enemy(t[i].tx,t[i].ty,t[i].aoe,GetOwningPlayer(t[i].c))) do
-            DamageEngine:damage_unit(t[i].c,u,AttackPower:get(t[i].c) * 0.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_LIGHTNING,FourCC(a_code))
+            --DamageEngine:damage_unit(t[i].c,u,AttackPower:get(t[i].c) * 0.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_LIGHTNING,FourCC(a_code))
         end
     end
 

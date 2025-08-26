@@ -7,7 +7,7 @@ do
         self.unit = CreateUnit(Players:get_player(), FourCC(u_id), GetPlayerStartLocationX(Players:get_player()),GetPlayerStartLocationY(Players:get_player()), 90.0)
         UI.a_panel:loadUnit(self.unit)
         UI.h_panel:loadUnit(self.unit)
-        self.safe_zone = Rect(5856.0, -11776.0, 7456.0, -10624.0)
+        self.safe_zone = Rect(5792.0, -11776.0, 7424.0, -10336.0)
         CreateFogModifierRectBJ(true, Players:get_player(), FOG_OF_WAR_VISIBLE, self.safe_zone)
         AbilityController:load()
         CastingController:load()
@@ -31,7 +31,7 @@ do
         return self.unit
     end
 
-    function hero:setCasting(order)
+    function hero:setCasting(order) 
         self.casting = order
     end
 

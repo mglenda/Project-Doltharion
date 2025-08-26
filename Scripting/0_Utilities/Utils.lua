@@ -108,6 +108,10 @@ do
         return GetLocationZ(loc)
     end
 
+    function u:get_unit_impact_z(u)
+        return self:get_unit_z(u) + BlzGetUnitIntegerField(u, UNIT_IF_LUMBER_BOUNTY_AWARDED_BASE)
+    end
+
     function u:get_rect_min_max(r)
         return GetRectMinX(r),GetRectMinY(r),GetRectMaxX(r),GetRectMaxY(r)
     end
@@ -164,5 +168,10 @@ do
 
     function u:mod(a,b)
         return a - math.floor(a/b)*b
+    end
+
+    function u:refresh_unit_bars()
+        ForceUIKeyBJ(Players:get_player(), "A")
+        ForceUICancelBJ(Players:get_player())
     end
 end

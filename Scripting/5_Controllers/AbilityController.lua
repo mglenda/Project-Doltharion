@@ -5,6 +5,7 @@ do
 
     local list = {}
     local trg = CreateTrigger()
+    local quick_cast = true
 
     function ac:load()
         for _,v in ipairs(ObjectUtils:getUnitAbilities(Hero:get())) do
@@ -66,6 +67,10 @@ do
         self:load()
     end
 
+    function ac:is_quick_cast()
+        return quick_cast
+    end
+
     function ac:noTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
         if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
@@ -87,7 +92,12 @@ do
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
         if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
             CastingController:setOrder(order)
-            ForceUIKeyBJ(Players:get_player(), fKey)
+            if AbilityController:is_quick_cast() then
+                local x,y = MouseCoords:get_xy()
+                IssuePointOrderById(Hero:get(), order, x, y)
+            else
+                ForceUIKeyBJ(Players:get_player(), fKey)
+            end
         end
     end
 

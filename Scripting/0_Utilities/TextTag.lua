@@ -4,7 +4,7 @@ do
     tt.__index = tt
 
     function tt:defFontSize()
-        return 0.024
+        return 0.02
     end
 
     function tt:create(params)

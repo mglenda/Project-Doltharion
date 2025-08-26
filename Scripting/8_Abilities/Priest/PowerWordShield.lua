@@ -29,7 +29,7 @@ do
         DestroyEffect(eff)
         for _,u in ipairs(Units:get_area_alive(x,y,aoe)) do
             if IsUnitEnemy(u, GetOwningPlayer(GetTriggerUnit())) then
-                DamageEngine:damage_unit(GetTriggerUnit(),u,SpellPower:get(GetTriggerUnit()) * 2.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_DIVINE,FourCC(a_code))
+                --DamageEngine:damage_unit(GetTriggerUnit(),u,SpellPower:get(GetTriggerUnit()) * 2.5,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_DIVINE,FourCC(a_code))
             else
                 Buffs:apply(GetTriggerUnit(),u,'pwshield')
                 Heal:unit(GetTriggerUnit(),u,SpellPower:get(GetTriggerUnit()) * 4.0)

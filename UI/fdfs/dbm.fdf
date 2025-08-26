@@ -25,7 +25,7 @@ Frame "SIMPLEFRAME" "DBM_TimerBar_Name" {
 	Height 0.0281,
 	String "DBM_TimerBar_Name_Text" {
 		Anchor LEFT, 0.0069, 0,
-		Font "Prototype.ttf", 0.012,
+		Font "Prototype.ttf", 0.008,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }
@@ -35,7 +35,7 @@ Frame "SIMPLEFRAME" "DBM_TimerBar_Time" {
 	Height 0.0281,
 	String "DBM_TimerBar_Time_Text" {
 		Anchor RIGHT, -0.0069, 0,
-		Font "Prototype.ttf", 0.012,
+		Font "Prototype.ttf", 0.008,
 		FontColor 1.0 1.0 1.0 1.0,
 	}
 }

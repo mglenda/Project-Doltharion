@@ -53,7 +53,7 @@ do
             local ude = not(Units:exists(mt[i].t))
             if Utils:get_distance(mt[i].mx,mt[i].my,GetUnitX(mt[i].t),GetUnitY(mt[i].t)) <= 30.0 or ude then 
                 if not(ude) and IsUnitAliveBJ(mt[i].t) then
-                    DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 5.0,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_FIRE,FourCC(a_code))
+                    --DamageEngine:damage_unit(mt[i].c,mt[i].t,SpellPower:get(mt[i].c) * 5.0,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_FIRE,FourCC(a_code))
                     Buffs:apply(mt[i].c,mt[i].t,'fireball')
                 end
                 DestroyEffect(mt[i].m)

@@ -1,0 +1,85 @@
+Texture "MySimpleButtonButtonHighlight" {
+    File "UI\Glues\ScoreScreen\scorescreen-tab-hilight.blp",
+    AlphaMode "ADD",
+}
+
+Frame "SIMPLEFRAME" "damage_meter_main_frame" {
+	Width 0.139,
+	Height 0.018,
+	Texture "damage_meter_main_frame_texture" {
+		File "war3mapImported\DamageMeter_CaptionFrame.dds",
+	}
+    String "damage_meter_main_frame_text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEBUTTON" "damage_meter_button" {
+    Width 0.018,
+    Height 0.018,
+    UseHighlight "MySimpleButtonButtonHighlight",
+    Texture "damage_meter_button_texture" {
+        File "war3mapImported\BTN_DmgMeter_Cancel.dds",
+    }
+}
+
+Frame "SIMPLEFRAME" "damage_meter_ability_frame"{
+	Width 0.175,
+	Height 0.024,
+	Texture "damage_meter_ability_frame_texture" {
+		File "war3mapImported\DamageMeter_Background.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "damage_meter_ability_frame_dmg"{
+	Width 0.1,
+	Height 0.024,
+	String "damage_meter_ability_frame_dmg_text" {
+		Anchor LEFT, 0, 0,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "DMG: 0",
+	}
+}
+
+Frame "SIMPLEFRAME" "damage_meter_ability_frame_dps"{
+	Width 0.035,
+	Height 0.024,
+	String "damage_meter_ability_frame_dps_text" {
+		Anchor LEFT, 0, 0,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "DPS: 0",
+	}
+}
+
+Frame "SIMPLEFRAME" "damage_meter_ability_frame_total"{
+	Width 0.035,
+	Height 0.024,
+	String "damage_meter_ability_frame_total_text" {
+		Anchor LEFT, 0, 0,
+		Font "Prototype.ttf", 0.0095,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "damage_meter_ability_frame_icon"{
+	Width 0.02,
+	Height 0.02,
+	Texture "damage_meter_ability_frame_icon_texture" {
+		File "war3mapImported\Ability_Button_Border.dds",
+	}
+}
+
+Frame "SIMPLEFRAME" "damage_meter_ability_frame_order"{
+	Width 0.02,
+	Height 0.02,
+	String "damage_meter_ability_frame_order_text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.0095,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "1",
+	}
+}

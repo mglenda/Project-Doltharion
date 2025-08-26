@@ -9,10 +9,11 @@ do
         Units:register_on_death(unit,'target',function()
             Target:clear_e()
         end)
-        self.e = AddSpecialEffectTarget('Abilities\\Spells\\Other\\Aneu\\AneuTarget.mdl', unit, 'overhead')
+        --self.e = AddSpecialEffectTarget('Abilities\\Spells\\NightElf\\TrueshotAura\\TrueshotAura.mdl', unit, 'origin')
         self.unit = unit
         UI.t_panel:loadUnit(unit)
         UI.t_panel:show()
+        SetUnitVertexColorBJ(self.unit, 100.00, 100.00, 100.00, 0)
     end
 
     function target:clearTarget()
@@ -23,6 +24,7 @@ do
     end
 
     function target:clear_e()
+        SetUnitVertexColorBJ(self.unit, 50.00, 50.00, 50.00, 0)
         if self.e then 
             DestroyEffect(self.e)
             self.e = nil
@@ -34,7 +36,7 @@ do
     end
 
     OnInit.map(function()
-        Controller:registerKeyboardEvent(OSKEY_ESCAPE,function()
+        Controller:registerKeyboardEvent(OSKEY_TAB,function()
             Target:clearTarget()
         end)
 
@@ -44,7 +46,7 @@ do
         TriggerRegisterAnyUnitEventBJ(trg, EVENT_PLAYER_UNIT_ATTACKED)
         TriggerAddAction(trg, function()
             if GetTriggerEventId() == EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER then 
-                if GetOrderedUnit() == Hero:get() and GetOrderTargetUnit() ~= Target:get() then Target:set(GetOrderTargetUnit()) end
+                if GetOrderedUnit() == Hero:get() and GetOrderTargetUnit() ~= Hero:get() and GetOrderTargetUnit() ~= Target:get() then Target:set(GetOrderTargetUnit()) end
             elseif GetTriggerEventId() == EVENT_PLAYER_UNIT_ATTACKED then 
                 if GetAttacker() == Hero:get() and GetAttackedUnitBJ() ~= Target:get() then Target:set(GetAttackedUnitBJ()) end
             elseif GetTriggerUnit() ~= Hero:get() then
