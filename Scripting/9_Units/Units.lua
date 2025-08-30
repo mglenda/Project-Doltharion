@@ -235,9 +235,18 @@ do
         end 
     end
 
+    local gc_classes = {}
+
+    function au:register_gc_class(class)
+        table.insert(gc_classes,class)
+    end
+
     oldRemoveUnit = RemoveUnit
     function RemoveUnit(u)
         if u == Target:get() then Target:clearTarget() end
+        for i,class in ipairs(gc_classes) do
+            class:clear(u)
+        end
         Buffs:erase_unit(u)
         Units:destroy_unit_effects(u)
         units[u] = nil

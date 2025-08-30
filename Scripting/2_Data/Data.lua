@@ -23,6 +23,9 @@ do
         stats['ctime_factor'] = CastingTime
         stats['movespeed_const'] = MoveSpeed
         stats['movespeed_factor'] = MoveSpeed
+        stats['dmg_bonus_const'] = DamageBonus
+        stats['dmg_bonus_factor'] = DamageBonus
+        stats['dmg_bonus_value'] = DamageBonus
     end)
 
     function d:get_stat_class(sn)
@@ -145,7 +148,11 @@ do
             -- 'hpreg_const' = Hit Points Regeneration constant (+)
             -- 'hpreg_factor' = Hit Points Regeneration factor (*)
             -- 'ctime_const' = Casting Time constant (+)
-            -- 'ctime_factor' = Casting Time factor (-)
+            -- 'ctime_factor' = Casting Time factor (*)
+            -- 'dmg_bonus_const' = Damage Bonus constant (+) -> percentile of damage instances are summed up
+            -- 'dmg_bonus_factor = Damage Bonus factor (*) -> percentile of damage instances are multiplied 
+            -- 'dmg_bonus_value' = Damage Bonus value (+) -> amount of damage
+
     local buffs = {}
 
     function d:get_buff(b)
@@ -273,29 +280,18 @@ do
             end
         }
         buffs['ignited'] = {
-            d = 8
+            d = 10
             ,e = {
                 {m = 'Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl',a = 'chest'}
             }
             ,es = true
             ,st = {
-                ['resist'] = {-1,true}
+                --['dmg_bonus_value'] = {500,true,{Firebolt:get_a_string()}}
+                --['dmg_bonus_factor'] = {2.5,true,{Firebolt:get_a_string()}}
+                ['dmg_bonus_const'] = {1.0,true,{Firebolt:get_a_string()}}
             }
             ,is_d = true
             ,prio = 5
-            ,p = function(bt)
-                return Utils:round(CastingTime:get(bt.s,Ignite:get_a_string()),2)
-            end
-            ,func_p = function(bt)
-                DamageEngine:damage_unit{
-                        source = bt.s
-                        ,target = bt.u
-                        ,damage = bt.dmg
-                        ,attack_type = ATTACK_TYPE_MAGIC
-                        ,damage_type = DAMAGE_TYPE_FIRE
-                        ,id = Ignite:get_a_code()
-                    }
-            end
         }
     end)    
 end

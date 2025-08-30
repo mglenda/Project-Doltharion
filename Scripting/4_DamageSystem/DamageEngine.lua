@@ -23,43 +23,49 @@ do
         local id = dmg_id[s]
         dmg_id[s] = nil
 
-        --Generic
-        local dmg = GetEventDamage() * GetRandomReal(0.99, 1.01)
-        local t = BlzGetEventDamageTarget()
-        local ab = false
-        local is_player_source = GetOwningPlayer(s) == Players:get_player()
+        if GetEventDamage() > 0 then 
+            --Generic
+            local dmg = GetEventDamage() * GetRandomReal(0.99, 1.01)
+            local t = BlzGetEventDamageTarget()
+            local ab = false
+            local is_player_source = GetOwningPlayer(s) == Players:get_player()
 
-        --Critical Strike
-        local crit = CriticalChance:get(s) >= GetRandomInt(1, 100)
-        if crit then dmg = dmg * dcm end
+            local db_factor,db_constant,db_value = DamageBonus:get(t,id)
+            dmg = (dmg + db_value) * db_factor * db_constant
 
-        --Resistance Apply
-        dmg = dmg * (1.0 - Resistance:get(t) / 100.0)
-        local dmg_done = dmg < 0 and 0 or dmg
+            --Critical Strike
+            local crit = CriticalChance:get(s) >= GetRandomInt(1, 100)
+            if crit then dmg = dmg * dcm end
 
-        --Absorbs Apply
-        if dmg > 0 then
-            if is_player_source then DamageMeter:log(dmg,id) end
-            dmg,ab = Absorbs:damage(t,dmg)
+            --Resistance Apply
+            dmg = dmg * (1.0 - Resistance:get(t) / 100.0)
+            local dmg_done = dmg < 0 and 0 or dmg
+
+            --Absorbs Apply
+            if dmg > 0 then
+                if is_player_source then DamageMeter:log(dmg,id) end
+                dmg,ab = Absorbs:damage(t,dmg)
+            end
+
+            --Override damage
+            if GetUnitAbilityLevel(t, FourCC('DUMM')) > 0 then
+                BlzSetEventDamage(0)
+            else
+                BlzSetEventDamage(dmg < 0 and 0 or dmg)
+            end
+
+            --Text Tag
+            if is_player_source or crit then
+                local msg = ab and 'Absorbed' or (dmg > 0 and (crit and tostring(math.floor(dmg)) .. '!' or tostring(math.floor(dmg))) or '')
+                local r,g,b = Data:get_dmg_color(id)
+                TextTag:create({u=t,s=msg,fs=crit and TextTag:defFontSize() * 1.2 or TextTag:defFontSize(),ls = crit and 2.5 or 1.0,r=r,b=b,g=g})
+            end
+            
+            --Seed related functionality
+            if crit then DamageEngine:on_crit(s,d_seed,dmg_done) end
+            DamageEngine:after_damage(s,d_seed,dmg_done)
+            DamageEngine:clear_seed(s,d_seed)
         end
-
-        --Override damage
-        if GetUnitAbilityLevel(t, FourCC('DUMM')) > 0 then
-            BlzSetEventDamage(0)
-        else
-            BlzSetEventDamage(dmg < 0 and 0 or dmg)
-        end
-
-        --Text Tag
-        if is_player_source or crit then
-            local msg = ab and 'Absorbed' or (dmg > 0 and (crit and tostring(math.floor(dmg)) .. '!' or tostring(math.floor(dmg))) or '')
-            local r,g,b = Data:get_dmg_color(id)
-            TextTag:create({u=t,s=msg,fs=crit and TextTag:defFontSize() * 1.2 or TextTag:defFontSize(),ls = crit and 2.5 or 1.0,r=r,b=b,g=g})
-        end
-        
-        --Seed related functionality
-        if crit then DamageEngine:on_crit(s,d_seed,dmg_done) end
-        DamageEngine:clear_seed(s,d_seed)
     end
 
     function de:new_seed(u,data)
@@ -120,6 +126,17 @@ do
 
         NOTE: Always provide User-Defined params of a snippet. Those are mandatory. Optionally if you want to also use Injected parameters, make sure you include them in function definition in correct order.
     ]]--
+
+    function de:after_damage(u,seed,dmg_done)
+        if seed and Utils:type(seeds[u]) == 'table' and Utils:type(seeds[u][seed]) == 'table' then
+            local data = seeds[u][seed]
+            if data.after_damage then
+                local params = Utils:type(data.after_damage.params) == 'table' and data.after_damage.params or {}
+                data.after_damage.params[#data.after_damage.params + 1] = dmg_done
+                data.after_damage.f(table.unpack(data.after_damage.params))
+            end
+        end
+    end
 
     function de:on_crit(u,seed,dmg_done)
         if seed and Utils:type(seeds[u]) == 'table' and Utils:type(seeds[u][seed]) == 'table' then

@@ -27,7 +27,7 @@ do
     end
 
     function a:apply(caster,target,damage)
-        local dmg = damage * (Utils:round(CastingTime:get_default(caster,a_code),2) / Data:get_buff('ignited').d)
+        local dmg = (damage/2)* (Utils:round(CastingTime:get_default(caster,a_code),2) / Data:get_buff('ignited').d)
         Buffs:apply(caster
                     ,target
                     ,'ignited'

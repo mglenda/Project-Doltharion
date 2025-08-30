@@ -10,6 +10,11 @@ do
         buffs[u] = nil
     end
 
+    --[[
+        v = value of increase
+        s = true/false wether it stacks
+        al = ability list
+    ]]--
     function b:get_all_modifiers(u,m)
         local tbl = {}
         if Utils:type(buffs[u]) == 'table' then
