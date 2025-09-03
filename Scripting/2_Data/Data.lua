@@ -280,18 +280,35 @@ do
             end
         }
         buffs['ignited'] = {
-            d = 10
-            ,e = {
+            e = {
                 {m = 'Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl',a = 'chest'}
             }
             ,es = true
             ,st = {
                 --['dmg_bonus_value'] = {500,true,{Firebolt:get_a_string()}}
                 --['dmg_bonus_factor'] = {2.5,true,{Firebolt:get_a_string()}}
-                ['dmg_bonus_const'] = {1.0,true,{Firebolt:get_a_string()}}
+                ['dmg_bonus_const'] = {0.1,true,{PhoenixBarrage:get_a_string()}}
             }
             ,is_d = true
             ,prio = 5
+            ,ms = 10
+        }
+        buffs['cataclysed'] = {
+            prio = 2
+            ,ms = 1
+            ,func_a = function(bt)
+                Abilities:add_silence{
+                    unit = bt.u
+                    ,s_key = 'cataclysed'
+                    ,a_code = CatalyticIncineration:get_a_code()
+                }
+            end
+            ,func_e = function(bt)
+                Abilities:clear_silence{
+                    unit = bt.u
+                    ,s_key = 'cataclysed'
+                }
+            end
         }
     end)    
 end

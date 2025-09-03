@@ -16,7 +16,7 @@ Frame "SIMPLEFRAME" "Details_BarFrame" {
 
 Frame "SIMPLEFRAME" "Details_Energy_BarFrame" {
 	Width 0.135,
-	Height 0.014,
+	Height 0.018,
 	Texture "Details_BarTexture" {
 		File "war3mapImported\DBM_Background.dds",
 	}
@@ -24,17 +24,29 @@ Frame "SIMPLEFRAME" "Details_Energy_BarFrame" {
 
 Frame "SIMPLESTATUSBAR" "Details_Energy_Bar" {
 	Width 0.132,
-	Height 0.01,
+	Height 0.0172,
 	BarTexture "war3mapImported\DBM_BarFill_Gold.dds",
+}
+
+Frame "SIMPLEFRAME" "Details_Energy_Bar_Name" {
+	Width 0.132,
+	Height 0.0172,
+	String "Details_Energy_Bar_Name_Text" {
+		Anchor LEFT, 0.0069, 0,
+		Font "Prototype.ttf", 0.006,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "TestName",
+	}
 }
 
 Frame "SIMPLEFRAME" "Details_Energy_Bar_Value" {
 	Width 0.132,
-	Height 0.01,
+	Height 0.0172,
 	String "Details_Energy_Bar_Value_Text" {
-		Anchor CENTER, 0, -0.001,
-		Font "Prototype.ttf", 0.0058,
+		Anchor RIGHT, -0.0069, 0,
+		Font "Prototype.ttf", 0.006,
 		FontColor 1.0 1.0 1.0 1.0,
+		Text "20/100",
 	}
 }
 

@@ -52,6 +52,8 @@ do
         BlzSetSpecialEffectScale(this.missile, this.e_scale)
         BlzSetSpecialEffectZ(this.missile, this.spawn_z)
         BlzSetSpecialEffectYaw(this.missile, Utils:get_rad_between_points(this.x,this.y,this.target_x,this.target_y))
+        
+        this = Utils:table_merge(this,args)
 
         MissileManager:register(this)
         return this
@@ -111,9 +113,7 @@ do
             self.z = self.spawn_z + (self.target_z - self.spawn_z) * progress
             
             -- set effect coords
-            BlzSetSpecialEffectX(self.missile, x)
-            BlzSetSpecialEffectY(self.missile, y)
-            BlzSetSpecialEffectZ(self.missile, self.z)
+            Utils:set_special_effect_xyz(self.missile,x,y,self.z)
             BlzSetSpecialEffectYaw(self.missile, r)
             return true
         end

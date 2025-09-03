@@ -10,9 +10,10 @@ do
         self.max_duration = 5
         self.current_duration = 0
         self.total_duration = 0
+        self.in_combat = false
 
         TriggerAddAction(self.combat_timer, self.timer_tick)
-        TriggerRegisterTimerEventPeriodic(self.combat_timer, 1.0)
+        TriggerRegisterTimerEventPeriodic(self.combat_timer, 0.1)
         DisableTrigger(self.combat_timer)
 
         TriggerRegisterAnyUnitEventBJ(self.combat_trigger, EVENT_PLAYER_UNIT_DAMAGED)
@@ -54,9 +55,10 @@ do
     end
 
     function dm:timer_tick()
-        DamageMeter.current_duration = DamageMeter.current_duration + 1
-        DamageMeter.total_duration = DamageMeter.total_duration + 1
+        DamageMeter.current_duration = DamageMeter.current_duration + 0.1
+        DamageMeter.total_duration = DamageMeter.total_duration + 0.1
         if DamageMeter.current_duration > DamageMeter.max_duration then
+            DamageMeter.in_combat = false
             DisableTrigger(DamageMeter.combat_timer)
             DamageMeter.total_duration = (DamageMeter.total_duration > DamageMeter.max_duration) and DamageMeter.total_duration - DamageMeter.max_duration or 0
             DamageMeterPanel:update()
@@ -64,6 +66,7 @@ do
     end
 
     function dm:combat_init()
+        DamageMeter.in_combat = true
         DamageMeter.current_duration = 0
         DamageMeterPanel:update()
         if not(IsTriggerEnabled(DamageMeter.combat_timer)) then

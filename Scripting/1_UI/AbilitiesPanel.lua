@@ -192,9 +192,12 @@ do
             elseif s == 'cd' then 
                 self:setDisabled(ac) 
                 BlzFrameSetText(self.list[ac][4], StringUtils:round(c,1))
+            elseif s == 'silenced' then
+                self:setDisabled(ac)
+                BlzFrameSetText(self.list[ac][4], '')
             end
         end
-        BlzFrameSetVisible(self.list[ac][5], ih)
+        BlzFrameSetVisible(self.list[ac][5], ih and s == 'rdy')
     end
     
     function ap:loadUnit(u)

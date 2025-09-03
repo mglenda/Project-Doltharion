@@ -13,12 +13,18 @@ do
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "s", true)
         TriggerAddAction(trg, function()
-            AnimationSeq:start(Hero:get(),AnimMage:seq_spellcast()) 
+            Abilities:add_silence{
+                unit = Hero:get()
+                ,s_key = 'my_key'
+            }
+            --AnimationSeq:start(Hero:get(),AnimMage:seq_spellcast()) 
         end)
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "h", true)
         TriggerAddAction(trg, function()
-            AnimationSeq:start(Hero:get(),AnimMage:seq_spellchannel()) 
+            Abilities:clear_silence{
+                unit = Hero:get()
+            }
         end)
 
         trg = CreateTrigger()

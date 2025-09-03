@@ -99,8 +99,8 @@ do
                 ,id = FourCC(a_code)
                 ,data = {
                     after_damage = {
-                        f = Ignite.apply,
-                        params = table.pack(Ignite,caster,u)
+                        f = Buffs.apply,
+                        params = table.pack(Buffs,caster,u,'ignited')
                     }
                 }
             }

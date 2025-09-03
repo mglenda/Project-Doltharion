@@ -60,49 +60,27 @@ do
         DestroyEffect(e)
         for _,u in ipairs(Units:get_area_alive_enemy(x,y,aoe,GetOwningPlayer(caster))) do
             DamageEngine:damage_unit{
-                        source = caster
-                        ,target = u
-                        ,damage = SpellPower:get(caster) * 2.5
-                        ,attack_type = ATTACK_TYPE_MAGIC
-                        ,damage_type = DAMAGE_TYPE_FIRE
-                        ,id = FourCC(a_code)
-                    }
+                source = caster
+                ,target = u
+                ,damage = SpellPower:get(caster) * 2.5
+                ,attack_type = ATTACK_TYPE_MAGIC
+                ,damage_type = DAMAGE_TYPE_FIRE
+                ,id = FourCC(a_code)
+            }
         end
     end
 
     function a:spawn_missiles(caster,x,y,z,aoe)
-        for i,u in ipairs(Ignite:get_units(caster)) do
-            if IsUnitAliveBJ(u) and Utils:get_unit_distance(x,y,u) <= aoe then
-                Missile:create{
-                    e_model = 'Abilities\\Weapons\\PhoenixMissile\\Phoenix_Missile.mdl'
-                    ,e_scale = 1.5
-                    ,caster = caster
-                    ,spawn_x = x
-                    ,spawn_y = y
-                    ,spawn_z = z
-                    ,target = u
-                    ,speed = 12.0
-                    ,a_phase = math.random() * 15 * math.pi
-                    ,w_speed = 0.08 + math.random() * 0.08
-                    ,w_radius = 20 + math.random() * 20
-                    ,on_impact = function(m)
-                        self:missle_damage(m.caster,m.target)
-                    end
-                }
-            end
+        for _,u in ipairs(Units:get_area_alive_enemy(x,y,aoe,GetOwningPlayer(caster))) do
+            PhoenixBarrage:create_missile{
+                caster = caster
+                ,target = u
+                ,spawn_x = x
+                ,spawn_y = y
+                ,spawn_z = z
+                ,generate_energy = true
+            }
         end
-    end
-
-    function a:missle_damage(caster,target)
-        DamageEngine:damage_unit{
-            source = caster
-            ,target = target
-            ,damage = SpellPower:get(caster) * 1.5
-            ,attack_type = ATTACK_TYPE_MAGIC
-            ,damage_type = DAMAGE_TYPE_FIRE
-            ,id = FourCC(a_code)
-        }
-        --Buffs:increase_duration_all_stacks(target,'ignited',1.0)
     end
 
     function a:tick()

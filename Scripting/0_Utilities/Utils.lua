@@ -170,6 +170,17 @@ do
         return a - math.floor(a/b)*b
     end
 
+    function u:set_special_effect_xy(e,x,y)
+        BlzSetSpecialEffectX(e, x)
+        BlzSetSpecialEffectY(e, y)
+    end
+
+    function u:set_special_effect_xyz(e,x,y,z)
+        BlzSetSpecialEffectX(e, x)
+        BlzSetSpecialEffectY(e, y)
+        BlzSetSpecialEffectZ(e, z)
+    end
+
     function u:refresh_unit_bars()
         ForceUIKeyBJ(Players:get_player(), "A")
         ForceUICancelBJ(Players:get_player())

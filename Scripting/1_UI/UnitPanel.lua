@@ -19,6 +19,7 @@ do
     function up:show()
         if not(BlzFrameIsVisible(self.main)) then
             BlzFrameSetVisible(self.main, true)
+            BlzFrameSetVisible(self.energy_bar_frame, false)
         end
     end
 
@@ -66,6 +67,16 @@ do
             end
             if self.unit == Hero:get() then
                 BuffPanel:refresh(bt)
+                energy_data = Hero:get_energy_ui()
+                if energy_data then
+                    BlzFrameSetVisible(self.energy_bar_frame, true)
+                    BlzFrameSetTexture(self.energy_bar, energy_data.energy_bar_path, 0, true)
+                    BlzFrameSetValue(self.energy_bar, energy_data.energy_value)
+                    BlzFrameSetText(self.energy_bar_name, energy_data.energy_name)
+                    BlzFrameSetText(self.energy_bar_value, energy_data.energy_text)
+                else
+                    BlzFrameSetVisible(self.energy_bar_frame, false)
+                end
             end
         end
         return nil
@@ -99,6 +110,13 @@ do
         local barHP = BlzCreateSimpleFrame('Details_Bar_HP', this.bar_absorbs, f_id)
         local barReg = BlzCreateSimpleFrame('Details_Bar_HPReg', this.bar_absorbs, f_id)
 
+        this.energy_bar_frame = BlzCreateSimpleFrame('Details_Energy_BarFrame', this.main, f_id)
+        this.energy_bar = BlzCreateSimpleFrame('Details_Energy_Bar', this.energy_bar_frame, f_id)
+        local energy_bar_value_frame = BlzCreateSimpleFrame('Details_Energy_Bar_Value', this.energy_bar, f_id)
+        local energy_bar_name_frame = BlzCreateSimpleFrame('Details_Energy_Bar_Name', this.energy_bar, f_id)
+        this.energy_bar_name = BlzGetFrameByName('Details_Energy_Bar_Name_Text', f_id)
+        this.energy_bar_value = BlzGetFrameByName('Details_Energy_Bar_Value_Text', f_id)
+
         local unitIcon = BlzCreateSimpleFrame('Details_UnitIcon', barFrame, f_id)
 
         local statsFrame = BlzCreateSimpleFrame('Stats_Frame', this.main, f_id)
@@ -115,6 +133,11 @@ do
         BlzFrameSetPoint(barHP, FRAMEPOINT_RIGHT, this.bar_absorbs, FRAMEPOINT_RIGHT, 0, 0)
         BlzFrameSetPoint(barReg, FRAMEPOINT_LEFT, this.bar_absorbs, FRAMEPOINT_LEFT, 0, 0)
         BlzFrameSetPoint(statsFrame, f_id == 0 and FRAMEPOINT_BOTTOMRIGHT or FRAMEPOINT_BOTTOMLEFT, this.main, f_id == 0 and FRAMEPOINT_BOTTOMRIGHT or FRAMEPOINT_BOTTOMLEFT, 0, 0)
+
+        BlzFrameSetPoint(this.energy_bar_frame, FRAMEPOINT_BOTTOM, barFrame, FRAMEPOINT_TOP, 0, 0)
+        BlzFrameSetPoint(this.energy_bar, FRAMEPOINT_CENTER, this.energy_bar_frame, FRAMEPOINT_CENTER, 0, 0)
+        BlzFrameSetPoint(energy_bar_value_frame, FRAMEPOINT_RIGHT, this.energy_bar, FRAMEPOINT_RIGHT, 0, 0)
+        BlzFrameSetPoint(energy_bar_name_frame, FRAMEPOINT_LEFT, this.energy_bar, FRAMEPOINT_LEFT, 0, 0)
 
         BlzFrameSetPoint(stat_dmg, FRAMEPOINT_TOPLEFT, statsFrame, FRAMEPOINT_TOPLEFT, 0.006, -0.002)
         BlzFrameSetPoint(stat_power, FRAMEPOINT_TOPRIGHT, statsFrame, FRAMEPOINT_TOPRIGHT, -0.006, -0.002)

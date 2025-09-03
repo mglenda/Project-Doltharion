@@ -37,7 +37,7 @@ do
         self.number = BlzGetFrameByName('CastingBar_Number_Text', 0)
         self.bar = bar
 
-        local x,y = 0.4,(3 * UI:getConst('ab_border_def_width'))
+        local x,y = 0.4,(3.5 * UI:getConst('ab_border_def_width'))
         BlzFrameSetAbsPoint(self.main, FRAMEPOINT_BOTTOM, x, y)
 
         TriggerRegisterTimerEventPeriodic(self.timer, 0.01)
@@ -119,7 +119,7 @@ do
     end
 
     function cb:rescale(s)
-        local x,y = 0.4,(3 * UI:getConst('ab_border_def_width'))
+        local x,y = 0.4,(3.5 * UI:getConst('ab_border_def_width'))
         BlzFrameSetScale(self.main, s)
         BlzFrameSetAbsPoint(self.main, FRAMEPOINT_BOTTOM, x, y)
     end

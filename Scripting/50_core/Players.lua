@@ -18,4 +18,8 @@ do
     function p:get_passive()
         return Player(PLAYER_NEUTRAL_PASSIVE)
     end
+
+    function p:get_hostile()
+        return Player(PLAYER_NEUTRAL_AGGRESSIVE)
+    end
 end

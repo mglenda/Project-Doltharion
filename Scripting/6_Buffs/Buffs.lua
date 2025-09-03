@@ -78,6 +78,7 @@ do
             end
             table.sort(tbl, function (k1, k2) return k1.id > k2.id end)
             for i,d in ipairs(tbl) do
+                if d.es then self:erase_effects(d) end
                 table.remove(buffs[t], d.id)
             end
         end
@@ -179,11 +180,21 @@ do
         end
     end
 
-    function b:clear_buff(u,bn,dis)
-        if Utils:type(buffs[u]) ~= 'table' then return end
+    --[[
+        Buffs:clear_buff{
+            unit = 
+            ,buff_name = 
+            
+            --Optional
+            ,dis = true || false
+        }
+    ]]--
+
+    function b:clear_buff(args)
+        if Utils:type(buffs[args.unit]) ~= 'table' then return end
         local t = {}
-        for i,d in ipairs(buffs[u]) do
-            if d.bn == bn and (not(dis) or not(d.nd)) then 
+        for i,d in ipairs(buffs[args.unit]) do
+            if d.bn == args.buff_name and (not(args.dis) or not(d.nd)) then 
                 table.insert(t,d)
                 t[#t].c_prio = (d.d or 0) - d.dur
                 t[#t].id = i
@@ -191,7 +202,7 @@ do
         end
         if #t > 0 then 
             table.sort(t, function (k1, k2) return k1.c_prio > k2.c_prio end)
-            Buffs:clear(u,t[#t].id,#t,dis)
+            Buffs:clear(args.unit,t[#t].id,#t,args.dis)
         end
     end
 

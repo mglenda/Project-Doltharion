@@ -19,6 +19,7 @@ do
 
     function ajw:show()
         BlzFrameSetVisible(self.listener, true)
+        self:deactivate()
     end
 
     function ajw:get()

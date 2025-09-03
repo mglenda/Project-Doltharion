@@ -3,7 +3,7 @@ do
     local mm = getmetatable(MissileManager)
     mm.__index = mm
 
-    local max_missiles_per_trigger = 50
+    local max_missiles_per_trigger = 25
 
     function mm:load()
         self.containers = {}

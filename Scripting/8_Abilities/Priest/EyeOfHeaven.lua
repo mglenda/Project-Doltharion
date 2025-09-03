@@ -58,7 +58,10 @@ do
                 else
                     for _,v in ipairs(tbl[i].l_units) do
                         if v.l then DestroyLightning(v.l) end
-                        Buffs:clear_buff(v.u,'eyeofheaven')
+                        Buffs:clear_buff{
+                            unit = v.u
+                            ,buff_name = 'eyeofheaven'
+                        }
                     end
                     EffectAnimation:vanish(tbl[i].e,2.5)
                     table.remove(tbl,i)
@@ -77,7 +80,10 @@ do
                     DestroyLightning(tbl[j].l_units[i].l) 
                     tbl[j].l_units[i].l = nil
                 end
-                Buffs:clear_buff(u,'eyeofheaven')
+                Buffs:clear_buff{
+                    unit = u
+                    ,buff_name = 'eyeofheaven'
+                }
                 table.remove(tbl[j].l_units,i)
             else
                 if tbl[j].l_units[i].c >= 16 then

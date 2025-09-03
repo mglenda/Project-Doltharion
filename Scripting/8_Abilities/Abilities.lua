@@ -3,10 +3,73 @@ do
     local a = getmetatable(Abilities)
     a.__index = a
 
+    local silences = {}
     local cooldowns = {}
     local highlighted = {}
     local counter = CreateTrigger()
     local refreshRate = 0.1
+
+    --[[
+        Abilities:add_silence{
+            unit = unit
+            ,s_key = 'my_key'
+
+            --optional, silences all if skipped
+            ,a_code = Ability:get_a_code()
+        }
+    ]]--
+    function a:add_silence(args)
+        local unit = args.unit
+        local a_code = args.a_code or 'all'
+        local s_key = args.s_key
+        if unit and s_key then
+            silences[unit] = silences[unit] or {}
+            table.insert(silences[unit],{
+                s_key = s_key
+                ,a_code = a_code
+            })
+        end
+    end
+
+    function a:is_ability_silenced(unit,a_code)
+        if Utils:type(silences[unit]) == 'table' then
+            for i,t in ipairs(silences[unit]) do
+                if t.a_code == 'all' or t.a_code == a_code then 
+                    return true
+                end    
+            end
+        end
+        return false
+    end
+
+    function a:silence_with_key_exists(unit,s_key)
+        if Utils:type(silences[unit]) == 'table' then
+            for i,t in ipairs(silences[unit]) do
+                if t.s_key == s_key then 
+                    return true
+                end
+            end
+        end
+        return false
+    end
+
+    function a:clear_silence(args)
+        local unit = args.unit
+        local s_key = args.s_key
+
+        if not(s_key) then
+            silences[unit] = nil
+            return
+        end
+
+        if unit and Utils:type(silences[unit]) == 'table' then
+            for i=#silences[unit],1,-1 do
+                if silences[unit][i].s_key == s_key then 
+                    table.remove(silences[unit],i)
+                end
+            end
+        end
+    end
 
     function a:refresh()
         local c = 0
@@ -49,7 +112,7 @@ do
                 end
             end
         end
-        return s-c <= 0 and 'cd' or 'rdy',s-c,mc,self:is_highlighted(u,ac)
+        return s-c <= 0 and 'cd' or (self:is_ability_silenced(u,ac) and 'silenced' or 'rdy'),s-c,mc,self:is_highlighted(u,ac)
     end
 
     function a:is_ability_ready(u,ac)
@@ -61,7 +124,7 @@ do
                 end
             end
         end
-        return s-c > 0
+        return s-c > 0 and not(self:is_ability_silenced(u,ac))
     end
 
     --[[
