@@ -6,11 +6,11 @@ do
     local sp_ability = FourCC('APWR')
 
     function sp:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'spepow_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'spepow_const'),Buffs:get_all_modifiers(u,'spepow_const'))
     end
 
     function sp:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'spepow_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'spepow_factor'),Buffs:get_all_modifiers(u,'spepow_factor'))
     end
 
     function sp:recalculate(u)

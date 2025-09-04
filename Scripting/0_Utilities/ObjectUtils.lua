@@ -5,14 +5,42 @@ do
 
     local ab_codes = {}
 
-    function mt:getUnitAbilities(u,noAatk)
+    --[[
+        ObjectUtils:get_unit_abilities_with_priority(u)
+    ]]--
+    function mt:get_unit_abilities_with_priority(u)
         local list = {}
-        for _,ab_code in ipairs(ab_codes) do
-            if GetUnitAbilityLevel(u, FourCC(ab_code)) > 0 and (not(noAatk) or ab_code ~= 'Aatk') then
-                table.insert(list,{ac = ab_code,p = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(ab_code)), ABILITY_IF_TARGET_ATTACHMENTS)})
+        if u then
+            for _,a_code in ipairs(ab_codes) do
+                if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 and a_code ~= 'Aatk' then
+                    table.insert(list,{a_code = a_code,p = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_IF_TARGET_ATTACHMENTS)})
+                end
+            end
+            
+            table.sort(list, function (k1, k2) return k1.p < k2.p end)
+            for i,_ in ipairs(list) do
+                list[i] = list[i].a_code
             end
         end
-        table.sort(list, function (k1, k2) return k1.p < k2.p end)
+        return list
+    end
+
+    --[[
+        ObjectUtils:get_unit_ability_codes{
+            unit = my_unit
+            ,no_attack = true/false
+        }
+    ]]--
+    function mt:get_unit_ability_codes(args)
+        local list = {}
+        local u = args.unit
+        if u then 
+            for _,a_code in ipairs(ab_codes) do
+                if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 and (not(args.no_attack) or a_code ~= 'Aatk') then
+                    table.insert(list,a_code)
+                end
+            end
+        end
         return list
     end
 

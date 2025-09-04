@@ -4,21 +4,21 @@ do
     ct.__index = ct
 
     function ct:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'ctime_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'ctime_const'),Buffs:get_all_modifiers(u,'ctime_const'))
     end
 
     function ct:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'ctime_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'ctime_factor'),Buffs:get_all_modifiers(u,'ctime_factor'))
     end
 
     function ct:recalculate(u)
-        local ns,m,ab,abs = {},self:get_modifiers_const(u),{},ObjectUtils:getUnitAbilities(u)
-        for _,a in pairs(abs) do if a.ac ~= 'Aatk' then ab[a.ac] = self:get_default(u,a.ac) end end
+        local ns,m,ab,abs = {},self:get_modifiers_const(u),{},ObjectUtils:get_unit_ability_codes{unit = u,no_attack = true}
+        for _,a_id in pairs(abs) do if a_id ~= 'Aatk' then ab[a_id] = self:get_default(u,a_id) end end
         for i,v in ipairs(m) do
             if not(ns[v.n]) then 
                 local al = Utils:type(v.al) == 'table' and v.al or abs
-                for _,a in ipairs(al) do
-                    if a.ac ~= 'Aatk' and ab[a.ac] then ab[a.ac] = ab[a.ac] + v.v end
+                for _,a_id in ipairs(al) do
+                    if a_id ~= 'Aatk' and ab[a_id] then ab[a_id] = ab[a_id] + v.v end
                 end
                 ns[v.n] = not(v.s)
             end
@@ -27,8 +27,8 @@ do
         for i,v in ipairs(m) do
             if not(ns[v.n]) then 
                 local al = Utils:type(v.al) == 'table' and v.al or abs
-                for _,a in ipairs(al) do
-                    if a.ac ~= 'Aatk' and ab[a.ac] then ab[a.ac] = ab[a.ac] * v.v end
+                for _,a_id in ipairs(al) do
+                    if a_id ~= 'Aatk' and ab[a_id] then ab[a_id] = ab[a_id] * v.v end
                 end
                 ns[v.n] = not(v.s)
             end

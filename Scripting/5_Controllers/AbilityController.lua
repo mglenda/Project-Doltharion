@@ -8,20 +8,20 @@ do
     local quick_cast = true
 
     function ac:load()
-        for _,v in ipairs(ObjectUtils:getUnitAbilities(Hero:get())) do
-            if v.ac ~= 'Aatk' then
-                local d = BlzGetAbilityActivatedTooltip(FourCC(v.ac), GetUnitAbilityLevel(Hero:get(),FourCC(v.ac)))
+        for _,a_code in ipairs(ObjectUtils:get_unit_ability_codes{unit = Hero:get()}) do
+            if a_code ~= 'Aatk' then
+                local d = BlzGetAbilityActivatedTooltip(FourCC(a_code), GetUnitAbilityLevel(Hero:get(),FourCC(a_code)))
                 if d ~= 'Tool tip missing!' then
                     local castOsKey,castType,castForcedKey,cliqueKey = ConvertOsKeyType(string.byte(d:sub(1,1))) ,d:sub(3,3),d:sub(5,5),d:sub(9,9)
                     local tbl = {
                         trg = CreateTrigger()
-                        ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
+                        ,order = String2OrderIdBJ(BlzGetAbilityStringLevelField(BlzGetUnitAbility(Hero:get(), FourCC(a_code)), ABILITY_SLF_BASE_ORDER_ID_NCL6, 0))
                         ,forcedKey = castForcedKey
-                        ,ac = FourCC(v.ac)
+                        ,ac = FourCC(a_code)
                         ,cliqueKey = tonumber(cliqueKey)
                     }
-                    local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
-                    local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
+                    local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(a_code)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
+                    local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(a_code)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
 
                     BlzTriggerRegisterFrameEvent(tbl.trg, BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y)), FRAMEEVENT_CONTROL_CLICK)
                     BlzTriggerRegisterPlayerKeyEvent(tbl.trg, Players:get_player(), castOsKey, 0, true)

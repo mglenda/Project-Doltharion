@@ -4,11 +4,11 @@ do
     ms.__index = ms
 
     function ms:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'movespeed_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'movespeed_const'),Buffs:get_all_modifiers(u,'movespeed_const'))
     end
 
     function ms:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'movespeed_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'movespeed_factor'),Buffs:get_all_modifiers(u,'movespeed_factor'))
     end
 
     function ms:recalculate(u)

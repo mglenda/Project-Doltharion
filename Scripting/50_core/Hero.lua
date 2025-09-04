@@ -10,7 +10,6 @@ do
         self.safe_zone = Rect(5792.0, -11776.0, 7424.0, -10336.0)
         CreateFogModifierRectBJ(true, Players:get_player(), FOG_OF_WAR_VISIBLE, self.safe_zone)
         AbilityController:load()
-        CastingController:load()
         SelectUnitForPlayerSingle(self:get(), Players:get_player())
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(self:get()), GetUnitY(self:get()), 0.0)
     end

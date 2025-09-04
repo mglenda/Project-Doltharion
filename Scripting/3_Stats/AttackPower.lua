@@ -6,11 +6,11 @@ do
     local ap_ability = FourCC('APWR')
 
     function ap:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'attpow_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'attpow_const'),Buffs:get_all_modifiers(u,'attpow_const'))
     end
 
     function ap:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'attpow_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'attpow_factor'),Buffs:get_all_modifiers(u,'attpow_factor'))
     end
 
     function ap:recalculate(u)

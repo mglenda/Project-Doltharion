@@ -6,7 +6,7 @@ do
     local as_ability = FourCC('ASPD')
 
     function as:get_modifiers(u)
-        return Buffs:get_all_modifiers(u,'atkspeed')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'atkspeed'),Buffs:get_all_modifiers(u,'atkspeed'))
     end
 
     function as:recalculate(u)

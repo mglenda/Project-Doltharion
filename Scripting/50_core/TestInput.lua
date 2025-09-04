@@ -13,17 +13,18 @@ do
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "s", true)
         TriggerAddAction(trg, function()
-            Abilities:add_silence{
+            Modifiers:apply{
                 unit = Hero:get()
-                ,s_key = 'my_key'
+                ,m_name = 'mod_test'
             }
             --AnimationSeq:start(Hero:get(),AnimMage:seq_spellcast()) 
         end)
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "h", true)
         TriggerAddAction(trg, function()
-            Abilities:clear_silence{
+            Modifiers:remove{
                 unit = Hero:get()
+                ,m_name = 'mod_test'
             }
         end)
 

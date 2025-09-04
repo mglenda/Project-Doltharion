@@ -7,6 +7,11 @@ do
     local trg = CreateTrigger()
 
     function b:erase_unit(u)
+        if Utils:type(buffs[u]) == 'table' then
+            for _,bt in ipairs(buffs[u]) do
+                self:erase_effects(bt)
+            end
+        end
         buffs[u] = nil
     end
 
@@ -241,5 +246,6 @@ do
     OnInit.final(function()
         TriggerRegisterTimerEventPeriodic(trg, 0.01)
         TriggerAddAction(trg, Buffs.progress)
+        Units:register_gc_class(Buffs)
     end)
 end

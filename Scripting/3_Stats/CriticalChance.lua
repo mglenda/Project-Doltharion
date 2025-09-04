@@ -6,7 +6,7 @@ do
     local cc_ability = FourCC('APWR')
 
     function cc:get_modifiers(u)
-        return Buffs:get_all_modifiers(u,'critchance')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'critchance'),Buffs:get_all_modifiers(u,'critchance'))
     end
 
     function cc:recalculate(u)

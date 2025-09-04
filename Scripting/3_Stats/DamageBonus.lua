@@ -6,15 +6,15 @@ do
     local data = {}
 
     function db:get_modifiers_value(u)
-        return Buffs:get_all_modifiers(u,'dmg_bonus_value')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'dmg_bonus_value'),Buffs:get_all_modifiers(u,'dmg_bonus_value'))
     end
 
     function db:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'dmg_bonus_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'dmg_bonus_const'),Buffs:get_all_modifiers(u,'dmg_bonus_const'))
     end
 
     function db:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'dmg_bonus_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'dmg_bonus_factor'),Buffs:get_all_modifiers(u,'dmg_bonus_factor'))
     end
 
     --[[
@@ -84,7 +84,7 @@ do
                 ,values = values
             }
         else
-            self:clear(u)
+            self:erase_unit(u)
         end
     end
 
@@ -109,7 +109,7 @@ do
         return Utils:round(factor,2),Utils:round(constant,2),Utils:round(value,2)
     end
 
-    function db:clear(u)
+    function db:erase_unit(u)
         data[u] = nil
     end
 

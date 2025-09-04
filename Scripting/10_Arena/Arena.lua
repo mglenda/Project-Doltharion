@@ -66,12 +66,12 @@ do
         DamageMeter:reset()
         UI:hide_idle_panels()
         self.arenas[i]:start()
-        AI:start()
+        --AI:start()
     end
 
     function a:stop(i)
         DBM:destroy_all()
-        AI:stop()
+        --AI:stop()
         self:flush_triggers()
         self.arenas[i]:stop()
         self.data = {}

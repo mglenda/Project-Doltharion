@@ -6,7 +6,7 @@ do
     local r_ability = FourCC('ARES')
 
     function r:get_modifiers(u)
-        return Buffs:get_all_modifiers(u,'resist')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'resist'),Buffs:get_all_modifiers(u,'resist'))
     end
 
     function r:recalculate(u)

@@ -28,7 +28,6 @@ do
         for u,_ in pairs(Units:get_all()) do
             if GetUnitAbilityLevel(u, FourCC(a_code)) > 0 then 
                 ac = ac + 1
-                if not(Units:get_unit_effect(u,'emp_aura')) then Units:register_unit_effect(u,'Abilities\\Spells\\Human\\DevotionAura\\DevotionAura.mdl','origin','emp_aura') end
                 if IsUnitAliveBJ(u) then 
                     local ut = {}
                     local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, FourCC(a_code)), ABILITY_RLF_AREA_OF_EFFECT, 0)

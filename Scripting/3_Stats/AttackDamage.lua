@@ -6,11 +6,11 @@ do
     local ad_ability = FourCC('AATK')
 
     function ad:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'attdmg_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'attdmg_const'),Buffs:get_all_modifiers(u,'attdmg_const'))
     end
 
     function ad:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'attdmg_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'attdmg_factor'),Buffs:get_all_modifiers(u,'attdmg_factor'))
     end
 
     function ad:recalculate(u)

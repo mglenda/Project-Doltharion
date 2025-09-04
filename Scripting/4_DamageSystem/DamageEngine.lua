@@ -95,7 +95,14 @@ do
         Injected params are automatically inserted into function arguments after User-Defined parameters in the exact order as written bellow.
 
         Available Snippets:
-            on_crit -> (trigger when damage done was critical hit)
+            on_crit -> (trigger when damage done was critical hit, after all damage calculations)
+                    -> User-Defined Params:
+                        1. f => function (function you want to run)
+                        2. (optional) params => values of function parameters packed via table.pack(...)
+                    -> Injected Params:
+                        1. dmg_done => value of damage done during damage event
+
+            after_damage -> (trigger whenever damage done, after all damage calculations)
                     -> User-Defined Params:
                         1. f => function (function you want to run)
                         2. (optional) params => values of function parameters packed via table.pack(...)
@@ -121,7 +128,7 @@ do
             Ignite.apply(source,damage,target) -> wouldn't work, since after parameter unpacking, damage_target value would be assigned into "damage" and damage_done would be assigned into target.
 
             It's not mandatory to have Injected params included in the function if you don't need them for your logic. 
-            They are always provided by the api, but if function doesn't have them defined parameter count won't fit and Lua just ignores them.
+            They are always provided by the api, but if function doesn't have them defined, parameter count won't fit and Lua just ignores them.
             So having Ignite.apply(source,target) would work without any issues.
 
         NOTE: Always provide User-Defined params of a snippet. Those are mandatory. Optionally if you want to also use Injected parameters, make sure you include them in function definition in correct order.
@@ -132,8 +139,8 @@ do
             local data = seeds[u][seed]
             if data.after_damage then
                 local params = Utils:type(data.after_damage.params) == 'table' and data.after_damage.params or {}
-                data.after_damage.params[#data.after_damage.params + 1] = dmg_done
-                data.after_damage.f(table.unpack(data.after_damage.params))
+                params[#params + 1] = dmg_done
+                data.after_damage.f(table.unpack(params))
             end
         end
     end
@@ -143,8 +150,8 @@ do
             local data = seeds[u][seed]
             if data.on_crit then
                 local params = Utils:type(data.on_crit.params) == 'table' and data.on_crit.params or {}
-                data.on_crit.params[#data.on_crit.params + 1] = dmg_done
-                data.on_crit.f(table.unpack(data.on_crit.params))
+                params[#params + 1] = dmg_done
+                data.on_crit.f(table.unpack(params))
             end
         end
     end

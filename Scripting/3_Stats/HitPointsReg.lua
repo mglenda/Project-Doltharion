@@ -6,11 +6,11 @@ do
     local hp_ability = FourCC('AHPS')
 
     function hp:get_modifiers_const(u)
-        return Buffs:get_all_modifiers(u,'hpreg_const')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'hpreg_const'),Buffs:get_all_modifiers(u,'hpreg_const'))
     end
 
     function hp:get_modifiers_factor(u)
-        return Buffs:get_all_modifiers(u,'hpreg_factor')
+        return Utils:table_merge(Modifiers:get_all_modifiers(u,'hpreg_factor'),Buffs:get_all_modifiers(u,'hpreg_factor'))
     end
 
     function hp:recalculate(u)

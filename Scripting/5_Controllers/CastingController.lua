@@ -106,4 +106,8 @@ do
             EnableTrigger(self.trigger)
         end
     end
+
+    OnInit(function()
+        CastingController:load()
+    end)
 end

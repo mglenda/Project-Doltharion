@@ -65,11 +65,11 @@ do
     function ai:damaging_action()
         local s,t = GetEventDamageSource(),BlzGetEventDamageTarget()
         if IsUnitAliveBJ(s) and s ~= Hero:get() and not(IsUnitPaused(s)) then
-            local abs = ObjectUtils:getUnitAbilities(s,true)
+            local abs = ObjectUtils:get_unit_abilities_with_priority(s)
             if not(Units:is_casting(s)) and not(Units:is_ordered(s)) then
-                for _,v in ipairs(abs) do
-                    if Abilities:is_ability_available(s,FourCC(v.ac)) then
-                        local o = Utils:type(Data:get_ability_class(FourCC(v.ac)).on_ai_damaging) == 'function' and Data:get_ability_class(FourCC(v.ac)):on_ai_damaging(s) or nil
+                for _,a_code in ipairs(abs) do
+                    if Abilities:is_ability_available(s,FourCC(a_code)) then
+                        local o = Utils:type(Data:get_ability_class(FourCC(a_code)).on_ai_damaging) == 'function' and Data:get_ability_class(FourCC(a_code)):on_ai_damaging(s) or nil
                         if o then 
                             Units:register_order(s,o)
                             break 
@@ -79,11 +79,11 @@ do
             end
         end
         if IsUnitAliveBJ(t) and t ~= Hero:get() then
-            local abs = ObjectUtils:getUnitAbilities(t,true)
+            local abs = ObjectUtils:get_unit_abilities_with_priority(t)
             if not(Units:is_casting(t)) and not(Units:is_ordered(t)) and not(IsUnitPaused(t)) then
                 for _,v in ipairs(abs) do
-                    if Abilities:is_ability_available(t,FourCC(v.ac)) then
-                        local o = Utils:type(Data:get_ability_class(FourCC(v.ac)).on_ai_damaged) == 'function' and Data:get_ability_class(FourCC(v.ac)):on_ai_damaged(t) or nil
+                    if Abilities:is_ability_available(t,FourCC(a_code)) then
+                        local o = Utils:type(Data:get_ability_class(FourCC(a_code)).on_ai_damaged) == 'function' and Data:get_ability_class(FourCC(a_code)):on_ai_damaged(t) or nil
                         if o then 
                             Units:register_order(t,o)
                             break 
@@ -114,10 +114,10 @@ do
         for u,_ in pairs(Units:get_all()) do
             if IsUnitAliveBJ(u) and u ~= Hero:get() and not(IsUnitPaused(u)) then
                 if not(Units:is_casting(u)) and not(Units:is_ordered(u)) then
-                    local abs = ObjectUtils:getUnitAbilities(u,true)
+                    local abs = ObjectUtils:get_unit_abilities_with_priority(u)
                     for _,v in ipairs(abs) do
-                        if Abilities:is_ability_available(u,FourCC(v.ac)) then
-                            local o = Utils:type(Data:get_ability_class(FourCC(v.ac)).ai_cast) == 'function' and Data:get_ability_class(FourCC(v.ac)):ai_cast(u) or nil
+                        if Abilities:is_ability_available(u,FourCC(a_code)) then
+                            local o = Utils:type(Data:get_ability_class(FourCC(a_code)).ai_cast) == 'function' and Data:get_ability_class(FourCC(a_code)):ai_cast(u) or nil
                             if o then 
                                 Units:register_order(u,o)
                                 break 

@@ -202,20 +202,20 @@ do
     
     function ap:loadUnit(u)
         self:reset()
-        for _,v in ipairs(ObjectUtils:getUnitAbilities(u)) do
-            if v.ac ~= 'Aatk' then
-                local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
-                local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(v.ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
+        for _,ac in ipairs(ObjectUtils:get_unit_ability_codes{unit = u}) do
+            if ac ~= 'Aatk' then
+                local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
+                local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(u, FourCC(ac)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
                 if BlzGetFrameByName('AbilityButton_Icon', tonumber(x .. y)) then
                     BlzFrameSetVisible(BlzGetFrameByName(y == 2 and "AbilityButton_Border" or "AbilityButton_Icon", tonumber(x .. y)), true)
                     BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y)), true)
-                    local sc = BlzGetAbilityActivatedTooltip(FourCC(v.ac), GetUnitAbilityLevel(u,FourCC(v.ac)))
+                    local sc = BlzGetAbilityActivatedTooltip(FourCC(ac), GetUnitAbilityLevel(u,FourCC(ac)))
                     BlzFrameSetVisible(BlzGetFrameByName('AbilityButton_Shortcut', tonumber(x .. y)), not(sc == 'Tool tip missing!' or sc:sub(1, 1) == '_'))
                     BlzFrameSetText(BlzGetFrameByName('AbilityButton_Shortcut_Text', tonumber(x .. y)), sc == 'Tool tip missing!' and '' or sc:sub(1, 1))
                     BlzFrameSetText(BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y)),'')
-                    BlzFrameSetTexture(BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)), 'war3mapImported\\BTN' .. GetAbilityName(FourCC(v.ac)):gsub(" ","") .. '.dds', 0, true)
-                    self.list[FourCC(v.ac)] = {BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)),false,false,BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y)),BlzGetFrameByName('AbilityButton_Sprite', tonumber(x .. y))}
-                    self.listeners[BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y))] = FourCC(v.ac)
+                    BlzFrameSetTexture(BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)), 'war3mapImported\\BTN' .. GetAbilityName(FourCC(ac)):gsub(" ","") .. '.dds', 0, true)
+                    self.list[FourCC(ac)] = {BlzGetFrameByName('AbilityButton_Icon_Texture', tonumber(x .. y)),false,false,BlzGetFrameByName('AbilityButton_Icon_Text', tonumber(x .. y)),BlzGetFrameByName('AbilityButton_Sprite', tonumber(x .. y))}
+                    self.listeners[BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y))] = FourCC(ac)
                 end 
             end
         end

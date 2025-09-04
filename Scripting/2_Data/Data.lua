@@ -152,11 +152,25 @@ do
             -- 'dmg_bonus_const' = Damage Bonus constant (+) -> percentile of damage instances are summed up
             -- 'dmg_bonus_factor = Damage Bonus factor (*) -> percentile of damage instances are multiplied 
             -- 'dmg_bonus_value' = Damage Bonus value (+) -> amount of damage
+    
+    local modifiers = {}
+
+    function d:register_modifier(m_name,data)
+        modifiers[m_name] = data
+    end
+
+    function d:get_modifier(m_name)
+        return modifiers[m_name]
+    end
 
     local buffs = {}
 
     function d:get_buff(b)
         return buffs[b]
+    end
+
+    function d:register_buff(b_name,data)
+        buffs[b_name] = data
     end
     
     OnInit.map(function()
@@ -277,37 +291,6 @@ do
             end
             ,func_a = function(bt)
                 Buffs:refresh_duration_all_stacks(bt.u,bt.bn)
-            end
-        }
-        buffs['ignited'] = {
-            e = {
-                {m = 'Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl',a = 'chest'}
-            }
-            ,es = true
-            ,st = {
-                --['dmg_bonus_value'] = {500,true,{Firebolt:get_a_string()}}
-                --['dmg_bonus_factor'] = {2.5,true,{Firebolt:get_a_string()}}
-                ['dmg_bonus_const'] = {0.1,true,{PhoenixBarrage:get_a_string()}}
-            }
-            ,is_d = true
-            ,prio = 5
-            ,ms = 10
-        }
-        buffs['cataclysed'] = {
-            prio = 2
-            ,ms = 1
-            ,func_a = function(bt)
-                Abilities:add_silence{
-                    unit = bt.u
-                    ,s_key = 'cataclysed'
-                    ,a_code = CatalyticIncineration:get_a_code()
-                }
-            end
-            ,func_e = function(bt)
-                Abilities:clear_silence{
-                    unit = bt.u
-                    ,s_key = 'cataclysed'
-                }
             end
         }
     end)    
