@@ -74,10 +74,10 @@ do
 
     function c:destroy(key)
         if key then
-            for i,tbl in ipairs(events) do
-                if tbl.key == key then
+            for i=#events,1,-1 do
+                if events[i].key == key then
                     if events[i].trigger then DestroyTrigger(events[i].trigger) end
-                    table.remove(events, i)
+                    table.remove(events,i)
                 end
             end
         end

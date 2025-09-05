@@ -4,6 +4,7 @@ do
     d.__index = d
 
     local stats = {}
+    local stats_classes = {}
 
     OnInit.map(function()
         stats['resist'] = Resistance
@@ -26,10 +27,24 @@ do
         stats['dmg_bonus_const'] = DamageBonus
         stats['dmg_bonus_factor'] = DamageBonus
         stats['dmg_bonus_value'] = DamageBonus
+
+        Data:load_stats_classes()
     end)
 
     function d:get_stat_class(sn)
         return stats[sn]
+    end
+
+    function d:load_stats_classes()
+        for _,s_class in pairs(stats) do
+            if not(stats_classes[s_class]) then stats_classes[s_class] = true end
+        end
+    end
+
+    function d:recalculate_stats(u)
+        for s_class,_ in pairs(stats_classes) do
+            s_class:recalculate(u)
+        end
     end
 
     local abilities = {}
@@ -40,6 +55,14 @@ do
 
     function d:get_ability_class(ac)
         return abilities[ac]
+    end
+
+    function d:flush_all_abilities()
+        for a_code,a_class in pairs(abilities) do
+            if Utils:type(a_class._flush) == 'function' then 
+                a_class:_flush() 
+            end
+        end
     end
 
     function d:get_dmg_color(ac)

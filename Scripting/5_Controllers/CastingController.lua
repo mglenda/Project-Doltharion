@@ -22,7 +22,7 @@ do
         for i,u in ipairs(self.face_g) do
             local t = Units:get_cast_target(u)
             local tx = t and GetUnitX(t) or Units:get_cast_point_x(u)
-            local ty = t and GetUnitX(t) or Units:get_cast_point_y(u)
+            local ty = t and GetUnitY(t) or Units:get_cast_point_y(u)
             if tx and ty then
                 SetUnitFacing(u, Utils:get_angle_between_points(GetUnitX(u),GetUnitY(u),tx,ty))
             end

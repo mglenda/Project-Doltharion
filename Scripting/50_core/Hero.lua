@@ -14,7 +14,7 @@ do
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(self:get()), GetUnitY(self:get()), 0.0)
     end
 
-    function hero:move(x,y)
+    function hero:move(x,y,angle)
         x,y = x or GetPlayerStartLocationX(Players:get_player()),y or GetPlayerStartLocationY(Players:get_player())
         if IsUnitAliveBJ(self:get()) then
             Utils:set_unit_xy(self:get(),x,y)
@@ -24,8 +24,14 @@ do
         end
         SetUnitLifePercentBJ(self:get(), 100)
         PanCameraToTimedForPlayer(Players:get_player(), GetUnitX(Hero:get()), GetUnitY(Hero:get()), 0.0)
+        SetUnitFacing(self:get(), angle or 270.0)
+        self:reset()
     end
 
+    function hero:reset()
+        self:set_energy(0)
+    end
+    
     function hero:get()
         return self.hero:get_unit()
     end

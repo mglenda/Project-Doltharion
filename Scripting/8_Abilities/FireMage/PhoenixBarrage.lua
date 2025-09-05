@@ -28,7 +28,7 @@ do
     end
 
     function a:on_start()
-        local c = GetTriggerUnit() ABILITY_RLF_CAST_RANGE
+        local c = GetTriggerUnit()
         local p = Utils:round(CastingTime:get(c,a_code) / BlzGetAbilityIntegerField(BlzGetUnitAbility(c, FourCC(a_code)), ABILITY_IF_MISSILE_SPEED) - 0.01,2)
         if GetUnitTypeId(c) == AnimMage:get_ut() then AnimationSeq:start(c,AnimMage:seq_spellchannel()) end
         table.insert(ct, {
@@ -50,6 +50,7 @@ do
     function a:channeling()
         for i=#ct,1,-1 do
             local t = ct[i]
+            if IsUnitDeadBJ(t.t) then IssueImmediateOrderById(t.c, String2OrderIdBJ('stop')) end
             t.cp = Utils:round(t.cp + 0.01,2)
             if t.cp >= t.p then 
                 t.cp = 0.0

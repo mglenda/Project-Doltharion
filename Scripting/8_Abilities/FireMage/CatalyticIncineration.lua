@@ -114,16 +114,27 @@ do
                         tbl.tick = tbl.tick - 1
                     end
                 else
-                    DestroyEffect(tbl.orb)
-                    Buffs:clear_buff{
-                        unit = tbl.caster
-                        ,buff_name = 'cataclysed'
-                    }
-                    table.remove(a_group,i)
+                    self:_remove(i)
                 end
             end
         end
         if #a_group == 0 then DisableTrigger(a_trg) end
+    end
+
+    function a:_remove(i)
+        DestroyEffect(a_group[i].orb)
+        Buffs:clear_buff{
+            unit = a_group[i].caster
+            ,buff_name = 'cataclysed'
+        }
+        table.remove(a_group,i)
+    end
+
+    function a:_flush()
+        DisableTrigger(a_trg)
+        for i=#a_group,1,-1 do
+            self:_remove(i)
+        end
     end
 
     OnInit.map(function()

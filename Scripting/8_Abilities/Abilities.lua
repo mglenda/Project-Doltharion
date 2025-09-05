@@ -71,6 +71,10 @@ do
         end
     end
 
+    function a:flush_all_silences()
+        silences = {}
+    end
+
     function a:refresh()
         local c = 0
         for u,cds in pairs(cooldowns) do
@@ -180,6 +184,10 @@ do
 
     function a:reset_all_cooldowns(u)
         cooldowns[u] = nil
+    end
+
+    function a:flush_all_cooldowns()
+        cooldowns = {}
     end
 
     function a:get_stack_count(u,ac)

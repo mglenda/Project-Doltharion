@@ -87,8 +87,7 @@ do
         for i = #spheres,1,-1 do
             local t = spheres[i]
             if not(IsUnitAliveBJ(t.caster)) or t.duration <= 0 or not(Units:exists(t.caster)) then
-                DestroyEffect(t.orb)
-                table.remove(spheres,i)
+                self:_remove(i)
             else
                 if t.tick <= 0 then
                     t.tick = 8
@@ -106,6 +105,18 @@ do
             end
         end
         if #spheres == 0 then DisableTrigger(trg) end
+    end
+
+    function a:_remove(i)
+        DestroyEffect(spheres[i].orb)
+        table.remove(spheres,i)
+    end
+
+    function a:_flush()
+        DisableTrigger(trg)
+        for i=#spheres,1,-1 do
+            self:_remove(i)
+        end
     end
 
     OnInit.map(function()

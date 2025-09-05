@@ -61,6 +61,7 @@ do
 
     function ui:hide_idle_panels()
         ArenaJournal:hide_book_button()
+        ArenaJournal:hide()
     end
 
     function ui:show_idle_panels()

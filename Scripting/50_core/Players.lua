@@ -11,7 +11,7 @@ do
         return Player(1)
     end
 
-    function p:get_bandits()
+    function p:get_challengers()
         return Player(2)
     end
 
@@ -22,4 +22,10 @@ do
     function p:get_hostile()
         return Player(PLAYER_NEUTRAL_AGGRESSIVE)
     end
+
+    OnInit.final(function()
+        SetPlayerFlagBJ(PLAYER_STATE_GIVES_BOUNTY, false, Player(0))
+        SetPlayerFlagBJ(PLAYER_STATE_GIVES_BOUNTY, false, Player(1))
+        SetPlayerFlagBJ(PLAYER_STATE_GIVES_BOUNTY, false, Player(2))
+    end)
 end

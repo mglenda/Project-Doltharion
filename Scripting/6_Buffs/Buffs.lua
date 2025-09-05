@@ -243,6 +243,23 @@ do
         if c == 0 then DisableTrigger(trg) end
     end
 
+    function b:flush_all_buffs()
+        for u,t in pairs(buffs) do
+            local effects = {}
+            for i,data in ipairs(t) do
+                if Utils:type(data.e) == 'table' then
+                    for _,e in ipairs(data.e) do
+                        if Utils:type(e) == 'effect' and not(effects[e]) then effects[e] = true end
+                    end
+                end
+            end
+            buffs[u] = {}
+            for e,_ in pairs(effects) do
+                DestroyEffect(e)
+            end
+        end
+    end
+
     OnInit.final(function()
         TriggerRegisterTimerEventPeriodic(trg, 0.01)
         TriggerAddAction(trg, Buffs.progress)

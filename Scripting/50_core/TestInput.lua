@@ -13,10 +13,15 @@ do
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "s", true)
         TriggerAddAction(trg, function()
-            Modifiers:apply{
-                unit = Hero:get()
-                ,m_name = 'mod_test'
-            }
+            --First
+            Data:flush_all_abilities()
+            MissileManager:destroy_all()
+            --Second
+            Units:remove_all()
+            Buffs:flush_all_buffs()
+            Abilities:flush_all_cooldowns()
+            Abilities:flush_all_silences()
+            Hero:reset()
             --AnimationSeq:start(Hero:get(),AnimMage:seq_spellcast()) 
         end)
         trg = CreateTrigger()
@@ -54,20 +59,20 @@ do
         end)
         
 
-        --[[TimerStart(CreateTimer(),0,false, function()
-            print("Create Keys")
-            for index = 8,255 do
-                local trigger = CreateTrigger()
-                TriggerAddAction(trigger, function()
-                    print("OsKey:",index, "meta",BlzGetTriggerPlayerMetaKey())
-                end)
-                local key = ConvertOsKeyType(index)
-                for metaKey = 0,15,1 do
-                    BlzTriggerRegisterPlayerKeyEvent(trigger, Player(0), key, metaKey, true)
-                    BlzTriggerRegisterPlayerKeyEvent(trigger, Player(0), key, metaKey, false)
-                end
+        --[[
+        print("Create Keys")
+        for index = 8,255 do
+            local trigger = CreateTrigger()
+            TriggerAddAction(trigger, function()
+                print("OsKey:",index, "meta",BlzGetTriggerPlayerMetaKey())
+            end)
+            local key = ConvertOsKeyType(index)
+            for metaKey = 0,15,1 do
+                BlzTriggerRegisterPlayerKeyEvent(trigger, Player(0), key, metaKey, true)
+                BlzTriggerRegisterPlayerKeyEvent(trigger, Player(0), key, metaKey, false)
             end
-            print("Done")
-        end)]]--
+        end
+        print("Done")
+        ]]--
     end)
 end

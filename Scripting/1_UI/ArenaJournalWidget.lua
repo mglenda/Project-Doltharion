@@ -20,6 +20,11 @@ do
     function ajw:show()
         BlzFrameSetVisible(self.listener, true)
         self:deactivate()
+        if not(self.arena.d_avail[Arena.DIFFICULTY_NORMAL]) then 
+            self:disable() 
+        else
+            self:enable()
+        end
     end
 
     function ajw:get()
@@ -40,11 +45,6 @@ do
 
     function ajw:get_mythic_button()
         return self.mythic_button
-    end
-
-    function ajw:set_arena(arena)
-        self.arena = arena
-        BlzFrameSetTexture(self.theme, arena:get_img(), 0, true)
     end
 
     function ajw:enter()
@@ -82,22 +82,22 @@ do
             BlzFrameSetAlpha(self.normal_button, 255)
             BlzFrameSetAlpha(self.heroic_button, 255)
 
-            BlzFrameSetEnable(self.heroic_button, self.arena.d_heroic_avail)
-            BlzFrameSetEnable(self.normal_button, self.arena.d_normal_avail)
+            BlzFrameSetEnable(self.heroic_button, self.arena.d_avail[Arena.DIFFICULTY_HEROIC])
+            BlzFrameSetEnable(self.normal_button, self.arena.d_avail[Arena.DIFFICULTY_NORMAL])
 
-            if not(self.arena.d_heroic_avail) then
+            if not(self.arena.d_avail[Arena.DIFFICULTY_HEROIC]) then
                 BlzFrameSetTexture(self.heroic_button_texture, 'war3mapImported\\DISBTN_Heroic.dds', 0, true)
             else
-                BlzFrameSetTexture(self.heroic_button_texture, self.arena.d_heroic_beaten and 'war3mapImported\\BTN_HeroicDone.dds' or 'war3mapImported\\BTN_Heroic.dds', 0, true)
+                BlzFrameSetTexture(self.heroic_button_texture, self.arena.d_beaten[Arena.DIFFICULTY_HEROIC] and 'war3mapImported\\BTN_HeroicDone.dds' or 'war3mapImported\\BTN_Heroic.dds', 0, true)
             end
 
-            if not(self.arena.d_normal_avail) then
+            if not(self.arena.d_avail[Arena.DIFFICULTY_NORMAL]) then
                 BlzFrameSetTexture(self.normal_button_texture, 'war3mapImported\\DISBTN_Normal.dds', 0, true)
             else
-                BlzFrameSetTexture(self.normal_button_texture, self.arena.d_normal_beaten and 'war3mapImported\\BTN_NormalDone.dds' or 'war3mapImported\\BTN_Normal.dds', 0, true)
+                BlzFrameSetTexture(self.normal_button_texture, self.arena.d_beaten[Arena.DIFFICULTY_NORMAL] and 'war3mapImported\\BTN_NormalDone.dds' or 'war3mapImported\\BTN_Normal.dds', 0, true)
             end
 
-            if self.arena.d_mythic_avail then
+            if self.arena.d_avail[Arena.DIFFICULTY_MYTHIC] then
                 BlzFrameSetVisible(self.mythic_button, true)
                 BlzFrameSetSize(self.normal_button, 0.025, 0.025)
                 BlzFrameSetSize(self.heroic_button, 0.025, 0.025)
@@ -136,11 +136,11 @@ do
 
     function ajw:disable()
         self:deactivate()
-        BlzFrameSetVisible(self.disable_layer, true, 210)
+        BlzFrameSetVisible(self.disable_layer, true, 230)
         BlzFrameSetEnable(self.listener, false)
     end
 
-    function ajw:create(id)
+    function ajw:create(id,arena)
         local this = {}
         setmetatable(this, ajw)
 
@@ -177,8 +177,9 @@ do
         BlzTriggerRegisterFrameEvent(d_listener, this.heroic_button, FRAMEEVENT_CONTROL_CLICK)
         BlzTriggerRegisterFrameEvent(d_listener, this.mythic_button, FRAMEEVENT_CONTROL_CLICK)
 
-        this.arena = nil
+        this.arena = arena
         this.id = id
+        BlzFrameSetTexture(this.theme, arena:get_img(), 0, true)
 
         table.insert(widget_container,this)
 
@@ -204,13 +205,12 @@ do
         end
 
         if frame == widget:get_normal_button() then
-            Arena:set_difficulty(Arena.d_normal)
+            Arena:start(Arena.DIFFICULTY_NORMAL,widget.id)
         elseif frame == widget:get_heroic_button() then
-            Arena:set_difficulty(Arena.d_heroic)
+            Arena:start(Arena.DIFFICULTY_HEROIC,widget.id)
         else
-            Arena:set_difficulty(Arena.d_mythic) 
+            Arena:start(Arena.DIFFICULTY_MYTHIC,widget.id)
         end
-        Arena:start(self.id)
     end
 
     function ajw:event_listener()

@@ -19,7 +19,7 @@ do
         
         if Utils:type(Arena:get_arenas()) == 'table' then
             for i,a in ipairs(Arena:get_arenas()) do
-                local widget = ArenaJournalWidget:create(i)
+                local widget = ArenaJournalWidget:create(i,a)
                 if i == 1 then 
                     BlzFrameSetPoint(widget:get(), FRAMEPOINT_TOPLEFT, self.main, FRAMEPOINT_TOPLEFT, 0.0565, -0.025)
                 elseif (i-1) - math.floor((i-1)/3)*3 == 0 then 
@@ -27,7 +27,6 @@ do
                 else
                     BlzFrameSetPoint(widget:get(), FRAMEPOINT_LEFT, self.widgets[i-1]:get(), FRAMEPOINT_RIGHT, 0, 0)
                 end
-                widget:set_arena(a)
                 table.insert(self.widgets,widget)
             end
         end

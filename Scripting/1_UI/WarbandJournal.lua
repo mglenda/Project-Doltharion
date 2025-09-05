@@ -87,7 +87,7 @@ do
         WarbandList:show()
         Controller:registerKeyboardEvent(ConvertOsKeyType(9),WarbandJournal.remove_unit,'wl_rem_unit_tab')
     end
-
+    
     function wj:unselect_slot()
         if (not(si) or not(self.slots[si].ut)) and ic then BlzFrameSetTexture(ic, 'war3mapImported\\UnitSlot.dds', 0, true) end
         ic,si = nil,nil

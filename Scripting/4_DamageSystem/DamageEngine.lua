@@ -56,7 +56,7 @@ do
 
             --Text Tag
             if is_player_source or crit then
-                local msg = ab and 'Absorbed' or (dmg > 0 and (crit and tostring(math.floor(dmg)) .. '!' or tostring(math.floor(dmg))) or '')
+                local msg = ab and 'Absorbed' or (dmg > 0 and (crit and tostring(math.floor(dmg)) .. '!' or tostring(math.floor(dmg))) or 'Immune')
                 local r,g,b = Data:get_dmg_color(id)
                 TextTag:create({u=t,s=msg,fs=crit and TextTag:defFontSize() * 1.2 or TextTag:defFontSize(),ls = crit and 2.5 or 1.0,r=r,b=b,g=g})
             end
