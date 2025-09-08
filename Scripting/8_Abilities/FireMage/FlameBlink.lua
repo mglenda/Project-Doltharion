@@ -27,7 +27,12 @@ do
 
     function a:on_cast()
         local caster = GetTriggerUnit()
-        local x,y = Units:get_cast_point_x(caster),Units:get_cast_point_y(caster)
+        local x,y = Utils:GetUnitXY(caster)
+        local e = AddSpecialEffect('Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl', x, y)
+        DestroyEffect(e)
+        x,y = Units:get_cast_point_x(caster),Units:get_cast_point_y(caster)
+        e = AddSpecialEffect('Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl', x, y)
+        DestroyEffect(e)
         self:relocate(caster,x,y)
     end
 

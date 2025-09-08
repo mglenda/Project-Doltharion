@@ -52,7 +52,7 @@ do
         end
         return false
     end
-
+    
     function a:clear_silence(args)
         local unit = args.unit
         local s_key = args.s_key

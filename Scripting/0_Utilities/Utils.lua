@@ -37,6 +37,13 @@ do
         return p
     end
 
+    function u:itable_shuffle(t)
+        for i = #t, 2, -1 do
+            local j = math.random(i)
+            t[i], t[j] = t[j], t[i]
+        end
+    end
+
     function u:copy_table(t)
         local result = {}
         for k,v in pairs(t) do
@@ -132,6 +139,11 @@ do
         local ux,uy = self:GetUnitXY(u)
         local rx1,ry1,rx2,ry2 = self:get_rect_min_max(r)
         return not(ux <= rx1 or uy <= ry1 or ux >= rx2 or uy >= ry2)
+    end
+
+    function u:is_point_in_rect(x,y,r)
+        local rx1,ry1,rx2,ry2 = self:get_rect_min_max(r)
+        return not(x <= rx1 or y <= ry1 or x >= rx2 or y >= ry2)
     end
 
     function u:get_rad_between_points(x1,y1,x2,y2)

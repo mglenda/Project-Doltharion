@@ -80,12 +80,42 @@ do
     end
 
     function au:pause(u)
-        PauseUnit(u, true)
-        self:clear_order(u)
+        units[u].paused = true
+        self:stun(u)
     end
 
     function au:unpause(u)
-        PauseUnit(u, false)
+        units[u].paused = nil
+        if not(Buffs:is_unit_stunned(u)) then
+            PauseUnit(u, false)
+        end
+    end
+
+    function au:stun(u)
+        PauseUnit(u, true)
+        self:clear_order(u)
+    end
+    
+    function au:unstun(u)
+        if not(units[u].paused) then
+            self:unpause(u)
+        end
+    end
+
+    function au:freeze(u)
+        units[u].frozen = true
+        BlzSetUnitRealField(u, UNIT_RF_TURN_RATE, 0)
+        MoveSpeed:recalculate(u)
+    end
+
+    function au:unfreeze(u)
+        units[u].frozen = nil
+        BlzSetUnitRealField(u, UNIT_RF_TURN_RATE, 3.0)
+        MoveSpeed:recalculate(u)
+    end
+
+    function au:is_frozen(u)
+        return units[u].frozen
     end
 
     function au:get_ai_target(u,aoe)
@@ -144,6 +174,11 @@ do
             if Utils:get_unit_distance(x,y,u) <= aoe then table.insert(tbl,u) end
         end
         return tbl
+    end
+
+    function au:get_all_units()
+        self:refresh()
+        return units
     end
 
     function au:refresh()

@@ -46,14 +46,14 @@ do
         table.insert(a_group,{
             caster = c
             ,ready = false
-            ,orb = EffectAnimation:create_xyz(
-                'war3mapImported\\Orb of Fire.mdx' --effect model
-                ,x --x 
-                ,y --y 
-                ,z + z_offset --z 
-                ,0.9 --scale to reach
-                ,t --time of scaling (casting time)
-            )
+            ,orb = EffectAnimation:create_xyz{
+                x = x
+                ,y = y 
+                ,model = 'war3mapImported\\Orb of Fire.mdx'
+                ,z = z + z_offset
+                ,scale = 0.9
+                ,time = t
+            }
             ,z_offset = z_offset
             ,tick = shoot_interval
             ,tick_base = shoot_interval

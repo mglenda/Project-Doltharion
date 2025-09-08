@@ -1,4 +1,6 @@
 do
+    local d = 1
+
     OnInit.final(function()
         local trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "start", true)
@@ -13,16 +15,15 @@ do
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "s", true)
         TriggerAddAction(trg, function()
-            --First
-            Data:flush_all_abilities()
-            MissileManager:destroy_all()
-            --Second
-            Units:remove_all()
-            Buffs:flush_all_buffs()
-            Abilities:flush_all_cooldowns()
-            Abilities:flush_all_silences()
-            Hero:reset()
-            --AnimationSeq:start(Hero:get(),AnimMage:seq_spellcast()) 
+            local x,y = x or GetPlayerStartLocationX(Players:get_player()),y or GetPlayerStartLocationY(Players:get_player())
+            local s = SpellMarker:create{
+                type = 'chaos'
+                ,x = x
+                ,y = y
+                ,aoe = 350.0 
+
+                ,time = 2.0
+            }
         end)
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "h", true)

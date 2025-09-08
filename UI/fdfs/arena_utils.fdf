@@ -1,0 +1,11 @@
+Frame "SIMPLEFRAME" "arena_counter" {
+	Width 0.1,
+	Height 0.1,
+	String "arena_counter_text" {
+		Anchor CENTER, 0, 0,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "blq85web.ttf", 0.055,
+		FontColor 0.91 0.75 0.1 1.0,
+	}
+}

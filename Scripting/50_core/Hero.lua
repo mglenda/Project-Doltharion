@@ -3,6 +3,8 @@ do
     local hero = getmetatable(Hero)
     hero.__index = hero
 
+    local t_leaving = CreateTrigger()
+
     function hero:create(hero_class)
         self.hero = hero_class:create()
         UI.a_panel:loadUnit(self:get())
@@ -15,6 +17,7 @@ do
     end
 
     function hero:move(x,y,angle)
+        if x and y then self:disable_leaving_check() else self:enable_leaving_check() end
         x,y = x or GetPlayerStartLocationX(Players:get_player()),y or GetPlayerStartLocationY(Players:get_player())
         if IsUnitAliveBJ(self:get()) then
             Utils:set_unit_xy(self:get(),x,y)
@@ -29,6 +32,9 @@ do
     end
 
     function hero:reset()
+        Buffs:flush_all_buffs()
+        Abilities:flush_all_cooldowns()
+        Abilities:flush_all_silences()
         self:set_energy(0)
     end
     
@@ -78,7 +84,21 @@ do
         return self.casting
     end
 
+    function hero:enable_leaving_check()
+        EnableTrigger(t_leaving)
+    end
+
+    function hero:disable_leaving_check()
+        DisableTrigger(t_leaving)
+    end
+
     OnInit.final(function()
         Hero:create(HeroMage)
+        TriggerRegisterLeaveRectSimple(t_leaving, Hero.safe_zone)
+        TriggerAddAction(t_leaving, function()
+            if GetLeavingUnit() == Hero:get() then
+                Hero:move()
+            end
+        end)
     end)
 end

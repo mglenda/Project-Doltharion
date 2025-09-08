@@ -110,6 +110,17 @@ do
             ,wl = true
             ,p_tolerance = 2
         }
+
+        --Beastmaster
+        --Timber Wolf
+        units[FourCC('n007')] = {
+            crit = 50.0
+        }
+        --Bear
+        units[FourCC('n00A')] = {
+            crit = 30.0
+        }
+
     end)
 
     function d:get_unit_data(u)
@@ -141,6 +152,7 @@ do
     --ms = max stacks :: integer number if defined then buff will have maximum of ms stacks / not defined buff will create new stack on each apply
     --nd = not dispellable :: true buff is not dispellable with dispells / not defined or false buff is dispellable with dispells
     --wp = warband panel :: true buff will be displayed on warband panel / not defined or fales it won't
+    --stun = stun :: true unit is stunned, false or nil unit is not stunned
     --func_a = apply func :: function which happens when buff is applied
     --func_p = period func :: function which happens on period end
     --func_q = quit func :: function which if returns true buff will expire
@@ -195,7 +207,7 @@ do
     function d:register_buff(b_name,data)
         buffs[b_name] = data
     end
-    
+    --[[
     OnInit.map(function()
         buffs['pwshield'] = {
             e = {
@@ -235,18 +247,6 @@ do
             ,wp = true
             ,prio = 10
             ,tc = BlzConvertColor(255, 0, 0, 0)
-        }
-        buffs['bloodlust'] = {
-            e = {
-                {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
-            }
-            ,d = 30
-            ,st = {
-                ['ctime_factor'] = {0.8,true}
-                ,['atkspeed'] = {1.35,true}
-            }
-            ,wp = true
-            ,prio = 8
         }
         buffs['united'] = {
             e = {
@@ -316,5 +316,32 @@ do
                 Buffs:refresh_duration_all_stacks(bt.u,bt.bn)
             end
         }
-    end)    
+    end)
+    ]]--
+    OnInit.map(function()
+        buffs['bloodlust'] = {
+                e = {
+                    {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
+                }
+                ,d = 30
+                ,st = {
+                    ['ctime_factor'] = {0.8,true}
+                    ,['atkspeed'] = {1.35,true}
+                }
+                ,wp = true
+                ,prio = 8
+            }
+        buffs['crippled'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Orc\\StasisTrap\\StasisTotemTarget.mdl', a = 'overhead'}
+            }
+            ,prio = 1
+            ,is_d = true
+            ,st = {
+                ['movespeed_factor'] = {0.75,true}
+                ,['resist'] = {-50,false}
+            }
+            ,ms = 1
+        } 
+    end)
 end

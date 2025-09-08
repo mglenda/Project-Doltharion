@@ -87,7 +87,8 @@ do
                 table.remove(buffs[t], d.id)
             end
         end
-
+        
+        if this.stun then Units:stun(this.u) end
         table.insert(buffs[t],this)
         self:modify_stats(this.st,this.u)
 
@@ -177,6 +178,14 @@ do
         return false
     end
 
+    function b:is_unit_stunned(u)
+        if Utils:type(buffs[u]) ~= 'table' then return false end
+        for i,d in ipairs(buffs[u]) do
+            if d.stun then return true end
+        end
+        return false
+    end
+
     function b:erase_effects(bt)
         if Utils:type(bt.e) == 'table' then
             for _,e in ipairs(bt.e) do
@@ -222,6 +231,7 @@ do
         if dis and Utils:type(bt.func_d) == 'function' then bt.func_d(bt) end
         if Utils:type(bt.func_e) == 'function' then bt.func_e(bt) end
         if IsUnitAliveBJ(u) then self:modify_stats(bt.st,u) end
+        if bt.stun then Units:unstun(u) end
     end
 
     function b:progress()
@@ -257,6 +267,7 @@ do
             for e,_ in pairs(effects) do
                 DestroyEffect(e)
             end
+            Data:recalculate_stats(u)
         end
     end
 

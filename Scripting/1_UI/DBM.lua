@@ -55,6 +55,15 @@ do
         end)
     end
 
+    function dbm:destroy_by_name(name)
+        for _,d in ipairs(tbl) do
+            if d.n == name then
+                d:destroy()
+                return
+            end
+        end
+    end
+
     function dbm:flush(main)
         for i = #tbl,1,-1 do
             if tbl[i].main == main then table.remove(tbl,i) end

@@ -64,7 +64,7 @@ do
     end
 
     function m:is_in_impact_distance()
-        return Utils:get_distance(self.x,self.y,self.target_x,self.target_y) <= self.impact_distance
+        return self:get_distance_from_traget() <= self.impact_distance
     end
 
     function m:destroy()
@@ -81,11 +81,11 @@ do
         local ude,alive = false,true
         if self.t_is_unit then
             ude = not Units:exists(self.target)
-            if ude then
+            if not(ude) then
                 self.target_x = GetUnitX(self.target)
                 self.target_y = GetUnitY(self.target)
                 self.target_z = Utils:get_unit_impact_z(self.target)
-                alive = this.impact_alive and IsUnitAliveBJ(self.target) or true
+                alive = self.impact_alive and IsUnitAliveBJ(self.target) or true
             end
         end
 

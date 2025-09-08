@@ -6489,7 +6489,7 @@ GeosetAnim {
 		1200: 1,
 		3000: 0,
 	}
-	static Color { 0.50, 0.05, 0.00 }, // deep blue
+	static Color { 0.05, 0.05, 0.05 }, // near black core
 	GeosetId 2,
 }
 GeosetAnim {
@@ -6501,7 +6501,7 @@ GeosetAnim {
 		1800: 0.5,
 		3000: 0,
 	}
-	static Color { 0.70, 0.20, 0.00 }, // medium blue glow
+	static Color { 0.10, 0.10, 0.10 }, // shadow glow
 	GeosetId 3,
 }
 GeosetAnim {
@@ -6514,7 +6514,7 @@ GeosetAnim {
 		1700: 0,
 		3000: 0,
 	}
-	static Color { 0.95, 0.90, 0.20 }, // soft icy blue
+	static Color { 0.15, 0.15, 0.15 }, // faint violet-black
 	GeosetId 0,
 }
 GeosetAnim {
@@ -6527,7 +6527,7 @@ GeosetAnim {
 		1800: 0,
 		3000: 0,
 	}
-	static Color { 1.00, 0.92, 0.20 }, // pale light blue
+	static Color { 0.10, 0.10, 0.10 }, // pale shadow
 	GeosetId 5,
 }
 GeosetAnim {
@@ -6540,9 +6540,9 @@ GeosetAnim {
 	}
 	Color 3 {
 		Linear,
-		1000: { 1.00, 0.60, 0.05 }, // strong blue
-		1200: { 1.00, 0.60, 0.05 },
-		3000: { 0.80, 0.40, 0.00 }, // darker fade
+		1000: { 0.15, 0.15, 0.15 }, // dark purple-grey
+		1200: { 0.15, 0.15, 0.15 },
+		3000: { 0.00, 0.00, 0.00 }, // fade to black
 	}
 	GeosetId 4,
 }
@@ -6558,10 +6558,10 @@ GeosetAnim {
 	}
 	Color 4 {
 		Linear,
-		1000: { 0.95, 0.85, 0.20 }, // bright cyan-blue
-		1300: { 0.95, 0.85, 0.20 },
-		2200: { 0.70, 0.50, 0.05 }, // darker blue
-		3000: { 0.70, 0.50, 0.05 },
+		1000: { 0.25, 0.25, 0.25 }, // muted violet
+		1300: { 0.25, 0.25, 0.25 },
+		2200: { 0.10, 0.10, 0.10 }, // shadow fade
+		3000: { 0.10, 0.10, 0.10 },
 	}
 	GeosetId 1,
 }
@@ -6575,8 +6575,8 @@ GeosetAnim {
 	}
 	Color 2 {
 		Linear,
-		1000: { 0.95, 0.95, 0.85 }, // cool white-blue
-		3000: { 0.80, 0.60, 0.10 }, // fade to deep blue
+		1000: { 0.20, 0.20, 0.20 }, // dim grey core
+		3000: { 0.00, 0.00, 0.00 }, // black fade
 	}
 	GeosetId 6,
 }
@@ -6588,7 +6588,7 @@ GeosetAnim {
 		2000: 0,
 		3000: 0,
 	}
-	static Color { 0.95, 0.95, 0.20 }, // bright ice highlight
+	static Color { 0.15, 0.15, 0.15 }, // faint shadow highlight
 	GeosetId 7,
 }
 GeosetAnim {
@@ -6599,7 +6599,7 @@ GeosetAnim {
 		2000: 0,
 		3000: 0,
 	}
-	static Color { 0.85, 0.90, 0.20 }, // cool soft blue
+	static Color { 0.12, 0.12, 0.12 }, // dim violet-grey
 	GeosetId 8,
 }
 GeosetAnim {
@@ -6611,7 +6611,7 @@ GeosetAnim {
 		2000: 0,
 		3000: 0,
 	}
-	static Color { 0.95, 0.73, 0.10 }, // vibrant glowing blue
+	static Color { 0.15, 0.15, 0.15 }, // dark energy pulse
 	GeosetId 9,
 }
 GeosetAnim {
@@ -6623,7 +6623,7 @@ GeosetAnim {
 		1800: 0,
 		3000: 0,
 	}
-	static Color { 0.90, 0.75, 0.10 }, // lighter electric blue
+	static Color { 0.15, 0.15, 0.15 }, // muted shadow
 	GeosetId 10,
 }
 GeosetAnim {
@@ -6635,7 +6635,7 @@ GeosetAnim {
 		2100: 0,
 		3000: 0,
 	}
-	static Color { 0.80, 0.65, 0.05 }, // mid blue
+	static Color { 0.10, 0.10, 0.10 }, // void black
 	GeosetId 11,
 }
 Bone "Bone_Shoft" {
@@ -7050,9 +7050,9 @@ ParticleEmitter2 "LE S5 1" {
 	TailLength 0,
 	Time 0.2,
 	SegmentColor {
-		Color { 1.0, 1.0, 1.0 },       // bright white start
-		Color { 0.9, 0.7, 0.05 },      // glowing ice blue
-		Color { 0.7, 0.5, 0.05 },      // fading deeper blue
+		Color { 0.05, 0.05, 0.05 },       // bright white start
+		Color { 0.05, 0.05, 0.05 },      // glowing ice blue
+		Color { 0.05, 0.05, 0.05 },      // fading deeper blue
 	},
 	Alpha {0, 255, 255},
 	ParticleScaling {24, 12, 1},
@@ -7086,9 +7086,9 @@ ParticleEmitter2 "LE F1 1" {
 	TailLength 0,
 	Time 0.2,
 	SegmentColor {
-		Color { 1.0, 1.0, 1.0 },       // white spark
-		Color { 0.85, 0.75, 0.10 },    // bright blue
-		Color { 0.70, 0.55, 0.05 },    // darker fade
+		Color { 0.05, 0.05, 0.05 },       // bright white start
+		Color { 0.05, 0.05, 0.05 },      // glowing ice blue
+		Color { 0.05, 0.05, 0.05 },    // darker fade
 	},
 	Alpha {0, 255, 255},
 	ParticleScaling {16, 22, 1},
@@ -7122,9 +7122,9 @@ ParticleEmitter2 "LE F1 2" {
 	TailLength 0,
 	Time 0.2,
 	SegmentColor {
-		Color { 1.0, 1.0, 1.0 },       // white core
-		Color { 0.90, 0.80, 0.10 },    // icy bright blue
-		Color { 0.70, 0.55, 0.05 },    // fade blue
+		Color { 0.05, 0.05, 0.05 },       // bright white start
+		Color { 0.05, 0.05, 0.05 },      // glowing ice blue
+		Color { 0.05, 0.05, 0.05 },    // fade blue
 	},
 	Alpha {0, 255, 255},
 	ParticleScaling {16, 22, 1},
@@ -7158,9 +7158,9 @@ ParticleEmitter2 "LE F1 3" {
 	TailLength 0,
 	Time 0.2,
 	SegmentColor {
-		Color { 1.0, 1.0, 1.0 },       // white
-		Color { 0.80, 0.70, 0.05 },    // electric blue
-		Color { 0.60, 0.45, 0.05 },    // shadowy blue fade
+		Color { 0.05, 0.05, 0.05 },       // bright white start
+		Color { 0.05, 0.05, 0.05 },      // glowing ice blue
+		Color { 0.05, 0.05, 0.05 },     // shadowy blue fade
 	},
 	Alpha {0, 255, 255},
 	ParticleScaling {24, 44, 1},

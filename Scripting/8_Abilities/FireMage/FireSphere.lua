@@ -54,8 +54,8 @@ do
     end
 
     function a:deal_damage(caster,x,y,aoe)
-        local e = AddSpecialEffect('Abilities\\Spells\\Other\\Doom\\DoomDeath.mdl', x, y)
-        BlzSetSpecialEffectScale(e, Utils:round(aoe / 250.0,2))
+        local e = AddSpecialEffect('war3mapImported\\Burning Blast.mdl', x, y)
+        BlzSetSpecialEffectScale(e, Utils:round(aoe / 233.0,2))
         BlzSetSpecialEffectZ(e, Utils:get_point_z(x,y))
         DestroyEffect(e)
         for _,u in ipairs(Units:get_area_alive_enemy(x,y,aoe,GetOwningPlayer(caster))) do
@@ -67,6 +67,10 @@ do
                 ,damage_type = DAMAGE_TYPE_FIRE
                 ,id = FourCC(a_code)
             }
+            Buffs:apply(caster
+                    ,u
+                    ,'melted'
+            )
         end
     end
 

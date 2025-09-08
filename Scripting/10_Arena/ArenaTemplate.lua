@@ -39,7 +39,7 @@ do
 
     end
 
-    OnInit.main(function()
+    OnInit.global(function()
         Arena:register(ArenaTemplate1,order)
     end)
 end

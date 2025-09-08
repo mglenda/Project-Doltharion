@@ -82,7 +82,7 @@ do
         BuffPanel:rescale(s)
     end
 
-    OnInit(function()
+    OnInit.map(function()
         --Hide Original UI
         BlzHideOriginFrames(true)
         BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop",0), false)

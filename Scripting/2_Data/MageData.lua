@@ -63,5 +63,20 @@ do
                 end
             }
         )
+        Data:register_buff(
+            'melted'
+            ,{
+                prio = 4
+                ,ms = 2
+                ,d = 10.0
+                ,e = {
+                    {m = 'Abilities\\Spells\\Other\\Doom\\DoomTarget.mdl',a = 'origin'}
+                }
+                ,is_d = true
+                ,st = {
+                    ['movespeed_factor'] = {0.5,true}
+                }
+            }
+        )
     end)
 end

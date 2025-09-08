@@ -110,7 +110,7 @@ do
         Units:unpause_all()
     end
 
-    OnInit.main(function()
+    OnInit.global(function()
         --Arena:register(ForestAmbush)
     end)
 end
