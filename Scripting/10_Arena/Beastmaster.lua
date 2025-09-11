@@ -139,27 +139,16 @@ do
         self.enraged = false
         local e_trg = ArenaUtils:create_trigger()
         self.boss = ArenaUtils:get_boss()
-        TriggerRegisterUnitLifeEvent(e_trg, self.boss, LESS_THAN_OR_EQUAL, HitPoints:get(self.boss) * 0.25)
-        TriggerAddAction(e_trg, function()
-            ArenaUtils:destroy_trigger(GetTriggeringTrigger())
-            self:enrage()
-        end)
-
-        self.codo_trigger = ArenaUtils:create_trigger()
-        DisableTrigger(self.codo_trigger)
-        TriggerRegisterTimerEventPeriodic(self.codo_trigger, 0.01)
-        TriggerAddAction(self.codo_trigger, function()
-            self:codo_wave_periodic()
-        end)
 
         if Arena:get_difficulty() >= Arena.DIFFICULTY_HEROIC then
             self.k_count = 0
+            self.k_max_count = 5
             local r_trg = ArenaUtils:create_trigger()
             TriggerRegisterAnyUnitEventBJ(r_trg, EVENT_PLAYER_UNIT_DEATH)
             TriggerAddAction(r_trg,function()
                 if not(GetDyingUnit() == self.boss) and IsUnitAlly(GetDyingUnit(), Players:get_challengers()) and IsUnitEnemy(GetKillingUnit(), Players:get_challengers()) then
                     self.k_count = self.k_count + 1
-                    if self.k_count >= 5 then
+                    if self.k_count >= self.k_max_count then
                         self.k_count = 0
                         self:roar()
                     end
@@ -176,11 +165,44 @@ do
                 }
             }
         end
+
+        TriggerRegisterUnitLifeEvent(e_trg, self.boss, LESS_THAN_OR_EQUAL, HitPoints:get(self.boss) * 0.25)
+        TriggerAddAction(e_trg, function()
+            ArenaUtils:destroy_trigger(GetTriggeringTrigger())
+            self:enrage()
+        end)
+
+        self.codo_trigger = ArenaUtils:create_trigger()
+        DisableTrigger(self.codo_trigger)
+        TriggerRegisterTimerEventPeriodic(self.codo_trigger, 0.01)
+        TriggerAddAction(self.codo_trigger, function()
+            self:codo_wave_periodic()
+        end)
     end
 
     function a:begin()
         Units:freeze(self.boss)
         DBM:create({t=20.0,n='Call Beasts',t_bar=BarType:green(),f=function() self:spawn_creeps() end,t_icon='war3mapImported\\BTNSummonBeast.dds'})
+    end
+
+    function a:get_energy_preset()
+        if Arena:get_difficulty() >= Arena.DIFFICULTY_HEROIC then
+            return {
+                bar_texture = 'war3mapImported\\DBM_BarFill_Red.dds'
+                ,font_color = BlzConvertColor(255, 255, 255, 255)
+            }
+        end
+        return nil
+    end
+
+    function a:get_energy()
+        if Arena:get_difficulty() >= Arena.DIFFICULTY_HEROIC then
+            return {
+                bar_value = (self.k_count / self.k_max_count) * 100
+                ,bar_text = 'Rage: ' .. self.k_count .. ' / ' .. self.k_max_count
+            }
+        end
+        return nil
     end
 
     function a:enrage()

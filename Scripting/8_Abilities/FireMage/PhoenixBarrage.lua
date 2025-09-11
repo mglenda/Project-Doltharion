@@ -85,30 +85,8 @@ do
             end
         }
     end
-
-    function a:damage_event(caster,target,generate_energy)
-        if generate_energy then Hero:add_energy(2) end
-        if GetUnitAbilityLevel(caster, HeartOfPhoenix:get_a_code()) > 0 and Buffs:get_stack_count(target,'ignited') >= 10 then
-            HeartOfPhoenix:apply_buff(caster)
-        end
-        Buffs:clear_buff{
-            unit = target
-            ,buff_name = 'ignited'
-        }
-    end
     
     function a:damage(caster,target,generate_energy)
-        local after_damage = {
-            f = PhoenixBarrage.damage_event
-            ,params = table.pack(PhoenixBarrage,caster,target,generate_energy)
-        }
-        local on_crit = nil
-        if generate_energy then
-            on_crit = {
-                f = Hero.add_energy,
-                params = table.pack(Hero,4)
-            }
-        end
         DamageEngine:damage_unit{
             source = caster
             ,target = target
@@ -117,10 +95,22 @@ do
             ,damage_type = DAMAGE_TYPE_FIRE
             ,id = FourCC(a_code)
             ,data = {
-                on_crit = on_crit
-                ,after_damage = after_damage
+                generate_energy = generate_energy
             }
         }
+    end
+
+    function a:on_damage(args)
+        if args.damage_id == self:get_a_code() then
+            if args.custom_data.generate_energy then Hero:add_energy(args.damage_was_crit and 6 or 2) end
+            if GetUnitAbilityLevel(args.damage_source, HeartOfPhoenix:get_a_code()) > 0 and Buffs:get_stack_count(args.damage_target,'ignited') >= 10 then
+                HeartOfPhoenix:apply_buff(args.damage_source)
+            end
+            Buffs:clear_buff{
+                unit = args.damage_target
+                ,buff_name = 'ignited'
+            }
+        end
     end
 
     OnInit.map(function()

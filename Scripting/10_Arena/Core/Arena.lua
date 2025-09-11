@@ -66,10 +66,10 @@ do
             IssueImmediateOrderById(Hero:get(), String2OrderIdBJ('stop'))
             Units:pause_all()
             self:set_difficulty(a_dif or self.DIFFICULTY_NORMAL)
+            ArenaComponents:start()
             if Utils:type(self:get_active_arena().start) == 'function' then self:get_active_arena():start() end
             ArenaUtils:run_counter{duration = 5}
             ArenaUtils:play_boss_sound{key = 'start'}
-            ArenaComponents:start()
         end
     end
 

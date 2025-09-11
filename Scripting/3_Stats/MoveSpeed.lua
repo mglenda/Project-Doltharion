@@ -12,21 +12,17 @@ do
     end
 
     function ms:recalculate(u)
-        if not(Units:is_frozen(u)) then
-            local val,ns,m = self:get_default(u),{},self:get_modifiers_const(u)
-            for i,v in ipairs(m) do
-                val = not(ns[v.n]) and val + v.v or val
-                ns[v.n] = not(v.s)
-            end
-            m = self:get_modifiers_factor(u)
-            for i,v in ipairs(m) do
-                val = not(ns[v.n]) and val * v.v or val
-                ns[v.n] = not(v.s)
-            end
-            self:set(u,Utils:round(val,0))
-        else
-            self:set(u,0)
+        local val,ns,m = self:get_default(u),{},self:get_modifiers_const(u)
+        for i,v in ipairs(m) do
+            val = not(ns[v.n]) and val + v.v or val
+            ns[v.n] = not(v.s)
         end
+        m = self:get_modifiers_factor(u)
+        for i,v in ipairs(m) do
+            val = not(ns[v.n]) and val * v.v or val
+            ns[v.n] = not(v.s)
+        end
+        self:set(u,Utils:round(val,0))
     end
 
     function ms:set(u,v)

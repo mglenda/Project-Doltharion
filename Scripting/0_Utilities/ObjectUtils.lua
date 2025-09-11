@@ -62,6 +62,18 @@ do
         table.insert(ab_codes,'Aatk')
     end
     
+    function mt:get_unit_on_damage_abilities(u)
+        local a_classes = {}
+        if u then 
+            for a_code,a_class in pairs(Data:get_on_damage_abilities()) do
+                if GetUnitAbilityLevel(u, a_code) > 0 then
+                    table.insert(a_classes,a_class)
+                end
+            end
+        end
+        return a_classes
+    end
+    
     OnInit.map(function()
         ObjectUtils:loadAbilities()
     end)

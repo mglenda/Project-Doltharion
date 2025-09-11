@@ -39,6 +39,12 @@ Frame "SIMPLEFRAME" "boss_widget_theme"{
 	Texture "boss_widget_theme_texture" {
 		File "war3mapImported\BeastmasterArena.dds",
 	}	
+	String "boss_widget_theme_text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 0.84 0.0 1.0,
+		Text "TestName",
+	}
 }
 
 Frame "SIMPLEFRAME" "boss_widget_disable_layer"{

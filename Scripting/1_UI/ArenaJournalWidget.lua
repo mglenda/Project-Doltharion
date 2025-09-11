@@ -71,6 +71,7 @@ do
         BlzFrameSetEnable(self.listener, false)
         BlzFrameSetTexture(self.texture, path_active, 0, true)
         BlzFrameSetVisible(self.difficulty_layer, true, 190)
+        BlzFrameSetText(self.theme_text, '')
         self:refresh_difficulties()
     end
 
@@ -120,6 +121,7 @@ do
         BlzFrameSetTexture(self.texture, path_normal, 0, true)
         BlzFrameSetEnable(self.listener, true)
         BlzFrameSetVisible(self.difficulty_layer, false)
+        BlzFrameSetText(self.theme_text, self.arena:get_name())
         if self == active_widget then
             active_widget = nil
         end
@@ -148,6 +150,7 @@ do
         this.texture = BlzGetFrameByName('boss_widget_button_texture', id)
         local theme = BlzCreateSimpleFrame('boss_widget_theme', this.main, id)
         this.theme = BlzGetFrameByName('boss_widget_theme_texture',id)
+        this.theme_text = BlzGetFrameByName('boss_widget_theme_text', id)
         this.difficulty_layer = BlzCreateSimpleFrame('boss_widget_difficulty_layer', theme, id)
         this.disable_layer = BlzCreateSimpleFrame('boss_widget_disable_layer', theme, id)
 
@@ -180,6 +183,7 @@ do
         this.arena = arena
         this.id = id
         BlzFrameSetTexture(this.theme, arena:get_img(), 0, true)
+        BlzFrameSetText(this.theme_text, arena:get_name())
 
         table.insert(widget_container,this)
 

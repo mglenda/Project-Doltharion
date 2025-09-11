@@ -1,11 +1,13 @@
 do
-    ArenaTemplate1 = setmetatable({}, {})
-    local a = getmetatable(ArenaTemplate1)
+    Druid = setmetatable({}, {})
+    local a = getmetatable(Druid)
     a.__index = a
 
-    local img = 'war3mapImported\\BeastmasterArena.dds'
-    local name = 'Beastmaster'
+    local img = 'war3mapImported\\DruidArena.dds'
+    local name = 'Druid'
     local order = 2
+
+    local boss_type_id = FourCC('N006')
 
     function a:get_name()
         return name 
@@ -63,6 +65,6 @@ do
     end
 
     OnInit.global(function()
-        Arena:register(ArenaTemplate1,order)
+        Arena:register(Druid,order)
     end)
 end

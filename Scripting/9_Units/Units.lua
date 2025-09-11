@@ -86,9 +86,7 @@ do
 
     function au:unpause(u)
         units[u].paused = nil
-        if not(Buffs:is_unit_stunned(u)) then
-            PauseUnit(u, false)
-        end
+        self:unstun(u)
     end
 
     function au:stun(u)
@@ -100,25 +98,19 @@ do
     end
     
     function au:unstun(u)
-        if not(units[u].paused) then
-            self:unpause(u)
+        if not(Buffs:is_unit_stunned(u)) and not(units[u].frozen) and not(units[u].paused) then
+            PauseUnit(u, false)
         end
     end
 
     function au:freeze(u)
         units[u].frozen = true
-        BlzSetUnitRealField(u, UNIT_RF_TURN_RATE, 0)
-        MoveSpeed:recalculate(u)
+        self:stun(u)
     end
 
     function au:unfreeze(u)
         units[u].frozen = nil
-        BlzSetUnitRealField(u, UNIT_RF_TURN_RATE, 3.0)
-        MoveSpeed:recalculate(u)
-    end
-
-    function au:is_frozen(u)
-        return units[u].frozen
+        self:unstun(u)
     end
 
     function au:get_ai_target(u,aoe)

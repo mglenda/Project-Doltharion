@@ -40,16 +40,57 @@ do
             BlzFrameSetText(self.boss_hp_text, cur_hp_text .. absorbs_text ..'/' .. max_hp_text)
             BlzFrameSetText(self.boss_hp_percent, '|c00FFD700' .. StringUtils:round(GetUnitLifePercent(boss),1) .. '%%|r' .. absorbs_percent_text)
         end
+
+        local arena = Arena:get_active_arena()
+        if arena and Utils:type(arena.get_energy) == 'function' then
+            local energy_data = arena:get_energy()
+            if Utils:type(energy_data) == 'table' then
+                BlzFrameSetValue(self.boss_energy_bar, energy_data.bar_value)
+                BlzFrameSetText(self.boss_energy_text, energy_data.bar_text)
+            end
+        end
+    end
+
+    function ac:create_energy_bar()
+        local arena = Arena:get_active_arena()
+        local energy_preset = nil
+        if arena and Utils:type(arena.get_energy_preset) == 'function' then
+            energy_preset = arena:get_energy_preset()
+        end
+
+        if Utils:type(energy_preset) == 'table' then
+            self.boss_energy_main = BlzCreateSimpleFrame('arena_energy_frame', UI:getConst('screen_frame'), 0)
+            self.boss_energy_bar = BlzCreateSimpleFrame('arena_energy_bar', self.boss_energy_main, 0)
+            local text_frame = BlzCreateSimpleFrame('arena_energy_bar_value', self.boss_energy_bar, 0) 
+            self.boss_energy_text = BlzGetFrameByName('arena_energy_bar_value_text', 0)
+
+            BlzFrameSetPoint(self.boss_energy_bar, FRAMEPOINT_CENTER, self.boss_energy_main, FRAMEPOINT_CENTER, 0, 0)
+            BlzFrameSetPoint(text_frame, FRAMEPOINT_CENTER, self.boss_energy_bar, FRAMEPOINT_CENTER, 0, 0)
+
+            if self.boss_hp_main then 
+                BlzFrameSetPoint(self.boss_energy_main, FRAMEPOINT_TOP, self.boss_hp_main, FRAMEPOINT_BOTTOM, 0, 0)
+            else
+                BlzFrameSetAbsPoint(self.boss_energy_main, FRAMEPOINT_TOP, UI:getConst('center_x'), UI:getConst('max_y') - 0.005)
+            end
+
+            BlzFrameSetTexture(self.boss_energy_bar, energy_preset.bar_texture, 0, true)
+            BlzFrameSetTextColor(self.boss_energy_text, energy_preset.font_color)
+        end
     end
 
     function ac:start()
         self:create_boss_hp_bar()
+        self:create_energy_bar()
         EnableTrigger(refresh_trg)
     end
 
     function ac:flush()
         DisableTrigger(refresh_trg)
         BlzDestroyFrame(self.boss_hp_main)
+        if self.boss_energy_main then 
+            BlzDestroyFrame(self.boss_energy_main)
+            self.boss_energy_main = nil
+        end 
     end
 
     OnInit.map(function()

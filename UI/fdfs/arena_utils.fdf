@@ -51,3 +51,28 @@ Frame "SIMPLEFRAME" "arena_hp_bar_percent" {
 		Text "TestName",
 	}
 }
+
+Frame "SIMPLEFRAME" "arena_energy_frame" {
+	Width 0.235,
+	Height 0.014,
+	Texture "arena_energy_frame_texture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "arena_energy_bar" {
+	Width 0.232,
+	Height 0.0136,
+	BarTexture "war3mapImported\DBM_BarFill_Red.dds",
+}
+
+Frame "SIMPLEFRAME" "arena_energy_bar_value" {
+	Width 0.232,
+	Height 0.0136,
+	String "arena_energy_bar_value_text" {
+		Anchor TOP, 0, -0.003,
+		Font "Prototype.ttf", 0.007,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "TestName",
+	}
+}

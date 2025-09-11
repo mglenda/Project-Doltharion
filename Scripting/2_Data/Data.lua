@@ -48,13 +48,21 @@ do
     end
 
     local abilities = {}
+    local on_damage_abilities = {}
 
     function d:register_ability_class(ac,class)
         abilities[ac] = class
+        if Utils:type(class.on_damage) == 'function' then
+            on_damage_abilities[ac] = class
+        end
     end
 
     function d:get_ability_class(ac)
         return abilities[ac]
+    end
+
+    function d:get_on_damage_abilities()
+        return on_damage_abilities
     end
 
     function d:flush_all_abilities()

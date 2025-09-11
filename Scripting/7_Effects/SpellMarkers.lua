@@ -114,13 +114,6 @@ do
         return (-18.88 * self.scale + 8.88) + Utils:get_point_z(self.x,self.y)
     end
 
-    function sm:get_z(e)
-        local scale = BlzGetSpecialEffectScale(e)
-        local x = BlzGetLocalSpecialEffectX(e)
-        local y = BlzGetLocalSpecialEffectY(e)
-        return (-18.88 * scale + 8.88) + Utils:get_point_z(x,y)
-    end
-
     function sm:_get_scale()
         return self.aoe / scale_aoe_ratio
     end

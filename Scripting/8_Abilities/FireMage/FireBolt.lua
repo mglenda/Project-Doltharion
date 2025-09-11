@@ -66,13 +66,15 @@ do
         }
     end
 
-    function f:damage_event(caster,target)
-        Hero:add_energy(6)
-        for i=1,2,1 do
-            Buffs:apply(caster
-                    ,target
-                    ,'ignited'
-            )
+    function f:on_damage(args)
+        if args.damage_id == self:get_a_code() then
+            Hero:add_energy(args.damage_was_crit and 10 or 6)
+            for i=1,2,1 do
+                Buffs:apply(args.damage_source
+                        ,args.damage_target
+                        ,'ignited'
+                )
+            end
         end
     end
 
@@ -84,16 +86,6 @@ do
             ,attack_type = ATTACK_TYPE_MAGIC
             ,damage_type = DAMAGE_TYPE_FIRE
             ,id = FourCC(a_code)
-            ,data = {
-                on_crit = {
-                    f = Hero.add_energy,
-                    params = table.pack(Hero,4)
-                }
-                ,after_damage = {
-                    f = Firebolt.damage_event,
-                    params = table.pack(Firebolt,caster,target)
-                }
-            }
         }
     end
 
