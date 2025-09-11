@@ -78,6 +78,11 @@ do
 
     function a:clear_all(u)
         data[u] = {}
+        self:set_mana(u)
+    end
+
+    function a:erase_unit(u)
+        data[u] = nil
     end
 
     function a:clear(u,id)
@@ -87,4 +92,8 @@ do
             end
         end
     end
+
+    OnInit.final(function()
+        Units:register_gc_class(Absorbs)
+    end)
 end

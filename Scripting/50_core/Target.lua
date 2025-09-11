@@ -4,16 +4,18 @@ do
     target.__index = target
 
     function target:set(unit)
-        self:clear_e()
-        if self.unit then Units:clear_on_death(self.unit,'target') end
-        Units:register_on_death(unit,'target',function()
-            Target:clear_e()
-        end)
-        --self.e = AddSpecialEffectTarget('Abilities\\Spells\\NightElf\\TrueshotAura\\TrueshotAura.mdl', unit, 'origin')
-        self.unit = unit
-        UI.t_panel:loadUnit(unit)
-        UI.t_panel:show()
-        SetUnitVertexColorBJ(self.unit, 100.00, 100.00, 100.00, 0)
+        if unit then
+            self:clear_e()
+            if self.unit then Units:clear_on_death(self.unit,'target') end
+            Units:register_on_death(unit,'target',function()
+                Target:clear_e()
+            end)
+            --self.e = AddSpecialEffectTarget('Abilities\\Spells\\NightElf\\TrueshotAura\\TrueshotAura.mdl', unit, 'origin')
+            self.unit = unit
+            UI.t_panel:loadUnit(unit)
+            UI.t_panel:show()
+            SetUnitVertexColorBJ(self.unit, 100.00, 100.00, 100.00, 0)
+        end
     end
 
     function target:clearTarget()

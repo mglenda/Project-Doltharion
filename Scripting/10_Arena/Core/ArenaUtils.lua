@@ -110,8 +110,17 @@ do
             table.insert(a_fog_modifiers,CreateFogModifierRectBJ(true, Players:get_player(), FOG_OF_WAR_VISIBLE, r))
         end
         TriggerAddAction(t, function()
-            if Hero:get() == GetLeavingUnit() and not(ArenaUtils:is_hero_in_arena()) then
-                Arena:flee()
+            if Hero:get() == GetLeavingUnit() then
+                ArenaUtils:wait_and_do{
+                    duration = 1.0
+                    ,on_end = {
+                        func = function()
+                            if not(ArenaUtils:is_hero_in_arena()) then
+                                Arena:flee()
+                            end
+                        end
+                    }
+                }
             end
         end)
     end
@@ -150,7 +159,11 @@ do
             local t = self:create_timer()
             TimerStart(t, duration, false, function()
                 self:destroy_timer(t)
-                on_end.func(table.unpack(on_end.params))
+                if on_end.params then
+                    on_end.func(table.unpack(on_end.params))
+                else
+                    on_end.func()
+                end
             end)
         end
     end

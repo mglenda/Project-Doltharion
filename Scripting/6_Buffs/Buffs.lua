@@ -195,11 +195,48 @@ do
     end
 
     --[[
+        Buffs:dispell{
+            unit = 
+            ,count = 
+
+            ,negative_effects = true
+            ,positive_effects = false
+        }
+    ]]--
+
+    function b:dispell(args)
+        local unit = args.unit
+        if Utils:type(buffs[unit]) == 'table' then
+            local count = args.count
+            local neg_effects = args.negative_effects or true
+            local pos_effects = args.positive_effects or false
+            local tbd = {}
+            for i,d in ipairs(buffs[unit]) do
+                if not(d.nd) and ((not(d.is_d) and pos_effects) or (d.is_d and neg_effects)) then
+                    table.insert(tbd,{
+                        id = i
+                        ,c_prio = (d.d or 0) - d.dur
+                    })
+                end
+            end
+
+            if #tbd > 0 then
+                table.sort(tbd, function (k1, k2) return k1.c_prio > k2.c_prio end)
+                count = count <= #tbd and count or #tbd
+                for i=1,count,1 do
+                    self:clear(unit,tbd[i],nil,true)
+                end
+            end
+        end
+    end
+
+    --[[
         Buffs:clear_buff{
             unit = 
             ,buff_name = 
             
             --Optional
+            ,all_stacks = false
             ,dis = true || false
         }
     ]]--
@@ -214,9 +251,15 @@ do
                 t[#t].id = i
             end
         end
-        if #t > 0 then 
-            table.sort(t, function (k1, k2) return k1.c_prio > k2.c_prio end)
-            Buffs:clear(args.unit,t[#t].id,#t,args.dis)
+        if #t > 0 then
+            if args.all_stacks then
+                for i=#t,1,-1 do
+                    Buffs:clear(args.unit,t[i].id,#t,args.dis)
+                end
+            else
+                table.sort(t, function (k1, k2) return k1.c_prio > k2.c_prio end)
+                Buffs:clear(args.unit,t[#t].id,#t,args.dis)
+            end
         end
     end
 

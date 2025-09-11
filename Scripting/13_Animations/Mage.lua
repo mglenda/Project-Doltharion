@@ -22,26 +22,6 @@ do
         }
     end
 
-    function as:spell_combo_x_hits(hit_count)
-        local animations = {
-            self.data['attack 1']
-            ,self.data['attack 2']
-            ,self.data['attack 3']
-            ,self.data['attack 4']
-            ,self.data['attack 5']
-            ,self.data['attack 6']
-        }
-        local tbl = {}
-        for i=1,hit_count,1 do
-            if i <= #animations then
-                table.insert(tbl,animations[i])
-            else
-                table.insert(tbl,animations[GetRandomInt(1,#animations)])
-            end
-        end
-        return tbl
-    end
-
     function as:seq_spellchannel()
         return {
             self.data['spell']

@@ -94,6 +94,9 @@ do
     function au:stun(u)
         PauseUnit(u, true)
         self:clear_order(u)
+        if Hero:get() == u then
+            CastingController:clearOrder()
+        end
     end
     
     function au:unstun(u)
@@ -172,6 +175,15 @@ do
         local tbl = {}
         for u,_ in pairs(units) do
             if Utils:get_unit_distance(x,y,u) <= aoe then table.insert(tbl,u) end
+        end
+        return tbl
+    end
+
+    function au:get_alive_challengers()
+        self:refresh()
+        local tbl = {}
+        for u,_ in pairs(units) do
+            if IsUnitAlly(u, Players:get_challengers()) and IsUnitAliveBJ(u) then table.insert(tbl,u) end
         end
         return tbl
     end

@@ -88,6 +88,9 @@ do
 
     function a:damage_event(caster,target,generate_energy)
         if generate_energy then Hero:add_energy(2) end
+        if GetUnitAbilityLevel(caster, HeartOfPhoenix:get_a_code()) > 0 and Buffs:get_stack_count(target,'ignited') >= 10 then
+            HeartOfPhoenix:apply_buff(caster)
+        end
         Buffs:clear_buff{
             unit = target
             ,buff_name = 'ignited'

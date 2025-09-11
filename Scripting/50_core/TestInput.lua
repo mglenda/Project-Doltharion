@@ -15,23 +15,13 @@ do
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "s", true)
         TriggerAddAction(trg, function()
-            local x,y = x or GetPlayerStartLocationX(Players:get_player()),y or GetPlayerStartLocationY(Players:get_player())
-            local s = SpellMarker:create{
-                type = 'chaos'
-                ,x = x
-                ,y = y
-                ,aoe = 350.0 
-
-                ,time = 2.0
-            }
+            local x,y = Utils:GetUnitXY(Hero:get())
+            local e = AddSpecialEffect('war3mapImported\\Burning Blast.mdx', x, y)
         end)
         trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "h", true)
         TriggerAddAction(trg, function()
-            Modifiers:remove{
-                unit = Hero:get()
-                ,m_name = 'mod_test'
-            }
+            Absorbs:apply(ArenaUtils:get_boss(),ArenaUtils:get_boss(),35000.0)
         end)
 
         trg = CreateTrigger()

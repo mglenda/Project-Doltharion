@@ -194,7 +194,7 @@ do
     end
 
     function u:refresh_unit_bars()
-        ForceUIKeyBJ(Players:get_player(), "A")
+        ForceUIKeyBJ(Players:get_player(), "P")
         ForceUICancelBJ(Players:get_player())
     end
 end

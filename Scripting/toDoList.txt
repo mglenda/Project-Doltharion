@@ -1,0 +1,8 @@
+1. Boss Energy Bar (po hp barom, mensi s nastavovatelnou farbou textur)
+2. Vyriesit freeze bossa, aktualne riesenie zjavne nefunguje. Movement na 0 sice zabranuje pohybu, ale stale sa moze otacat a utocit. 
+Najidealnejsie by bolo dat pauzu, akurat ta bude musiet byt skombinovana so stunom a normalnou pauzou.
+3. Zaimplementovat novu inject funkciu abilitam. on_attack, spusti sa ked bude danou abilitou sposobeny damage.
+Treba dat moznost zadefinovania celej mnoziny ab_id, ktore budu procovat on_attack danej ability. Pokial dana mnozina nebude zadefinovana, tak bude brat do uvahy len svoje ab_id.
+Niesom si uplne isty akym sposobom budem potom riesit identifikaciu v DamageEvente tak aby to bolo svizne. 
+on_attack(args) bude obsahovat aj mnozinu argumentov, ktore sa budu vzdy injectovat v ramci DamageEventu. 
+Napriklad ci bol crit, kolko damagu bolo realne sposobenych, kolko malo byt sposobenych pre resistom, kolko bolo abosrbovanych a podobne.

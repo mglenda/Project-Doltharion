@@ -32,6 +32,8 @@ do
                         TriggerAddAction(tbl.trg, self.unitTarget)
                     elseif castType == 'P' then
                         TriggerAddAction(tbl.trg, self.pointTarget)
+                    elseif castType == 'S' then
+                        TriggerAddAction(tbl.trg, self.onStunned)
                     end
                     table.insert(list,tbl)
                 end
@@ -71,9 +73,21 @@ do
         return quick_cast
     end
 
+    function ac:onStunned()
+        local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
+        if Abilities:is_ability_available(Hero:get(),ac) then
+            if Utils:type(Data:get_ability_class(ac).on_stunned) == 'function' then 
+                Data:get_ability_class(ac):on_stunned{
+                    caster = Hero:get()
+                }
+                Abilities:start_ability_cooldown(Hero:get(),ac)
+            end
+        end
+    end
+
     function ac:noTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
-        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) and not(IsUnitPaused(Hero:get())) then
             CastingController:setOrder(order)
             IssueImmediateOrderById(Hero:get(),order)
         end
@@ -82,7 +96,11 @@ do
     function ac:unitTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
         local t = BlzGetTriggerPlayerMetaKey() == 1 and Hero:get() or Target:get()
-        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) and (not(CastingController:getOrder()) or order ~= CastingController:getOrder() or t ~= CastingController:getTarget()) then
+        if not(t) or IsUnitDeadBJ(t) then
+            Target:set(ArenaUtils:get_boss())
+            t = Target:get()
+        end
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) and (not(CastingController:getOrder()) or order ~= CastingController:getOrder() or t ~= CastingController:getTarget()) and not(IsUnitPaused(Hero:get())) then
             CastingController:setOrder(order, t)
             IssueTargetOrderById(Hero:get(), order, t)
         end
@@ -90,7 +108,7 @@ do
 
     function ac:pointTarget()
         local order,fKey,ac = AbilityController:getData(GetTriggeringTrigger())
-        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) then
+        if Abilities:is_ability_available(Hero:get(),ac) and (not(Hero:isCasting()) or order ~= Hero:isCasting()) and not(IsUnitPaused(Hero:get())) then
             CastingController:setOrder(order)
             if AbilityController:is_quick_cast() then
                 local x,y = MouseCoords:get_xy()

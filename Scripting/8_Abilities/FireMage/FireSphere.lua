@@ -54,7 +54,7 @@ do
     end
 
     function a:deal_damage(caster,x,y,aoe)
-        local e = AddSpecialEffect('war3mapImported\\Burning Blast.mdl', x, y)
+        local e = AddSpecialEffect('war3mapImported\\Burning Blast.mdx', x, y)
         BlzSetSpecialEffectScale(e, Utils:round(aoe / 233.0,2))
         BlzSetSpecialEffectZ(e, Utils:get_point_z(x,y))
         DestroyEffect(e)

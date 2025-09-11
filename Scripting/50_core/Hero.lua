@@ -30,11 +30,12 @@ do
         SetUnitFacing(self:get(), angle or 270.0)
         self:reset()
     end
-
+        
     function hero:reset()
         Buffs:flush_all_buffs()
         Abilities:flush_all_cooldowns()
         Abilities:flush_all_silences()
+        Absorbs:clear_all(self:get())
         self:set_energy(0)
     end
     

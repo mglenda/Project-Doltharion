@@ -9,3 +9,45 @@ Frame "SIMPLEFRAME" "arena_counter" {
 		FontColor 0.91 0.75 0.1 1.0,
 	}
 }
+
+Frame "SIMPLEFRAME" "arena_hp_frame" {
+	Width 0.235,
+	Height 0.028,
+	Texture "arena_hp_frame_texture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "arena_hp_bar" {
+	Width 0.232,
+	Height 0.0272,
+	BarTexture "war3mapImported\DBM_BarFill_DarkGreen.dds",
+}
+
+Frame "SIMPLESTATUSBAR" "arena_absorbs_bar" {
+	Width 0.232,
+	Height 0.0272,
+	BarTexture "war3mapImported\DBM_BarFill_DarkBlue.dds",
+}
+
+Frame "SIMPLEFRAME" "arena_hp_bar_value" {
+	Width 0.232,
+	Height 0.0272,
+	String "arena_hp_bar_value_text" {
+		Anchor TOP, 0, -0.003,
+		Font "Prototype.ttf", 0.007,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "TestName",
+	}
+}
+
+Frame "SIMPLEFRAME" "arena_hp_bar_percent" {
+	Width 0.232,
+	Height 0.0272,
+	String "arena_hp_bar_percent_text" {
+		Anchor BOTTOM, 0, 0.001,
+		Font "Prototype.ttf", 0.012,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "TestName",
+	}
+}

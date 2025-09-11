@@ -78,5 +78,61 @@ do
                 }
             }
         )
+        Data:register_buff(
+            'flameguard'
+            ,{
+                prio = 2
+                ,ms = 1
+                ,d = 4.0
+                ,e = {
+                    {m = 'Abilities\\Spells\\Other\\ImmolationRed\\ImmolationRedTarget.mdl',a = 'chest'}
+                }
+                ,st = {
+                    ['resist'] = {80}
+                    ,['hpreg_const'] = {200}
+                }
+            }
+        )
+        Data:register_buff(
+            'hophoenix'
+            ,{
+                prio = 4
+                ,ms = 5
+                ,d = 6.0
+                ,st = {
+                    ['hpreg_const'] = {20,true}
+                }
+                ,e = {
+                    {m = 'Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl',a = 'chest'}
+                }
+                ,es = true
+            }
+        )
+        Data:register_buff(
+            'sophoenix'
+            ,{
+                e = {
+                    {m = 'war3mapImported\\Sacred Guard Fire.mdx',a = 'chest'}
+                }
+                ,d = 30
+                ,func_a = function(bt)
+                    bt.a_id = Absorbs:apply(bt.s,bt.u,500.0)
+                end
+                ,func_q = function(bt)
+                    return not(Absorbs:exists(bt.u,bt.a_id))
+                end
+                ,func_e = function(bt)
+                    local av = Absorbs:exists(bt.u,bt.a_id)
+                    if av then
+                        Absorbs:clear(bt.u,bt.a_id)
+                    end
+                end
+                ,st = {
+                    ['spepow_factor'] = {1.25}
+                    ,['hpreg_const'] = {10,true}
+                }
+                ,prio = 3
+            }
+        )
     end)
 end

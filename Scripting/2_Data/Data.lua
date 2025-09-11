@@ -207,6 +207,46 @@ do
     function d:register_buff(b_name,data)
         buffs[b_name] = data
     end
+
+    OnInit.map(function()
+        buffs['bloodlust'] = {
+                e = {
+                    {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
+                }
+                ,d = 30
+                ,st = {
+                    ['ctime_factor'] = {0.8,true}
+                    ,['atkspeed'] = {1.35,true}
+                }
+                ,wp = true
+                ,prio = 8
+            }
+        buffs['crippled'] = {
+            e = {
+                {m = 'Abilities\\Spells\\Orc\\StasisTrap\\StasisTotemTarget.mdl', a = 'overhead'}
+            }
+            ,prio = 1
+            ,is_d = true
+            ,st = {
+                ['movespeed_factor'] = {0.75,true}
+                ,['resist'] = {-50,false}
+            }
+            ,ms = 1
+            ,nd = true
+        }
+        buffs['roar'] = {
+            e = {
+                {m = 'Abilities\\Spells\\NightElf\\BattleRoar\\RoarTarget.mdl', a = 'overhead'}
+            }
+            ,prio = 4
+            ,st = {
+                ['hp_factor'] = {1.5,true}
+                ,['resist'] = {10,true}
+            }
+            ,nd = true
+        }
+    end)
+
     --[[
     OnInit.map(function()
         buffs['pwshield'] = {
@@ -318,30 +358,4 @@ do
         }
     end)
     ]]--
-    OnInit.map(function()
-        buffs['bloodlust'] = {
-                e = {
-                    {m = 'Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl',a = 'overhead'}
-                }
-                ,d = 30
-                ,st = {
-                    ['ctime_factor'] = {0.8,true}
-                    ,['atkspeed'] = {1.35,true}
-                }
-                ,wp = true
-                ,prio = 8
-            }
-        buffs['crippled'] = {
-            e = {
-                {m = 'Abilities\\Spells\\Orc\\StasisTrap\\StasisTotemTarget.mdl', a = 'overhead'}
-            }
-            ,prio = 1
-            ,is_d = true
-            ,st = {
-                ['movespeed_factor'] = {0.75,true}
-                ,['resist'] = {-50,false}
-            }
-            ,ms = 1
-        } 
-    end)
 end

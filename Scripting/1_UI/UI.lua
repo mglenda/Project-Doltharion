@@ -20,6 +20,10 @@ do
             return 0.93
         elseif def == 'max_y' then
             return 0.6
+        elseif def =='center_x' then
+            return 0.4
+        elseif def =='center_y' then
+            return 0.3
         end
         return nil
     end

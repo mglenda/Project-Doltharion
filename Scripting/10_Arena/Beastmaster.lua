@@ -79,9 +79,12 @@ do
                 ,uid_wolf
                 ,uid_wolf
                 ,uid_wolf
+                ,uid_wolf
                 ,uid_direbeast
                 ,uid_direbeast
                 ,uid_direbeast
+                ,uid_direbeast
+                ,uid_ragingbeast
                 ,uid_ragingbeast
                 ,uid_ragingbeast
             }
@@ -92,12 +95,18 @@ do
                 ,uid_direbeast
                 ,uid_direbeast
                 ,uid_direbeast
+                ,uid_direbeast
+                ,uid_ragingbeast
                 ,uid_ragingbeast
                 ,uid_ragingbeast
                 ,uid_ragingbeast
             }
             ,{
                 uid_wolf
+                ,uid_wolf
+                ,uid_wolf
+                ,uid_wolf
+                ,uid_wolf
                 ,uid_wolf
                 ,uid_wolf
                 ,uid_wolf
@@ -142,6 +151,31 @@ do
         TriggerAddAction(self.codo_trigger, function()
             self:codo_wave_periodic()
         end)
+
+        if Arena:get_difficulty() >= Arena.DIFFICULTY_HEROIC then
+            self.k_count = 0
+            local r_trg = ArenaUtils:create_trigger()
+            TriggerRegisterAnyUnitEventBJ(r_trg, EVENT_PLAYER_UNIT_DEATH)
+            TriggerAddAction(r_trg,function()
+                if not(GetDyingUnit() == self.boss) and IsUnitAlly(GetDyingUnit(), Players:get_challengers()) and IsUnitEnemy(GetKillingUnit(), Players:get_challengers()) then
+                    self.k_count = self.k_count + 1
+                    if self.k_count >= 5 then
+                        self.k_count = 0
+                        self:roar()
+                    end
+                end
+            end)
+            
+            Modifiers:apply{
+                unit = self.boss
+                ,m_name = 'bm_heroic'
+                ,m_data = {
+                    m_stats = {
+                        ['hp_factor'] = {1.4}
+                    }
+                }
+            }
+        end
     end
 
     function a:begin()
@@ -278,6 +312,23 @@ do
             self.codo_table[i].marker:destroy()
             table.remove(self.codo_table,i)
         end
+    end
+
+    function a:roar()
+        ArenaUtils:play_boss_sound{key = 'rage'}
+        local e = AddSpecialEffectTarget('Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl', self.boss, 'overhead')
+        DestroyEffect(e)
+        for _,u in pairs(Units:get_alive_challengers()) do
+            if not(u == self.boss) then
+                Buffs:apply(self.boss,u,'roar')
+            end
+        end
+                
+        local hx,hy = Utils:GetUnitXY(Hero:get())
+        local r = self.r_creep_spawns[GetRandomInt(1,#self.r_creep_spawns)]
+        local x,y = Utils:get_rect_random_xy(r)
+        local facing = Utils:get_angle_between_points(x,y,hx,hy)
+        CreateUnit(Players:get_challengers(),uid_bear,x,y,facing)
     end
 
     function a:exit()
