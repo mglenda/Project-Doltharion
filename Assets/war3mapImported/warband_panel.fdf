@@ -1,0 +1,66 @@
+Texture "MySimpleButtonButtonHighlight" {
+    File "UI\Glues\ScoreScreen\scorescreen-tab-hilight.blp",
+    AlphaMode "ADD",
+}
+
+Frame "SIMPLEFRAME" "warband_panel_container" {
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "SIMPLEFRAME" "warband_panel_frame" {
+	Width 0.084,
+	Height 0.024,
+}
+
+Frame "SIMPLEFRAME" "warband_panel_icon" {
+	Width 0.024,
+	Height 0.024,
+	Texture "warband_panel_icon_texture" {
+		File "war3mapImported\DBM_Background.dds",
+	}
+}
+
+Frame "SIMPLEBUTTON" "warband_panel_listener" {
+	Width 0.084,
+	Height 0.024,
+	UseHighlight "MySimpleButtonButtonHighlight",
+}
+
+Frame "SIMPLEFRAME" "warband_panel_hpbar_frame" {
+	Width 0.06,
+	Height 0.022,
+	Texture "warband_panel_hpbar_frame_texture" {
+		File "war3mapImported\HPBar_Background.dds",
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "warband_panel_hpbar" {
+	Width 0.06,
+	Height 0.022,
+	BarTexture "war3mapImported\DBM_BarFill_Green.dds",
+}
+
+Frame "SIMPLEFRAME" "warband_panel_hpbar_text" {
+	Width 0.06,
+	Height 0.022,
+	String "warband_panel_hpbar_text_string" {
+		Anchor LEFT, 0.0069, 0.0069,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "warband_panel_buff" {
+	Width 0.012,
+	Height 0.012,
+	Texture "warband_panel_buff_icon" {
+		File "war3mapImported\buff_eyeofheaven.dds",
+	}
+	String "warband_panel_buff_text" {
+		Anchor CENTER, 0, 0,
+		Font "Prototype.ttf", 0.007,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "2",
+	}
+}

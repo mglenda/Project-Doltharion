@@ -57,6 +57,16 @@ do
         ArenaJournal:create()
         ArenaJournal:hide()
         DamageMeterPanel:create()
+
+        -- Tooltip frames must be created last so they render above every other UI layer.
+        local tooltip_ok,tooltip_result = pcall(function()
+            return UI.a_panel:createTooltips()
+        end)
+        if not(tooltip_ok) then
+            print('Ability tooltip initialization failed: ' .. tostring(tooltip_result))
+        elseif tooltip_result == false then
+            print('Ability tooltip template is unavailable')
+        end
     end
 
     function ui:get_h_panel()

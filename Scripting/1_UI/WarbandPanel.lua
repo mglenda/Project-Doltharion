@@ -29,7 +29,7 @@ do
                 end
             else
                 BlzFrameSetValue(widgets[i].bar, GetUnitLifePercent(widgets[i].u))
-                BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%%')
+                BlzFrameSetText(widgets[i].text, StringUtils:round(GetUnitLifePercent(widgets[i].u),1) .. '%')
                 local bt = Buffs:get_ui_tbl(widgets[i].u,true)
                 for j=1,#widgets[i].buffs do
                     if bt[j] then
@@ -88,7 +88,7 @@ do
 
         BlzFrameSetTexture(this.icon, 'ReplaceableTextures\\CommandButtons\\BTN' .. GetUnitName(this.u):gsub(" ","") .. '.dds', 0, true)
         BlzFrameSetValue(this.bar, GetUnitLifePercent(this.u))
-        BlzFrameSetText(this.text, StringUtils:round(GetUnitLifePercent(this.u),1) .. '%%')
+        BlzFrameSetText(this.text, StringUtils:round(GetUnitLifePercent(this.u),1) .. '%')
 
         this.buffs = {}
         for i=1,4 do

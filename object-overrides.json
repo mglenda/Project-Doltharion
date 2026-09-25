@@ -1,0 +1,36 @@
+{
+  "abilities": {
+    "A001": {
+      "aret": "A surge of primal fury quickens every ally nearby.",
+      "arut": "Fills all nearby allies with primal fury, increasing their attack and casting speed.\n@effect Affects every allied unit within |cffffcc00$radius$|r range.\n\n@duration $duration$\n@attack_speed $attack_speed$\n@cast_speed $cast_speed$\n\n@cooldown $cooldown$"
+    },
+    "A015": {
+      "aret": "A volatile spark shaped into a deadly projectile.",
+      "arut": "Launches a fire missile at the target, dealing |cffffcc00$damage$|r damage and applying |cffffcc00$ignite_stacks$|r stacks of |cffffcc00Ignited|r. Generates |cffffcc00$energy_gain$|r Overheat.\n@critical Critical strikes generate |cffffcc00$critical_energy_gain$|r Overheat instead.\n\n@damage $damage$\n@cast_time $cast_time$\n@stacks Applies $ignite_stacks$ Ignited stacks\n\n@cooldown $cooldown$"
+    },
+    "A016": {
+      "aret": "A captive sun scorches everything caught in its orbit.",
+      "arut": "Creates a fiery sphere at the target point that damages nearby enemies and repeatedly launches |cffffcc00Phoenix Barrage|r missiles.\n@effect Damage pulses apply |cffffcc00Melted|r.\n\n@pulse_damage $pulse_damage$\n@damage_period $damage_period$\n@missile_damage $missile_damage$\n@missile_period $missile_period$\n@duration $duration$\n@radius $radius$\n\n@cooldown $cooldown$"
+    },
+    "A017": {
+      "aret": "The mage steps through flame and emerges untouched.",
+      "arut": "Teleports the mage to the selected location, leaving a burst of flame at both ends.\n@effect Relocation is instantaneous.\n\n@range $range$\n\n@cooldown $cooldown$"
+    },
+    "A019": {
+      "aret": "A relentless flock of living flame tears into its prey.",
+      "arut": "Channels a barrage of phoenix missiles at the target. Every hit consumes all |cffffcc00Ignited|r stacks and generates |cffffcc00$energy_gain$|r Overheat. Targets with enough Ignited empower |cffffcc00Heart of Phoenix|r.\n@critical Critical hits generate |cffffcc00$critical_energy_gain$|r Overheat instead.\n\n@damage $damage$ per missile\n@missiles $missile_count$\n@cast_time $cast_time$\n\n@cooldown $cooldown$"
+    },
+    "A020": {
+      "aret": "Stored heat erupts into an unstable storm of flame.",
+      "arut": "Consumes Overheat to rapidly launch alternating |cffffcc00Firebolt|r and |cffffcc00Phoenix Barrage|r missiles. The channel ends when the target dies, leaves range or Overheat is exhausted.\n@effect Missile cost increases after every five shots, up to |cffffcc0010 Overheat|r.\n\n@firebolt_damage $firebolt_damage$\n@phoenix_damage $phoenix_damage$\n@cast_time $cast_time$\n@missile_period $missile_period$\n@resource Initial cost: 1 Overheat per missile\n\n@cooldown $cooldown$"
+    },
+    "A021": {
+      "aret": "Instinctive flame hardens into a shield at the moment of impact.",
+      "arut": "Surrounds the mage with protective flame, greatly increasing survivability for a short time.\n@effect Can be activated while |cffffcc00stunned|r.\n\n@resistance $resistance$\n@health_regen $health_regen$ per second\n@duration $duration$\n\n@cooldown $cooldown$"
+    },
+    "A022": {
+      "aret": "Every dying ember carries the promise of rebirth.",
+      "arut": "When |cffffcc00Phoenix Barrage|r consumes at least |cffffcc00$ignited_required$|r Ignited stacks, gain a Phoenix stack. After reaching the maximum, the next trigger summons the Phoenix spirit.\n@effect The Phoenix grants a shield, increased Spell Power and additional health regeneration.\n\n@health_regen $stack_regen$ per Phoenix stack\n@max_stacks $max_stacks$\n@shield $shield$\n@spell_power $spell_power$\n@duration $phoenix_duration$"
+    }
+  }
+}

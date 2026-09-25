@@ -1,0 +1,12 @@
+war3mapImported\unit_details.fdf
+war3mapImported\abilities.fdf
+war3mapImported\casting_bar.fdf
+war3mapImported\dbm.fdf
+war3mapImported\warband_panel.fdf
+war3mapImported\warband_journal.fdf
+war3mapImported\warband_list.fdf
+war3mapImported\main_menu.fdf
+war3mapImported\arena_journal.fdf
+war3mapImported\damage_meter.fdf
+war3mapImported\buff_panel.fdf
+war3mapImported\arena_utils.fdf

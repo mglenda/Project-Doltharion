@@ -207,7 +207,7 @@ do
     function a:play_boss_sound(args)
         local key = args.key
         local arena = Arena:get_active_arena()
-
+        
         if key and arena.sounds[key] then
             local unit_name = args.unit_name or arena:get_name()
             local message = arena.sounds[key].text

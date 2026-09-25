@@ -1,0 +1,112 @@
+Frame "SIMPLEFRAME" "AbilityContainer" {
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "FRAME" "AbilityListenerContainer"{
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_Border"{
+	Width 0.03,
+	Height 0.03,
+	Texture "AbilityButton_Border_Texture" {
+		File "war3mapImported\Ability_Button_BorderModern.dds",
+	}
+}
+
+Texture "AbilityButton_Highlight_Texture" {
+	File "war3mapImported\FocusLayer.dds",
+	AlphaMode "ADD",
+}
+
+Frame "SIMPLEBUTTON" "AbilityButton_Icon"{
+	Width 0.025,
+	Height 0.025,
+	UseHighlight "AbilityButton_Highlight_Texture",
+	Texture "AbilityButton_Icon_Texture" {
+		File "war3mapImported\BTNElementalMagnet.dds",
+	}
+	String "AbilityButton_Icon_Text" {
+		Anchor TOP, 0, -0.003,
+		Font "Prototype.ttf", 0.01,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_Tooltip"{
+	Width 0.22,
+	Height 0.23,
+	Texture "AbilityButton_Tooltip_Background" {
+		File "UI\Widgets\ToolTips\Human\human-tooltip-background.blp",
+		AlphaMode "ALPHAKEY",
+	}
+	String "AbilityButton_Tooltip_Header" {
+		Anchor TOPLEFT, 0.01, -0.007,
+		Width 0.20,
+		Height 0.017,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "Prototype.ttf", 0.010,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+	String "AbilityButton_Tooltip_Lore" {
+		Anchor TOPLEFT, 0.01, -0.030,
+		Width 0.20,
+		Height 0.023,
+		FontJustificationH JUSTIFYLEFT,
+		FontJustificationV JUSTIFYTOP,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 0.76 0.68 0.48 1.0,
+	}
+	String "AbilityButton_Tooltip_Description" {
+		Anchor TOPLEFT, 0.01, -0.058,
+		Width 0.20,
+		Height 0.047,
+		FontJustificationH JUSTIFYLEFT,
+		FontJustificationV JUSTIFYTOP,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 0.91 0.93 0.95 1.0,
+	}
+	String "AbilityButton_Tooltip_Special" {
+		Anchor TOPLEFT, 0.01, -0.110,
+		Width 0.20,
+		Height 0.030,
+		FontJustificationH JUSTIFYLEFT,
+		FontJustificationV JUSTIFYTOP,
+		Font "Prototype.ttf", 0.0075,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+	String "AbilityButton_Tooltip_Stats" {
+		Anchor TOPLEFT, 0.01, -0.141,
+		Width 0.20,
+		Height 0.060,
+		FontJustificationH JUSTIFYLEFT,
+		FontJustificationV JUSTIFYTOP,
+		Font "Prototype.ttf", 0.007,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+	String "AbilityButton_Tooltip_Cooldown" {
+		Anchor BOTTOMLEFT, 0.01, 0.009,
+		Width 0.20,
+		Height 0.016,
+		FontJustificationH JUSTIFYLEFT,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "Prototype.ttf", 0.008,
+		FontColor 0.62 0.66 0.71 1.0,
+	}
+}
+
+Frame "SIMPLEFRAME" "AbilityButton_Shortcut"{
+	Width 0.011,
+	Height 0.011,
+	String "AbilityButton_Shortcut_Text" {
+		Anchor CENTER, 0, -0.0003,
+		Font "Prototype.ttf", 0.01,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+	Texture "AbilityButton_Shortcut_Texture" {
+		File "war3mapImported\Ability_Button_Border.dds",
+	}
+}

@@ -4,6 +4,9 @@ do
     a.__index = a
 
     local a_code = 'A019'
+    local damage_factor = 2.5
+    local energy_gain = 2
+    local critical_energy_gain = 6
     local ct = {}
     local ctrg = CreateTrigger()
 
@@ -25,6 +28,19 @@ do
 
     function a:get_dmg_color()
         return 204,0,204
+    end
+
+    function a:get_damage(caster)
+        return SpellPower:get(caster) * damage_factor
+    end
+
+    function a:get_tooltip_values(caster)
+        return {
+            damage = self:get_damage(caster),
+            missile_count = BlzGetAbilityIntegerField(BlzGetUnitAbility(caster,self:get_a_code()),ABILITY_IF_MISSILE_SPEED),
+            energy_gain = energy_gain,
+            critical_energy_gain = critical_energy_gain
+        }
     end
 
     function a:on_start()
@@ -90,7 +106,7 @@ do
         DamageEngine:damage_unit{
             source = caster
             ,target = target
-            ,damage = SpellPower:get(caster) * 2.5
+            ,damage = self:get_damage(caster)
             ,attack_type = ATTACK_TYPE_MAGIC
             ,damage_type = DAMAGE_TYPE_FIRE
             ,id = FourCC(a_code)
@@ -102,7 +118,7 @@ do
 
     function a:on_damage(args)
         if args.damage_id == self:get_a_code() then
-            if args.custom_data.generate_energy then Hero:add_energy(args.damage_was_crit and 6 or 2) end
+            if args.custom_data.generate_energy then Hero:add_energy(args.damage_was_crit and critical_energy_gain or energy_gain) end
             if GetUnitAbilityLevel(args.damage_source, HeartOfPhoenix:get_a_code()) > 0 and Buffs:get_stack_count(args.damage_target,'ignited') >= 10 then
                 HeartOfPhoenix:apply_buff(args.damage_source)
             end

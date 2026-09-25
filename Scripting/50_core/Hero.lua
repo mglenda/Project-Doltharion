@@ -7,8 +7,20 @@ do
 
     function hero:create(hero_class)
         self.hero = hero_class:create()
-        UI.a_panel:loadUnit(self:get())
-        UI.h_panel:loadUnit(self:get())
+        local ability_panel_ok,ability_panel_error = pcall(function()
+            UI.a_panel:loadUnit(self:get())
+        end)
+        if not(ability_panel_ok) then
+            print('Ability panel load failed')
+            print(ability_panel_error)
+        end
+        local hero_panel_ok,hero_panel_error = pcall(function()
+            UI.h_panel:loadUnit(self:get())
+        end)
+        if not(hero_panel_ok) then
+            print('Hero panel load failed')
+            print(hero_panel_error)
+        end
         self.safe_zone = Rect(5792.0, -11776.0, 7424.0, -10336.0)
         CreateFogModifierRectBJ(true, Players:get_player(), FOG_OF_WAR_VISIBLE, self.safe_zone)
         AbilityController:load()

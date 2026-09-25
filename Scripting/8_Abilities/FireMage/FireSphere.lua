@@ -6,6 +6,10 @@ do
     local a_code = 'A016'
     local trg = CreateTrigger()
     local period = 0.1
+    local duration = 12.0
+    local damage_factor = 2.5
+    local damage_tick = 8
+    local missile_tick = 2
     local spheres = {}
 
     function a:get_a_code()
@@ -27,12 +31,26 @@ do
     function a:get_dmg_color()
         return 236,121,5
     end
+
+    function a:get_damage(caster)
+        return SpellPower:get(caster) * damage_factor
+    end
+
+    function a:get_tooltip_values(caster)
+        return {
+            pulse_damage = self:get_damage(caster),
+            missile_damage = PhoenixBarrage:get_damage(caster),
+            damage_period = period * (damage_tick + 1),
+            missile_period = period * (missile_tick + 1),
+            duration = duration
+        }
+    end
     
     function a:on_cast()
         local caster = GetTriggerUnit()
         local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(caster, GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
         local x,y = Units:get_cast_point_x(caster),Units:get_cast_point_y(caster)
-        self:create_sphere(caster,x,y,aoe,12.0)
+        self:create_sphere(caster,x,y,aoe,duration)
     end
 
     function a:create_sphere(caster,x,y,aoe,duration)
@@ -62,7 +80,7 @@ do
             DamageEngine:damage_unit{
                 source = caster
                 ,target = u
-                ,damage = SpellPower:get(caster) * 2.5
+                ,damage = self:get_damage(caster)
                 ,attack_type = ATTACK_TYPE_MAGIC
                 ,damage_type = DAMAGE_TYPE_FIRE
                 ,id = FourCC(a_code)
@@ -94,13 +112,13 @@ do
                 self:_remove(i)
             else
                 if t.tick <= 0 then
-                    t.tick = 8
+                    t.tick = damage_tick
                     self:deal_damage(t.caster,t.x,t.y,t.aoe)
                 else
                     t.tick = t.tick - 1
                 end
                 if t.tick_missiles <= 0 then 
-                    t.tick_missiles = 2
+                    t.tick_missiles = missile_tick
                     self:spawn_missiles(t.caster,t.x,t.y,BlzGetLocalSpecialEffectZ(t.orb) + 70.0,Abilities:get_cast_range(t.caster,Firebolt:get_a_code()))
                 else
                     t.tick_missiles = t.tick_missiles - 1

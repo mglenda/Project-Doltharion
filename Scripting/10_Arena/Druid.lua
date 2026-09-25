@@ -7,7 +7,7 @@ do
     local name = 'Druid'
     local order = 2
 
-    local boss_type_id = FourCC('N006')
+    local boss_type_id = FourCC('N007')
 
     function a:get_name()
         return name 
@@ -30,38 +30,48 @@ do
         }
         self.sounds = {
             start = {
-                sound = gg_snd_BM_Init
-                ,text = "That does it, i will hunt you down !"
+                sound = gg_snd_DU_Init
+                ,text = "Nature seeks balance, in all things."
             }
             ,flee = {
-                sound = gg_snd_BM_Defeat
-                ,text = "Phr, hardly a challenge it would seem."
+                sound = gg_snd_DU_Flee
+                ,text = "A single thought is worth many actions."
             }
             ,defeat = {
-                sound = gg_snd_BM_Flee
-                ,text = "It is the law of the wild, the strong take from the weak."
+                sound = gg_snd_DU_Defeat
+                ,text = "I release you from this fate. May you finally find your peace, in death."
             }
             ,victory = {
-                sound = gg_snd_BM_Victory
-                ,text = "At last, the hunt ... is oveeerghh ..."
+                sound = gg_snd_DU_Victory
+                ,text = "We serve the land ... arghhhh ..."
+            }
+            ,enroot = {
+                sound = gg_snd_DU_Enroot
+                ,text = "Nature is resilient."
+            }
+            ,starfall = {
+                sound = gg_snd_DU_Starfall
+                ,text = "Stand strong ! Only a bit longer."
+            }
+            ,bearform = {
+                sound = gg_snd_DU_Bearform
+                ,text = "Raaaaaargh ... !!!"
+            }
+            ,spirits = {
+                sound = gg_snd_DU_Spirits
+                ,text = "Urgh, i am under assult, assist me !"
             }
         }
+
         return self
     end
 
     function a:start()
-        
-    end
-
-    function a:flee()
-
-    end
-
-    function a:victory()
+        self.boss = ArenaUtils:get_boss()
     end
 
     function a:begin()
-
+        Units:freeze(self.boss)
     end
 
     OnInit.global(function()

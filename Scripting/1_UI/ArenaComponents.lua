@@ -35,10 +35,10 @@ do
             local cur_hp_text = '|c0017EF10' .. tostring(math.floor(GetUnitStateSwap(UNIT_STATE_LIFE, boss))) .. '|r'
             local max_hp_text = '|c0017EF10' .. tostring(math.floor(GetUnitStateSwap(UNIT_STATE_MAX_LIFE, boss))) .. '|r'
             local absorbs_text = mana <= 0 and '' or ' + |c0003E7FF' .. tostring(mana).. '|r'
-            local absorbs_percent_text = absorbs <= 0 and '' or ' + |c0003E7FF' .. tostring(absorbs).. '%%|r'
+            local absorbs_percent_text = absorbs <= 0 and '' or ' + |c0003E7FF' .. tostring(absorbs).. '%|r'
 
             BlzFrameSetText(self.boss_hp_text, cur_hp_text .. absorbs_text ..'/' .. max_hp_text)
-            BlzFrameSetText(self.boss_hp_percent, '|c00FFD700' .. StringUtils:round(GetUnitLifePercent(boss),1) .. '%%|r' .. absorbs_percent_text)
+            BlzFrameSetText(self.boss_hp_percent, '|c00FFD700' .. StringUtils:round(GetUnitLifePercent(boss),1) .. '%|r' .. absorbs_percent_text)
         end
 
         local arena = Arena:get_active_arena()

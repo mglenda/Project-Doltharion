@@ -38,7 +38,7 @@ do
             end
         end
     end
-
+    
     function m:_remove(u,i)
         local m_table = modifiers[u][i]
         self:_erase_effects(u,i)

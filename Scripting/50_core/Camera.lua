@@ -1,3 +1,7 @@
+-- Disabled: Reforged now allows a sufficient 3000 camera-distance limit in
+-- the game settings. Keep this legacy extended-zoom implementation available
+-- in case Blizzard changes the native camera limits again.
+--[[
 do
     Camera = setmetatable({}, {})
     local cam = getmetatable(Camera)
@@ -56,3 +60,4 @@ do
         TriggerAddAction(Camera.refresh_trigger, function() Camera:refresh() end)
     end)
 end
+]]--

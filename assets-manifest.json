@@ -1,0 +1,10 @@
+{
+  "source_root": "Assets",
+  "ignore": [
+    "**/*.psd",
+    "**/*.xcf",
+    "**/*.kra",
+    "development/**"
+  ],
+  "exclude_from_map": []
+}

@@ -21,6 +21,15 @@ do
         return BlzConvertColor(255, 255, 255, 255)
     end
 
+    function b:get_tooltip_values()
+        local buff = Data:get_buff('bloodlust')
+        return {
+            duration = buff.d,
+            attack_speed = (buff.st.atkspeed[1] - 1) * 100,
+            cast_speed = (1 - buff.st.ctime_factor[1]) * 100
+        }
+    end
+
     function b:on_cast()
         local aoe = BlzGetAbilityRealLevelField(BlzGetUnitAbility(GetTriggerUnit(), GetSpellAbilityId()), ABILITY_RLF_AREA_OF_EFFECT, 0)
         local x,y = Utils:GetUnitXY(GetTriggerUnit())

@@ -1,0 +1,34 @@
+Frame "SIMPLEBUTTON" "buff_panel_button"{
+	Width 0.03,
+	Height 0.03,
+	UseHighlight "MySimpleButtonButtonHighlight",
+	
+	Texture "buff_panel_button_texture" {
+		File "war3mapImported\HeroJournal_Confirm.dds",
+	}		
+	String "buff_panel_button_text" {
+		Anchor CENTER, 0, 0,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "Prototype.ttf", 0.0125,
+		FontColor 1.0 1.0 1.0 1.0,
+		Text "0",
+	}
+}
+
+Frame "SIMPLEFRAME" "buff_panel_button_container" {
+	Width 0.001,
+	Height 0.001,
+}
+
+Frame "SIMPLEFRAME" "buff_panel_time" {
+	Width 0.03,
+	Height 0.015,
+	String "buff_panel_time_text" {
+		Anchor CENTER, 0, 0,
+		FontJustificationH JUSTIFYCENTER,
+		FontJustificationV JUSTIFYMIDDLE,
+		Font "Prototype.ttf", 0.009,
+		FontColor 1.0 1.0 1.0 1.0,
+	}
+}

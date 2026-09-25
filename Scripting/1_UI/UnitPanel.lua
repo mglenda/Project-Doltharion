@@ -45,10 +45,10 @@ do
             local absorbs_text = mana <= 0 and '' or ' + |c0003E7FF' .. tostring(mana).. '|r'
 
             BlzFrameSetText(BlzGetFrameByName('Details_Bar_HP_Text', self.f_id), cur_hp_text .. absorbs_text ..'/' .. max_hp_text)
-            BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%%'.. '\n(' .. HitPointsReg:get(self.unit) ..'/sec)')
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),StringUtils:round(CriticalChance:get(self.unit),0)..'%%')
+            BlzFrameSetText(BlzGetFrameByName('Details_Bar_HPReg_Text', self.f_id), StringUtils:round(GetUnitLifePercent(self.unit),1) .. '%'.. '\n(' .. HitPointsReg:get(self.unit) ..'/sec)')
+            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_CRIT),StringUtils:round(CriticalChance:get(self.unit),0)..'%')
             BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_POWER),self.patt == 2 and StringUtils:round(SpellPower:get(self.unit),0) or StringUtils:round(AttackPower:get(self.unit),0))
-            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%%')
+            BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_RESIST),math.floor(Resistance:get(self.unit))..'%')
             if BlzGetUnitWeaponBooleanField(self.unit, UNIT_WEAPON_BF_ATTACKS_ENABLED, 0) then
                 BlzFrameSetText(BlzGetFrameByName('Stats_StatText', (self.f_id*10) + UI_STAT_DMG),StringUtils:round(AttackDamage:get(self.unit),0) .. ' (' .. StringUtils:round(AttackSpeed:get(self.unit),2) .. ')')
             else

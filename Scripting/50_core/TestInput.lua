@@ -25,6 +25,17 @@ do
         end)
 
         trg = CreateTrigger()
+        TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "unlock", true)
+        TriggerAddAction(trg, function()
+            for _,a in ipairs(Arena.arenas) do
+                for i=1,3 do
+                    a.d_beaten[i] = true
+                end
+            end
+            Arena:recalculate_difficulties()
+        end)
+
+        trg = CreateTrigger()
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "head", true)
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "origin", true)
         TriggerRegisterPlayerChatEvent(trg, Players:get_player(), "left hand", true)

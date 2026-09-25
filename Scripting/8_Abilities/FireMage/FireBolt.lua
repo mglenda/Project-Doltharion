@@ -4,6 +4,10 @@ do
     f.__index = f
 
     local a_code = 'A015'
+    local damage_factor = 5.0
+    local ignited_stacks = 2
+    local energy_gain = 6
+    local critical_energy_gain = 10
 
     function f:get_a_code()
         return FourCC(a_code)
@@ -23,6 +27,19 @@ do
     
     function f:get_dmg_color()
         return 255,215,0
+    end
+
+    function f:get_damage(caster)
+        return SpellPower:get(caster) * damage_factor
+    end
+
+    function f:get_tooltip_values(caster)
+        return {
+            damage = self:get_damage(caster),
+            ignite_stacks = ignited_stacks,
+            energy_gain = energy_gain,
+            critical_energy_gain = critical_energy_gain
+        }
     end
 
     function f:on_start()
@@ -68,8 +85,8 @@ do
 
     function f:on_damage(args)
         if args.damage_id == self:get_a_code() then
-            Hero:add_energy(args.damage_was_crit and 10 or 6)
-            for i=1,2,1 do
+            Hero:add_energy(args.damage_was_crit and critical_energy_gain or energy_gain)
+            for i=1,ignited_stacks,1 do
                 Buffs:apply(args.damage_source
                         ,args.damage_target
                         ,'ignited'
@@ -82,7 +99,7 @@ do
         DamageEngine:damage_unit{
             source = caster
             ,target = target
-            ,damage = SpellPower:get(caster) * 5.0
+            ,damage = self:get_damage(caster)
             ,attack_type = ATTACK_TYPE_MAGIC
             ,damage_type = DAMAGE_TYPE_FIRE
             ,id = FourCC(a_code)

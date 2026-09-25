@@ -32,7 +32,6 @@ do
                 e = {
                     {m = 'Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl',a = 'chest'}
                 }
-                ,es = true
                 ,st = {
                     --['dmg_bonus_value'] = {500,true,{Firebolt:get_a_string()}}
                     --['dmg_bonus_factor'] = {2.5,true,{Firebolt:get_a_string()}}

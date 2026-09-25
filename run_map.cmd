@@ -1,1 +1,1 @@
-"C:\Program Files (x86)\Warcraft III\_retail_\x86_64\Warcraft III.exe" -loadfile "C:\Workplace\Warcraft 3\Just Boredom\GluenForest.w3m" -launch
+"C:\Program Files (x86)\Warcraft III\_retail_\x86_64\Warcraft III.exe" -loadfile "C:\Personal\Modding\Warcraft III\Project-Doltharion\build\GluenForest.w3m" -launch -editor

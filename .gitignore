@@ -1,0 +1,9 @@
+# Generated map builds and extracted inspection files
+/build/
+/extracted/
+/backup/
+
+# Local build dependencies and caches
+/tools/mpqcli/
+/tools/__pycache__/
+/debug.log

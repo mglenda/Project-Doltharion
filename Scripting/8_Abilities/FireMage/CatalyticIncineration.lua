@@ -7,6 +7,7 @@ do
     local a_group = {}
     local a_trg = CreateTrigger()
     local missile_classes = {}
+    local missile_period = 0.11
 
     function a:get_a_code()
         return FourCC(a_code)
@@ -26,6 +27,15 @@ do
 
     function a:get_dmg_color()
         return 236,121,5
+    end
+
+    function a:get_tooltip_values(caster)
+        return {
+            firebolt_damage = Firebolt:get_damage(caster),
+            phoenix_damage = PhoenixBarrage:get_damage(caster),
+            missile_period = missile_period,
+            energy_cost = '1-10 Overheat per missile'
+        }
     end
 
     function a:on_start()

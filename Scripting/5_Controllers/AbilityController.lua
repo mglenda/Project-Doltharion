@@ -23,7 +23,7 @@ do
                     local x = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(a_code)), ABILITY_IF_BUTTON_POSITION_NORMAL_X)
                     local y = BlzGetAbilityIntegerField(BlzGetUnitAbility(Hero:get(), FourCC(a_code)), ABILITY_IF_BUTTON_POSITION_NORMAL_Y)
 
-                    BlzTriggerRegisterFrameEvent(tbl.trg, BlzGetFrameByName('AbilityButton_Listener', tonumber(x .. y)), FRAMEEVENT_CONTROL_CLICK)
+                    BlzTriggerRegisterFrameEvent(tbl.trg, BlzGetFrameByName('AbilityButton_Icon', tonumber(x .. y)), FRAMEEVENT_CONTROL_CLICK)
                     BlzTriggerRegisterPlayerKeyEvent(tbl.trg, Players:get_player(), castOsKey, 0, true)
                     BlzTriggerRegisterPlayerKeyEvent(tbl.trg, Players:get_player(), castOsKey, 1, true)
                     if castType == 'I' then

@@ -25,6 +25,19 @@ do
         return 236,121,5
     end
 
+    function a:get_tooltip_values()
+        local stack_buff = Data:get_buff('hophoenix')
+        local phoenix_buff = Data:get_buff('sophoenix')
+        return {
+            ignited_required = Data:get_buff('ignited').ms,
+            stack_regen = stack_buff.st.hpreg_const[1],
+            max_stacks = stack_buff.ms,
+            shield = 500,
+            spell_power = (phoenix_buff.st.spepow_factor[1] - 1) * 100,
+            phoenix_duration = phoenix_buff.d
+        }
+    end
+
     function a:apply_buff(unit)
         if Buffs:get_stack_count(unit,'hophoenix') >= Data:get_buff('hophoenix').ms then
             self:summon_phoenix(unit)

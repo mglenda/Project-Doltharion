@@ -11,41 +11,37 @@ do
 
     function as:seq_spellcast()
         return {
-            self.data['spell']
+            self.data['attack 1']
         }
     end
 
     function as:big_spellcast()
         return {
-            self.data['spell cast']
-            ,self.data['spell throw']
+            self.data['spell channel']
         }
     end
 
     function as:seq_spellchannel()
         return {
-            self.data['spell']
-            ,self.data['spell channel']
+            self.data['spell channel']
         }
     end
 
     function as:load()
         self.data = {
-            ['stand'] = {0,6.667,true}
-            ,['sprint'] = {1,0.625,true}
-            ,['death'] = {2,1.959,false}
-            ,['stand 2'] = {3,3.292,true}
-            ,['spell'] = {6,0.959,false}
-            ,['walk'] = {9,0.625,true}
-            ,['attack 1'] = {12,0.625,false}
-            ,['attack 2'] = {13,0.625,false}
-            ,['attack 3'] = {14,0.625,false}
-            ,['attack 4'] = {15,0.625,false}
-            ,['attack 5'] = {16,0.625,false}
-            ,['attack 6'] = {17,0.625,false}
-            ,['spell channel'] = {18,0.959,true}
-            ,['spell throw'] = {19,0.625,false}
-            ,['spell cast'] = {20,1.792,false}
+            ['stand'] = {0,5.033,true}
+            ,['stand 3'] = {1,4.666,true}
+            ,['walk'] = {2,0.933,true}
+            ,['stand 2'] = {3,5.033,true}
+            ,['attack 1'] = {4,1.5,false}
+            ,['attack 2'] = {5,1.167,false}
+            ,['spell cast'] = {6,1.5,false}
+            ,['attack 3'] = {7,1.167,false}
+            ,['spell channel'] = {8,1.633,true}
+            ,['death'] = {9,3.0,false}
+            ,['dissipate'] = {10,2.0,false}
+            ,['spell throw'] = {11,1.634,false}
+            ,['stand'] = {12,1.467,true}
         }
     end
 
